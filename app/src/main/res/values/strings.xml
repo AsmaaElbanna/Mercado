@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Mercado</string>
+
+    <string name="terms_policy">
+        <font color="#212121">By continuing you agree to our</font>
+        <font color="#53b175">Terms of Service </font>
+        <font color="#212121">and</font>
+        <font color="#53b175">Privacy Policy.</font>
+    </string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_emails_and_password">Enter your emails and password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="log_in">Log In</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_your_credentials_to_continue">Enter your credentials to continue</string>
+    <string name="user_name">User Name</string>
+    <string name="already_have_an_account">Already have an account</string>
+    <string name="continue_with_google">Continue with google</string>
 </resources>
