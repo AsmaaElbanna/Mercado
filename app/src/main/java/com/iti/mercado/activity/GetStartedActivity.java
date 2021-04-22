@@ -1,10 +1,12 @@
-package com.iti.mercado;
+package com.iti.mercado.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.iti.mercado.R;
 
 public class GetStartedActivity extends AppCompatActivity {
     Button getStartedButton ;

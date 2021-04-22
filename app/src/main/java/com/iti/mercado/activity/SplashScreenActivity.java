@@ -1,4 +1,4 @@
-package com.iti.mercado;
+package com.iti.mercado.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,14 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class MainActivity extends AppCompatActivity {
+import com.iti.mercado.R;
+
+public class SplashScreenActivity extends AppCompatActivity {
 
     private static final int TimeSplash = 5000 ;  // 1000 = 1 sec
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash_screen);
         // to  hide action bar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent homeIntent  = new Intent(MainActivity.this , GetStartedActivity.class)  ;
+                Intent homeIntent  = new Intent(SplashScreenActivity.this , GetStartedActivity.class)  ;
                 startActivity(homeIntent);
                 finish();
             }
