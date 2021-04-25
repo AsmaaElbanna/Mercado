@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         passwordEditText.setTransformationMethod(
                                 PasswordTransformationMethod.getInstance());
+                        passwordEditText.setSelection(emailEditText.getText().length());
                         break;
                 }
                 return true;
