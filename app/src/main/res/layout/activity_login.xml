@@ -53,13 +53,7 @@
                         android:textColor="@color/primary_text"
                         android:textSize="20sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/enter_your_emails_and_password"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -68,72 +62,57 @@
                     android:layout_margin="8dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/email"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/email_EditText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
-                            android:drawablePadding="8dp"
-                            android:inputType="textEmailAddress"
-                            android:textColor="@color/primary_text"
-                            android:textSize="20sp" />
+                            app:errorEnabled="true">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:src="@drawable/ic_visibility_off"
-                            app:tint="@color/icons" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:layout_weight="1"
+                                android:hint="@string/email"
+                                android:inputType="textEmailAddress"
+                                android:textColor="@color/primary_text"
+                                android:textSize="20sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/password"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/password_EditText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:inputType="textPassword"
-                            android:textColor="@color/primary_text"
-                            android:textSize="20sp" />
+                            app:errorEnabled="true"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/accent">
 
-                        <ImageView
-                            android:id="@+id/password_visibility_ImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:src="@drawable/ic_visibility_off"
-                            app:tint="@color/accent" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:hint="@string/password"
+                                android:inputType="textPassword"
+                                android:textColor="@color/primary_text"
+                                android:textSize="20sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <TextView
@@ -193,12 +172,27 @@
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:text="OR"
+                            android:textColor="@color/primary_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
                         android:background="@drawable/round_button"
                         android:backgroundTint="@color/google_Button">
 

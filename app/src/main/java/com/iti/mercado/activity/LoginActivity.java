@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private final int RC_SIGN_IN = 911;
 
-    private EditText emailEditText;
-    private EditText passwordEditText;
+    private TextInputLayout emailInputLayout;
+    private TextInputLayout passwordInputLayout;
 
     private String email;
     private String password;
@@ -59,13 +59,15 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         TextView signUpTextView = findViewById(R.id.sign_TextView);
-        emailEditText = findViewById(R.id.email_EditText);
-        passwordEditText = findViewById(R.id.password_EditText);
-        ImageView passwordVisibilityImageView = findViewById(R.id.password_visibility_ImageView);
+
+        emailInputLayout = findViewById(R.id.email_EditText);
+        passwordInputLayout = findViewById(R.id.password_EditText);
+        //ImageView passwordVisibilityImageView = findViewById(R.id.password_visibility_ImageView);
+
         Button loginEmailPasswordButton = findViewById(R.id.login_Button);
         Button loginGoogleButton = findViewById(R.id.login_google_Button);
 
-        passwordVisibilityImageView.setOnTouchListener(new View.OnTouchListener() {
+        /*passwordVisibilityImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -73,19 +75,21 @@ public class LoginActivity extends AppCompatActivity {
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        passwordEditText.setTransformationMethod(
+                        passwordInputLayout.getEditText().setTransformationMethod(
                                 HideReturnsTransformationMethod.getInstance());
+                        passwordInputLayout.getEditText().setSelection(passwordInputLayout.getEditText().getText().length());
+
                         break;
                     case MotionEvent.ACTION_UP:
-                        passwordEditText.setTransformationMethod(
+                        passwordInputLayout.getEditText().setTransformationMethod(
                                 PasswordTransformationMethod.getInstance());
-                        passwordEditText.setSelection(emailEditText.getText().length());
+                        passwordInputLayout.getEditText().setSelection(passwordInputLayout.getEditText().getText().length());
                         break;
                 }
                 return true;
             }
 
-        });
+        });*/
 
         signUpTextView.setOnClickListener(v -> {
             changeActivity(SingUpActivity.class);
@@ -93,15 +97,18 @@ public class LoginActivity extends AppCompatActivity {
 
         loginEmailPasswordButton.setOnClickListener(v -> {
 
-            email = String.valueOf(emailEditText.getText());
-            password = String.valueOf(passwordEditText.getText());
+            emailInputLayout.setError(null);
+            passwordInputLayout.setError(null);
+
+            email = String.valueOf(emailInputLayout.getEditText().getText());
+            password = String.valueOf(passwordInputLayout.getEditText().getText());
 
             if (email.isEmpty()) {
-                emailEditText.setError("Add your email");
-                emailEditText.requestFocus();
+                emailInputLayout.setError("Add your email");
+                emailInputLayout.requestFocus();
             } else if (password.isEmpty()) {
-                passwordEditText.setError("Add your password");
-                passwordEditText.requestFocus();
+                passwordInputLayout.setError("Add your password");
+                passwordInputLayout.requestFocus();
             } else {
                 signInEmail();
             }
@@ -203,15 +210,15 @@ public class LoginActivity extends AppCompatActivity {
                 break;
 
             case "ERROR_INVALID_EMAIL":
-                emailEditText.setError(getResources().getString(R.string.ERROR_INVALID_EMAIL));
-                emailEditText.requestFocus();
-                emailEditText.setSelection(emailEditText.getText().length());
+                emailInputLayout.setError(getResources().getString(R.string.ERROR_INVALID_EMAIL));
+                emailInputLayout.requestFocus();
+                emailInputLayout.getEditText().setSelection(emailInputLayout.getEditText().getText().length());
                 break;
 
             case "ERROR_WRONG_PASSWORD":
-                passwordEditText.setError(getResources().getString(R.string.ERROR_WRONG_PASSWORD));
-                passwordEditText.requestFocus();
-                passwordEditText.setText("");
+                passwordInputLayout.setError(getResources().getString(R.string.ERROR_WRONG_PASSWORD));
+                passwordInputLayout.requestFocus();
+                passwordInputLayout.getEditText().setText("");
                 break;
 
             case "ERROR_USER_MISMATCH":
@@ -228,10 +235,10 @@ public class LoginActivity extends AppCompatActivity {
                 break;
 
             case "ERROR_EMAIL_ALREADY_IN_USE":
-                emailEditText.setError(getResources()
+                emailInputLayout.setError(getResources()
                         .getString(R.string.ERROR_EMAIL_ALREADY_IN_USE));
-                emailEditText.requestFocus();
-                emailEditText.setSelection(emailEditText.getText().length());
+                emailInputLayout.requestFocus();
+                emailInputLayout.getEditText().setSelection(emailInputLayout.getEditText().getText().length());
                 break;
 
             case "ERROR_CREDENTIAL_ALREADY_IN_USE":
@@ -259,9 +266,9 @@ public class LoginActivity extends AppCompatActivity {
                 break;
 
             case "ERROR_WEAK_PASSWORD":
-                passwordEditText.setError(getResources().getString(R.string.ERROR_WEAK_PASSWORD));
-                passwordEditText.requestFocus();
-                passwordEditText.setText("");
+                passwordInputLayout.setError(getResources().getString(R.string.ERROR_WEAK_PASSWORD));
+                passwordInputLayout.requestFocus();
+                passwordInputLayout.getEditText().setText("");
                 break;
             default:
                 createToast(getResources().getString(R.string.NO_INTERNET_CONNECTION));

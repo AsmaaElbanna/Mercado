@@ -14,13 +14,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -31,9 +31,9 @@ import com.iti.mercado.R;
 
 public class SingUpActivity extends AppCompatActivity {
 
-    private EditText usernameEditText;
-    private EditText emailEditText;
-    private EditText passwordEditText;
+    private TextInputLayout usernameInputLayout;
+    private TextInputLayout emailInputLayout;
+    private TextInputLayout passwordInputLayout;
 
     private String email;
     private String password;
@@ -51,13 +51,14 @@ public class SingUpActivity extends AppCompatActivity {
         }
 
         TextView loginTextView = findViewById(R.id.login_TextView);
-        usernameEditText = findViewById(R.id.user_name_EditText);
-        emailEditText = findViewById(R.id.email_EditText);
-        passwordEditText = findViewById(R.id.password_EditText);
-        ImageView passwordVisibilityImageView = findViewById(R.id.password_visibility_ImageView);
+        usernameInputLayout = findViewById(R.id.user_name_EditText);
+        emailInputLayout = findViewById(R.id.email_EditText);
+        passwordInputLayout = findViewById(R.id.password_EditText);
+        //ImageView passwordVisibilityImageView = findViewById(R.id.password_visibility_ImageView);
+
         Button signButton = findViewById(R.id.sign_Button);
 
-        passwordVisibilityImageView.setOnTouchListener(new View.OnTouchListener() {
+        /*passwordVisibilityImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -65,20 +66,22 @@ public class SingUpActivity extends AppCompatActivity {
 
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN :
-                        passwordEditText.setTransformationMethod(
+                        passwordInputLayout.setTransformationMethod(
                                 HideReturnsTransformationMethod.getInstance());
+                        passwordInputLayout.setSelection(passwordInputLayout.getText().length());
+
                         break;
                     case MotionEvent.ACTION_UP :
-                        passwordEditText.setTransformationMethod(
+                        passwordInputLayout.setTransformationMethod(
                                 PasswordTransformationMethod.getInstance());
-                        passwordEditText.setSelection(emailEditText.getText().length());
+                        passwordInputLayout.setSelection(passwordInputLayout.getText().length());
+
                         break;
                 }
                 return true;
             }
 
-        });
-
+        });*/
 
         loginTextView.setOnClickListener(v -> {
             finish();
@@ -86,19 +89,23 @@ public class SingUpActivity extends AppCompatActivity {
 
         signButton.setOnClickListener(v -> {
 
-            username = String.valueOf(usernameEditText.getText());
-            email = String.valueOf(emailEditText.getText());
-            password = String.valueOf(passwordEditText.getText());
+            usernameInputLayout.setError(null);
+            emailInputLayout.setError(null);
+            passwordInputLayout.setError(null);
+
+            username = String.valueOf(usernameInputLayout.getEditText().getText());
+            email = String.valueOf(emailInputLayout.getEditText().getText());
+            password = String.valueOf(passwordInputLayout.getEditText().getText());
 
             if (username.isEmpty()) {
-                usernameEditText.setError("Add your name");
-                usernameEditText.requestFocus();
+                usernameInputLayout.setError("Add your name");
+                usernameInputLayout.requestFocus();
             } else if (email.isEmpty()) {
-                emailEditText.setError("Add your email");
-                emailEditText.requestFocus();
+                emailInputLayout.setError("Add your email");
+                emailInputLayout.requestFocus();
             } else if (password.isEmpty()) {
-                passwordEditText.setError("Add your password");
-                passwordEditText.requestFocus();
+                passwordInputLayout.setError("Add your password");
+                passwordInputLayout.requestFocus();
             } else {
                 createAccount();
             }
@@ -165,15 +172,15 @@ public class SingUpActivity extends AppCompatActivity {
                 break;
 
             case "ERROR_INVALID_EMAIL":
-                emailEditText.setError(getResources().getString(R.string.ERROR_INVALID_EMAIL));
-                emailEditText.requestFocus();
-                emailEditText.setSelection(emailEditText.getText().length());
+                emailInputLayout.setError(getResources().getString(R.string.ERROR_INVALID_EMAIL));
+                emailInputLayout.requestFocus();
+                emailInputLayout.getEditText().setSelection(emailInputLayout.getEditText().getText().length());
                 break;
 
             case "ERROR_WRONG_PASSWORD":
-                passwordEditText.setError(getResources().getString(R.string.ERROR_WRONG_PASSWORD));
-                passwordEditText.requestFocus();
-                passwordEditText.setText("");
+                passwordInputLayout.setError(getResources().getString(R.string.ERROR_WRONG_PASSWORD));
+                passwordInputLayout.requestFocus();
+                passwordInputLayout.getEditText().setText("");
                 break;
 
             case "ERROR_USER_MISMATCH":
@@ -190,10 +197,10 @@ public class SingUpActivity extends AppCompatActivity {
                 break;
 
             case "ERROR_EMAIL_ALREADY_IN_USE":
-                emailEditText.setError(getResources()
+                emailInputLayout.setError(getResources()
                         .getString(R.string.ERROR_EMAIL_ALREADY_IN_USE));
-                emailEditText.requestFocus();
-                emailEditText.setSelection(emailEditText.getText().length());
+                emailInputLayout.requestFocus();
+                emailInputLayout.getEditText().setSelection(emailInputLayout.getEditText().getText().length());
                 break;
 
             case "ERROR_CREDENTIAL_ALREADY_IN_USE":
@@ -221,9 +228,9 @@ public class SingUpActivity extends AppCompatActivity {
                 break;
 
             case "ERROR_WEAK_PASSWORD":
-                passwordEditText.setError(getResources().getString(R.string.ERROR_WEAK_PASSWORD));
-                passwordEditText.requestFocus();
-                passwordEditText.setText("");
+                passwordInputLayout.setError(getResources().getString(R.string.ERROR_WEAK_PASSWORD));
+                passwordInputLayout.requestFocus();
+                passwordInputLayout.getEditText().setText("");
                 break;
             default:
                 createToast(getResources().getString(R.string.NO_INTERNET_CONNECTION));
