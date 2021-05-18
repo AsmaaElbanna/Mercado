@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="8"
-    tools:context=".TabsActivity">
+    tools:context=".activity.TabsActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

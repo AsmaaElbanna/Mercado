@@ -1,4 +1,4 @@
-package com.iti.mercado;
+package com.iti.mercado.adapter;
 
 import android.content.Context;
 
@@ -12,11 +12,11 @@ import com.iti.mercado.fragments.CategoriesFragment;
 import com.iti.mercado.fragments.FavoriteFragment;
 import com.iti.mercado.fragments.ShopFragment;
 
-public class TabsAdarter extends FragmentPagerAdapter {
+public class TabsAdapter extends FragmentPagerAdapter {
     private Context myContext;
     int totalTabs;
 
-    public TabsAdarter(Context context, FragmentManager fm, int totalTabs) {
+    public TabsAdapter(Context context, FragmentManager fm, int totalTabs) {
         super(fm);
         myContext = context;
         this.totalTabs = totalTabs;

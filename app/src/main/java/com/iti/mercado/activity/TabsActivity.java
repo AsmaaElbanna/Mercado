@@ -1,4 +1,4 @@
-package com.iti.mercado;
+package com.iti.mercado.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -6,6 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
+import com.iti.mercado.R;
+import com.iti.mercado.adapter.TabsAdapter;
 
 public class TabsActivity extends AppCompatActivity {
     TabLayout tabLayout;
@@ -26,7 +28,7 @@ public class TabsActivity extends AppCompatActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final TabsAdarter adapter = new TabsAdarter(this,getSupportFragmentManager(), tabLayout.getTabCount());
+        final TabsAdapter adapter = new TabsAdapter(this,getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
