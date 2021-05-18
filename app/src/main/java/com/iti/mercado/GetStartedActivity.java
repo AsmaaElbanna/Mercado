@@ -17,9 +17,7 @@ public class GetStartedActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-
        getStartedButton = findViewById(R.id.get_started_Button) ;
-
        getStartedButton.setOnClickListener(v -> {
            Intent homeIntent  = new Intent(GetStartedActivity.this , LoginActivity.class)  ;
            startActivity(homeIntent);

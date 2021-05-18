@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(homeIntent);
                 finish();
             }
+            
+            
         },TimeSplash) ;
 
     }
