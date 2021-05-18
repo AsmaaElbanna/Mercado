@@ -123,7 +123,7 @@ public class SingUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             addUserToDatabase();
                             addUserToSharedPreferences();
-                            //changeActivity(Home.class);
+                            changeActivity(TabsActivity.class);
                             finishAffinity();
                         } else {
                             String errorCode =

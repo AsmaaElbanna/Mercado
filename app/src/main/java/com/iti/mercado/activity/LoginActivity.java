@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //changeActivity(Home.class);
+                            changeActivity(TabsActivity.class);
                             getUserFromDatabase();
                             //finishAffinity();
                         } else {
@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //changeActivity(HomeActivity.class);
+                            changeActivity(TabsActivity.class);
                             finishAffinity();
                         } else {
                             String errorCode =

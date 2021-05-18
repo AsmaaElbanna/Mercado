@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.iti.mercado.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -25,11 +27,19 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent homeIntent  = new Intent(SplashScreenActivity.this , GetStartedActivity.class);
-                startActivity(homeIntent);
+                FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentFirebaseUser == null)
+                    changeActivity(GetStartedActivity.class);
+                else
+                    changeActivity(TabsActivity.class);
                 finish();
             }
-        }, timeSplash) ;
+        }, timeSplash);
 
+    }
+
+    private void changeActivity(Class<?> cls) {
+        Intent homeIntent = new Intent(this, cls);
+        startActivity(homeIntent);
     }
 }
