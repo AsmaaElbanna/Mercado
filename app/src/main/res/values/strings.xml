@@ -40,4 +40,9 @@
     <string name="ERROR_INVALID_CUSTOM_TOKEN">The custom token format is incorrect. Please check the documentation.</string>
     <string name="NO_INTERNET_CONNECTION">No internet connection</string>
     <string name="add_to_cart">add to cart</string>
+    <string name="brand_text">Brand</string>
+    <string name="size_text">Size</string>
+    <string name="color_text">Color</string>
+    <string name="quality">Quality</string>
+    <string name="price_text">Price</string>
 </resources>
