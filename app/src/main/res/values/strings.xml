@@ -19,6 +19,7 @@
     <string name="user_name">User Name</string>
     <string name="already_have_an_account">Already have an account</string>
     <string name="continue_with_google">Continue with google</string>
+    <string name="allCategories">All Categories</string>
 
 
     <string name="ERROR_WEAK_PASSWORD">The password is invalid it must 6 characters at least</string>

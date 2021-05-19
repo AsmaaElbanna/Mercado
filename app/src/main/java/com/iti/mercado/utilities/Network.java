@@ -2,11 +2,13 @@ package com.iti.mercado.utilities;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.iti.mercado.adapter.CategoriesAdapter;
 import com.iti.mercado.adapter.KidsClothingAdapter;
 import com.iti.mercado.adapter.KidsShoesAdapter;
 import com.iti.mercado.adapter.LaptopAdapter;
@@ -14,6 +16,7 @@ import com.iti.mercado.adapter.LaptopBagAdapter;
 import com.iti.mercado.adapter.MobileAdapter;
 import com.iti.mercado.adapter.WomenBagsAdapter;
 import com.iti.mercado.adapter.WomenClothingAdapter;
+import com.iti.mercado.model.Category;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
 import com.iti.mercado.model.Laptop;
@@ -31,6 +34,35 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Network {
+
+
+    public static void parsCategories(Context context , RecyclerView recyclerView,
+                                      LinearLayout subCategoriesLinearLayout) {
+
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URI)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        JsonQ q = retrofit.create(JsonQ.class);
+        Call<List<Category>> call = q.getCategories();
+        call.enqueue(new Callback<List<Category>>() {
+
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                List<Category> list  = response.body();
+                Log.i("TAG",response.body().toString());
+
+                CategoriesAdapter adapter = new CategoriesAdapter(context, list,
+                        subCategoriesLinearLayout);
+                recyclerView.setAdapter(adapter);
+            }
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 
     public static void parsMobiles(Context context , RecyclerView recyclerView) {
 
