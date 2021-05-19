@@ -26,8 +26,10 @@ public class ItemsListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         //Network.parsLaptops(this,recyclerView);
-       //Network.parsLaptopBags(this,recyclerView);
-        Network.parsMobiles(this,recyclerView);
+        //Network.parsLaptopBags(this,recyclerView);
+        //Network.parsMobiles(this,recyclerView);
+        Network.parsMicrowaves(this,recyclerView);
+        //Network.parsBlendersAndMixers(this,recyclerView);
     }
 
 }

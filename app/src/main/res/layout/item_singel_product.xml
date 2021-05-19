@@ -5,17 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/divider"
-    android:orientation="horizontal"
-    android:padding="4dp">
+    android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1"
-        app:cardCornerRadius="25dp">
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/item_container"
@@ -28,7 +24,7 @@
             <ImageView
                 android:id="@+id/item_image"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="113dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:contentDescription="product image"
@@ -67,40 +63,53 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@drawable/round_button"
-                    android:backgroundTint="@color/accent">
+                    android:gravity="end"
+                    android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1" />
+                    <LinearLayout
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/cart_button"
+                        android:backgroundTint="@color/accent">
 
-                    <Button
-                        android:id="@+id/add"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="5"
-                        android:background="@drawable/round_button"
-                        android:backgroundTint="@color/accent"
-                        android:drawableStart="@drawable/ic_add_shopping_cart"
-                        android:drawableTint="@color/icons"
-                        android:gravity="center"
-                        android:text="add to cart"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1" />
 
-                    <View
-                        android:layout_width="0dp"
+                        <Button
+                            android:id="@+id/add"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="5"
+                            android:background="@drawable/cart_button"
+                            android:backgroundTint="@color/accent"
+                            android:drawableStart="@drawable/ic_add_shopping_cart"
+                            android:drawableTint="@color/icons"
+                            android:gravity="center"
+                            android:text="@string/add_to_cart"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/favorite"
+                        android:layout_width="50dp"
                         android:layout_height="30dp"
-                        android:layout_weight="1" />
+                        android:src="@drawable/ic_baseline_favorite_border_24"
+                        app:tint="@color/red" />
 
                 </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>

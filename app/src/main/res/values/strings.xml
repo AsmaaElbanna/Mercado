@@ -39,4 +39,5 @@
     <string name="ERROR_CUSTOM_TOKEN_MISMATCH">The custom token corresponds to a different audience.</string>
     <string name="ERROR_INVALID_CUSTOM_TOKEN">The custom token format is incorrect. Please check the documentation.</string>
     <string name="NO_INTERNET_CONNECTION">No internet connection</string>
+    <string name="add_to_cart">add to cart</string>
 </resources>

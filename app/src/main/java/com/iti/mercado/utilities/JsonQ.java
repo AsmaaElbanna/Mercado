@@ -1,6 +1,7 @@
 package com.iti.mercado.utilities;
 
 import com.iti.mercado.model.Category;
+import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
 import com.iti.mercado.model.Laptop;
@@ -27,6 +28,12 @@ public interface JsonQ {
 
     @GET("tablets")
     Call<List<Mobile>> getTablets();
+
+    @GET("blendersAndMixers")
+    Call<List<HomeAppliance>> getBlendersAndMixers();
+
+    @GET("microwaves")
+    Call<List<HomeAppliance>> getMicrowaves();
 
     @GET("girlsClothing")
     Call<List<KidsClothing>> getGirlsClothing();

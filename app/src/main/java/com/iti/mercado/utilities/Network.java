@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iti.mercado.adapter.CategoriesAdapter;
+import com.iti.mercado.adapter.HomeApplianceAdapter;
 import com.iti.mercado.adapter.KidsClothingAdapter;
 import com.iti.mercado.adapter.KidsShoesAdapter;
 import com.iti.mercado.adapter.LaptopAdapter;
@@ -17,6 +18,7 @@ import com.iti.mercado.adapter.MobileAdapter;
 import com.iti.mercado.adapter.WomenBagsAdapter;
 import com.iti.mercado.adapter.WomenClothingAdapter;
 import com.iti.mercado.model.Category;
+import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
 import com.iti.mercado.model.Laptop;
@@ -175,6 +177,64 @@ public class Network {
 
             @Override
             public void onFailure(Call<List<Laptop>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public static void parsBlendersAndMixers(Context context , RecyclerView recyclerView) {
+
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URI)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        JsonQ q = retrofit.create(JsonQ.class);
+        Call<List<HomeAppliance>> call = q.getBlendersAndMixers();
+        call.enqueue(new Callback<List<HomeAppliance>>() {
+
+            @Override
+            public void onResponse(Call<List<HomeAppliance>> call, Response<List<HomeAppliance>> response) {
+
+                List<HomeAppliance> list  = response.body();
+
+                Log.i("TAG",response.body().toString());
+
+                HomeApplianceAdapter adapter = new HomeApplianceAdapter(context, list);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<HomeAppliance>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public static void parsMicrowaves(Context context , RecyclerView recyclerView) {
+
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URI)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        JsonQ q = retrofit.create(JsonQ.class);
+        Call<List<HomeAppliance>> call = q.getMicrowaves();
+        call.enqueue(new Callback<List<HomeAppliance>>() {
+
+            @Override
+            public void onResponse(Call<List<HomeAppliance>> call, Response<List<HomeAppliance>> response) {
+
+                List<HomeAppliance> list  = response.body();
+
+                Log.i("TAG",response.body().toString());
+
+                HomeApplianceAdapter adapter = new HomeApplianceAdapter(context, list);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<HomeAppliance>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
