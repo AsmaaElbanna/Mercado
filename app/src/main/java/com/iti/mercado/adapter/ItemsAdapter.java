@@ -15,7 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.iti.mercado.R;
 import com.iti.mercado.activity.DetailsItemFashionActivity;
+import com.iti.mercado.activity.DetailsItemHomeApplianceActivity;
+import com.iti.mercado.activity.DetailsItemLaptopActivity;
+import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
+import com.iti.mercado.activity.DetailsItemMobileActivity;
+import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.Item;
+import com.iti.mercado.model.KidsClothing;
+import com.iti.mercado.model.KidsShoes;
+import com.iti.mercado.model.Laptop;
+import com.iti.mercado.model.LaptopBag;
+import com.iti.mercado.model.MakeUp;
+import com.iti.mercado.model.Mobile;
+import com.iti.mercado.model.SkinCare;
+import com.iti.mercado.model.WomenBags;
+import com.iti.mercado.model.WomenClothing;
 
 import java.util.List;
 
@@ -49,10 +63,34 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 .into(holder.itemImageView);
         holder.linearLayout.setOnClickListener(v -> {
 
-            Intent intent =new Intent(context, DetailsItemFashionActivity.class);
-            //pass data
-            intent.putExtra("MyClass", items.get(position));
-            context.startActivity(intent);
+            if (items.get(position) instanceof Laptop) {
+                Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
+                //pass data
+                intent.putExtra("MyClass", items.get(position));
+                context.startActivity(intent);
+            } else if (items.get(position) instanceof LaptopBag) {
+                Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
+                //pass data
+                intent.putExtra("MyClass", items.get(position));
+                context.startActivity(intent);
+            } else if (items.get(position) instanceof Mobile) {
+                Intent intent = new Intent(context, DetailsItemMobileActivity.class);
+                //pass data
+                intent.putExtra("MyClass", items.get(position));
+                context.startActivity(intent);
+            } else if (items.get(position) instanceof HomeAppliance) {
+                Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
+                //pass data
+                intent.putExtra("MyClass", items.get(position));
+                context.startActivity(intent);
+            } else if (items.get(position) instanceof KidsClothing || items.get(position) instanceof KidsShoes || items.get(position) instanceof WomenClothing || items.get(position) instanceof WomenBags || items.get(position) instanceof MakeUp || items.get(position) instanceof SkinCare) {
+                Intent intent = new Intent(context, DetailsItemFashionActivity.class);
+                //pass data
+                intent.putExtra("MyClass", items.get(position));
+                context.startActivity(intent);
+            }
+
+
         });
     }
 
@@ -62,12 +100,11 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
     }
 
 
-
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView itemTitleTextView, itemPriceTextView;
         public ImageView itemImageView;
-        public LinearLayout linearLayout ;
+        public LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

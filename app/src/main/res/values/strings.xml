@@ -47,4 +47,26 @@
     <string name="price_text">Price</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="display_size">Display Size</string>
+    <string name="graphics_card_type">Graphics Card Type</string>
+    <string name="model">Model</string>
+    <string name="operating_system">Operating System</string>
+    <string name="processor">Processor</string>
+    <string name="ram">RAM</string>
+    <string name="storage">Storage</string>
+    <string name="compatible_with">Compatible With</string>
+    <string name="warranty_years">Warranty Years</string>
+    <string name="water_resistant">Water Resistant</string>
+    <string name="front_camera">Front Camera</string>
+    <string name="rear_camera">Rear Camera</string>
+    <string name="memory">Memory</string>
+    <string name="battery_capacity">Battery Capacity</string>
+    <string name="connectivity">Connectivity</string>
+    <string name="country">Country</string>
+    <string name="Features">Features</string>
+    <string name="item_capacity">Capacity</string>
+    <string name="item_type">Type</string>
+    <string name="power">Power</string>
+
+
 </resources>

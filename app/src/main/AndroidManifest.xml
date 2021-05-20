@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mercado">
+        <activity android:name=".activity.DetailsItemHomeApplianceActivity"></activity>
+        <activity android:name=".activity.DetailsItemMobileActivity" />
+        <activity android:name=".activity.DetailsItemLaptopBagActivity" />
+        <activity android:name=".activity.DetailsItemLaptopActivity" />
         <activity android:name=".activity.DetailsItemFashionActivity"></activity>
         <activity android:name=".activity.TabsActivity">
             <intent-filter>
