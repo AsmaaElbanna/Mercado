@@ -26,10 +26,10 @@ public class DetailsItemLaptopBagActivity extends AppCompatActivity {
         price = findViewById(R.id.price_value);
         brand = findViewById(R.id.brand_value);
         color = findViewById(R.id.color_value);
-        compatible_with = findViewById(R.id.display_size_value);
-        warranty_years = findViewById(R.id.graphics_card_type_value);
+        compatible_with = findViewById(R.id.compatible_with_value);
+        warranty_years = findViewById(R.id.warranty_years_value);
         model = findViewById(R.id.model_value);
-        water_resistant = findViewById(R.id.operating_system_value);
+        water_resistant = findViewById(R.id.water_resistant_value);
 
 
         LaptopBag laptopBag = (LaptopBag) getIntent().getSerializableExtra("MyClass");

@@ -25,13 +25,13 @@ public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
         ImageSlider imageSlider = findViewById(R.id.slider);
         price = findViewById(R.id.price_value);
         color = findViewById(R.id.color_value);
-        country = findViewById(R.id.display_size_value);
-        item_Features = findViewById(R.id.graphics_card_type_value);
-        item_brand = findViewById(R.id.model_value);
-        item_capacity = findViewById(R.id.operating_system_value);
-        item_type = findViewById(R.id.processor_value);
-        model_number = findViewById(R.id.ram_value);
-        power = findViewById(R.id.storage_value);
+        country = findViewById(R.id.country_value);
+        item_Features = findViewById(R.id.item_Features_value);
+        item_brand = findViewById(R.id.item_brand_value);
+        item_capacity = findViewById(R.id.item_capacity_value);
+        item_type = findViewById(R.id.item_type_value);
+        model_number = findViewById(R.id.model_value);
+        power = findViewById(R.id.power_value);
 
         HomeAppliance homeAppliance = (HomeAppliance) getIntent().getSerializableExtra("MyClass");
 
