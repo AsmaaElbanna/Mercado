@@ -1,6 +1,7 @@
 package com.iti.mercado.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iti.mercado.R;
+import com.iti.mercado.activity.DetailsItemClothingActivity;
 import com.iti.mercado.model.Item;
 
 import java.util.List;
@@ -46,6 +48,11 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.itemImageView);
         holder.linearLayout.setOnClickListener(v -> {
+
+            Intent intent =new Intent(context, DetailsItemClothingActivity.class);
+            //pass data
+            intent.putExtra("MyClass", items.get(position));
+            context.startActivity(intent);
         });
     }
 
@@ -53,6 +60,8 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
     public int getItemCount() {
         return items.size();
     }
+
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

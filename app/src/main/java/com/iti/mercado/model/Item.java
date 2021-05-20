@@ -1,6 +1,8 @@
 package com.iti.mercado.model;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
     private String item_id;
     private String item_image;
