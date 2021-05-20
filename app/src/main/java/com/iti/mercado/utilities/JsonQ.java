@@ -6,7 +6,10 @@ import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
 import com.iti.mercado.model.Laptop;
 import com.iti.mercado.model.LaptopBag;
+import com.iti.mercado.model.MakeUp;
 import com.iti.mercado.model.Mobile;
+import com.iti.mercado.model.PersonalCare;
+import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 
@@ -55,4 +58,16 @@ public interface JsonQ {
 
     @GET("categories")
     Call<List<Category>> getCategories();
+
+    @GET("beautyEquipment")
+    Call<List<PersonalCare>> getBeautyEquipment();
+
+    @GET("hairStylers")
+    Call<List<PersonalCare>> getHairStylers();
+
+    @GET("makeUp")
+    Call<List<MakeUp>> getMakeUp();
+
+    @GET("skinCare")
+    Call<List<SkinCare>> getSkinCare();
 }

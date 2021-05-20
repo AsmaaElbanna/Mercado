@@ -1,6 +1,7 @@
 package com.iti.mercado.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.transition.TransitionManager;
 
 import com.bumptech.glide.Glide;
 import com.iti.mercado.R;
+import com.iti.mercado.activity.ItemsListActivity;
 import com.iti.mercado.model.Category;
 
 import java.util.List;
@@ -80,12 +82,21 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             subCategoriesLinearLayout.removeAllViews();
 
             for (int i = 0; i < categories.get(position).getSubCategories().length; i++) {
+
                 LayoutInflater inflater = (LayoutInflater)
                         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 TextView textView = (TextView) inflater
                         .inflate(R.layout.sub_category_template, null);
                 textView.setText(categories.get(position)
                         .getSubCategories()[i].getSubcategory_name());
+
+                final String subcategoryAPI = categories.get(position)
+                        .getSubCategories()[i].getSubcategory_api();
+                textView.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, ItemsListActivity.class);
+                    intent.putExtra("message", subcategoryAPI);
+                    context.startActivity(intent);
+                });
 
                 Transition transition = new Slide(Gravity.START);
                 transition.setDuration(600);

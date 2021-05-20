@@ -12,9 +12,22 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.iti.mercado.R;
+import com.iti.mercado.adapter.CategoriesAdapter;
+import com.iti.mercado.model.Category;
+import com.iti.mercado.model.Item;
+import com.iti.mercado.model.Mobile;
 import com.iti.mercado.utilities.Network;
+import com.iti.mercado.utilities.OnResponseRetrofit;
 
-public class CategoriesFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+
+public class CategoriesFragment extends Fragment implements OnResponseRetrofit<Category> {
+
+    private RecyclerView recyclerView;
+    private LinearLayout subCategoriesLinearLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,13 +38,25 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
-        LinearLayout subCategoriesLinearLayout = view.findViewById(R.id.subCategoriesLinearLayout);
-        RecyclerView recyclerView = view.findViewById(R.id.categoriesRecyclerView);
+        subCategoriesLinearLayout = view.findViewById(R.id.subCategoriesLinearLayout);
+        recyclerView = view.findViewById(R.id.categoriesRecyclerView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        Network.parsCategories(getActivity(), recyclerView, subCategoriesLinearLayout);
+
+        Call<List<Category>> call = Network.getJsonQ().getCategories();
+        Network.parsJson(call, this);
+
         return view;
+    }
+
+    @Override
+    public void onResponse(List<Category> items) {
+
+        CategoriesAdapter adapter = new CategoriesAdapter(getActivity(), items,
+                subCategoriesLinearLayout);
+        recyclerView.setAdapter(adapter);
+
     }
 }
