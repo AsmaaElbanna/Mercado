@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mercado">
-        <activity android:name=".activity.DetailsItemShoesActivity"></activity>
-        <activity android:name=".activity.DetailsItemClothingActivity"></activity>
+        <activity android:name=".activity.DetailsItemFashionActivity"></activity>
         <activity android:name=".activity.TabsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

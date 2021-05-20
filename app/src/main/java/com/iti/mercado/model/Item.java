@@ -10,6 +10,8 @@ public class Item implements Serializable {
     private String item_title;
     private String[] slider_images;
 
+
+
     public String[] getSlider_images() {
         return slider_images;
     }

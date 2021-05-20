@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iti.mercado.R;
-import com.iti.mercado.activity.DetailsItemClothingActivity;
+import com.iti.mercado.activity.DetailsItemFashionActivity;
 import com.iti.mercado.model.Item;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 .into(holder.itemImageView);
         holder.linearLayout.setOnClickListener(v -> {
 
-            Intent intent =new Intent(context, DetailsItemClothingActivity.class);
+            Intent intent =new Intent(context, DetailsItemFashionActivity.class);
             //pass data
             intent.putExtra("MyClass", items.get(position));
             context.startActivity(intent);
