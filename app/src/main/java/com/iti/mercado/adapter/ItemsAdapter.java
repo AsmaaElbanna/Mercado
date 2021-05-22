@@ -19,6 +19,7 @@ import com.iti.mercado.activity.DetailsItemHomeApplianceActivity;
 import com.iti.mercado.activity.DetailsItemLaptopActivity;
 import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
+import com.iti.mercado.model.FavoriteItem;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.Item;
 import com.iti.mercado.model.KidsClothing;
@@ -30,6 +31,7 @@ import com.iti.mercado.model.Mobile;
 import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseFavorite;
 
 import java.util.List;
 
@@ -38,10 +40,13 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
 
     private final Context context;
     private final List<K> items;
+    private final String category, sub_category;
 
-    public ItemsAdapter(Context context, List<K> items) {
+    public ItemsAdapter(Context context, List<K> items, String category, String sub_category) {
         this.context = context;
         this.items = items;
+        this.category = category;
+        this.sub_category = sub_category;
     }
 
     @NonNull
@@ -89,8 +94,42 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 intent.putExtra("MyClass", items.get(position));
                 context.startActivity(intent);
             }
+        });
 
+        //Favorite part
 
+        FavoriteItem favoriteItem = new FavoriteItem();
+        favoriteItem.setItemId(items.get(position).getItem_id());
+        favoriteItem.setCategory(category);
+        favoriteItem.setSubCategory(sub_category);
+        DatabaseFavorite databaseFavorite = new DatabaseFavorite();
+
+        databaseFavorite.Read(favoriteItem,flag -> {
+            if(flag){
+                holder.unFavoriteImage.setVisibility(View.GONE);
+                holder.favoriteImage.setVisibility(View.VISIBLE);
+            }
+        });
+
+        holder.unFavoriteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseFavorite.write(favoriteItem
+                        ,() ->{
+                            holder.unFavoriteImage.setVisibility(View.GONE);
+                            holder.favoriteImage.setVisibility(View.VISIBLE);
+                        });
+            }
+        });
+
+        holder.favoriteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseFavorite.delete(favoriteItem,() -> {
+                    holder.favoriteImage.setVisibility(View.GONE);
+                    holder.unFavoriteImage.setVisibility(View.VISIBLE);
+                });
+            }
         });
     }
 
@@ -103,7 +142,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView itemTitleTextView, itemPriceTextView;
-        public ImageView itemImageView;
+        public ImageView itemImageView, favoriteImage,unFavoriteImage;
         public LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -112,6 +151,8 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
             itemTitleTextView = itemView.findViewById(R.id.item_title);
             itemPriceTextView = itemView.findViewById(R.id.item_price);
             itemImageView = itemView.findViewById(R.id.item_image);
+            favoriteImage = itemView.findViewById(R.id.favorite);
+            unFavoriteImage =itemView.findViewById(R.id.unfavorite);
         }
     }
 }

@@ -2,7 +2,7 @@ package com.iti.mercado.model;
 
 import java.io.Serializable;
 
-public class Item implements Serializable {
+public class ItemDB  {
 
     private String item_id;
     private String item_image;
@@ -18,9 +18,7 @@ public class Item implements Serializable {
         this.slider_images = slider_images;
     }
 
-    public String getItem_id() {
-        return item_id;
-    }
+    public String getItem_id() { return item_id; }
 
     public void setItem_id(String item_id) {
         this.item_id = item_id;

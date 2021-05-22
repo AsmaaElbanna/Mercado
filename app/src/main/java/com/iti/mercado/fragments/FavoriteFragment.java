@@ -7,53 +7,95 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 
 import com.iti.mercado.R;
+import com.iti.mercado.model.FavoriteItem;
+import com.iti.mercado.model.HomeAppliance;
+import com.iti.mercado.model.Item;
+import com.iti.mercado.model.KidsClothing;
+import com.iti.mercado.model.KidsShoes;
+import com.iti.mercado.model.Laptop;
+import com.iti.mercado.model.LaptopBag;
+import com.iti.mercado.model.MakeUp;
+import com.iti.mercado.model.Mobile;
+import com.iti.mercado.model.PersonalCare;
+import com.iti.mercado.model.SkinCare;
+import com.iti.mercado.model.WomenBags;
+import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseFavorite;
+import com.iti.mercado.utilities.DatabaseItem;
+import com.iti.mercado.utilities.Network;
+import com.iti.mercado.utilities.OnRetrieveItem;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoriteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FavoriteFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import retrofit2.Call;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public FavoriteFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoriteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoriteFragment newInstance(String param1, String param2) {
-        FavoriteFragment fragment = new FavoriteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class FavoriteFragment extends Fragment implements OnRetrieveItem {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        ArrayList<FavoriteItem> favoriteItems = new ArrayList<>();
+        DatabaseFavorite.getAllItems(favoriteItems, () -> {
+            for (FavoriteItem favoriteItem : favoriteItems) {
+
+            }
+        });
+    }
+    void subCategorySwitch(FavoriteItem favoriteItem) {
+
+        switch (favoriteItem.getSubCategory()) {
+            case "clothing":
+                switch (favoriteItem.getCategory()) {
+                    case "Women's Fashion":
+                        DatabaseItem.getItemDetails(favoriteItem, WomenClothing.class,
+                                this);
+                        break;
+                    default:
+                        DatabaseItem.getItemDetails(favoriteItem, KidsClothing.class,
+                                this);
+                }
+                break;
+            case "shoes":
+                DatabaseItem.getItemDetails(favoriteItem, KidsShoes.class, this);
+                break;
+            case "bags":
+                DatabaseItem.getItemDetails(favoriteItem, WomenBags.class, this);
+                break;
+            case "makeUp":
+                DatabaseItem.getItemDetails(favoriteItem, MakeUp.class, this);
+                break;
+            case "skinCare":
+                DatabaseItem.getItemDetails(favoriteItem, SkinCare.class, this);
+                break;
+            case "blendersAndMixers":
+                DatabaseItem.getItemDetails(favoriteItem, HomeAppliance.class, this);
+                break;
+            case "microwaves":
+                DatabaseItem.getItemDetails(favoriteItem, HomeAppliance.class, this);
+                break;
+            case "laptopBags":
+                DatabaseItem.getItemDetails(favoriteItem, LaptopBag.class, this);
+                break;
+            case "laptops":
+                DatabaseItem.getItemDetails(favoriteItem, Laptop.class, this);
+                break;
+            case "mobiles":
+                DatabaseItem.getItemDetails(favoriteItem, Mobile.class, this);
+                break;
+            case "tablets":
+                DatabaseItem.getItemDetails(favoriteItem, Mobile.class, this);
+                break;
+            case "beautyEquipment":
+                DatabaseItem.getItemDetails(favoriteItem, PersonalCare.class, this);
+                break;
+            case "hairStylers":
+                DatabaseItem.getItemDetails(favoriteItem, PersonalCare.class, this);
+                break;
         }
     }
 
@@ -62,5 +104,10 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favorite, container, false);
+    }
+
+    @Override
+    public void onRetrieveItems(Item item) {
+
     }
 }
