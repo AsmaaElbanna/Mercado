@@ -42,61 +42,40 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
         ArrayList<FavoriteItem> favoriteItems = new ArrayList<>();
         DatabaseFavorite.getAllItems(favoriteItems, () -> {
             for (FavoriteItem favoriteItem : favoriteItems) {
-
+                subCategorySwitch(favoriteItem);
             }
         });
     }
-    void subCategorySwitch(FavoriteItem favoriteItem) {
 
-        switch (favoriteItem.getSubCategory()) {
-            case "clothing":
-                switch (favoriteItem.getCategory()) {
-                    case "Women's Fashion":
-                        DatabaseItem.getItemDetails(favoriteItem, WomenClothing.class,
-                                this);
-                        break;
-                    default:
-                        DatabaseItem.getItemDetails(favoriteItem, KidsClothing.class,
-                                this);
-                }
-                break;
-            case "shoes":
-                DatabaseItem.getItemDetails(favoriteItem, KidsShoes.class, this);
-                break;
-            case "bags":
-                DatabaseItem.getItemDetails(favoriteItem, WomenBags.class, this);
-                break;
-            case "makeUp":
-                DatabaseItem.getItemDetails(favoriteItem, MakeUp.class, this);
-                break;
-            case "skinCare":
-                DatabaseItem.getItemDetails(favoriteItem, SkinCare.class, this);
-                break;
-            case "blendersAndMixers":
-                DatabaseItem.getItemDetails(favoriteItem, HomeAppliance.class, this);
-                break;
-            case "microwaves":
-                DatabaseItem.getItemDetails(favoriteItem, HomeAppliance.class, this);
-                break;
-            case "laptopBags":
-                DatabaseItem.getItemDetails(favoriteItem, LaptopBag.class, this);
-                break;
-            case "laptops":
-                DatabaseItem.getItemDetails(favoriteItem, Laptop.class, this);
-                break;
-            case "mobiles":
-                DatabaseItem.getItemDetails(favoriteItem, Mobile.class, this);
-                break;
-            case "tablets":
-                DatabaseItem.getItemDetails(favoriteItem, Mobile.class, this);
-                break;
-            case "beautyEquipment":
-                DatabaseItem.getItemDetails(favoriteItem, PersonalCare.class, this);
-                break;
-            case "hairStylers":
-                DatabaseItem.getItemDetails(favoriteItem, PersonalCare.class, this);
-                break;
-        }
+    void subCategorySwitch(FavoriteItem favoriteItem) {
+        if(favoriteItem.getSubCategory().equals("clothing"))
+            if (favoriteItem.getCategory().equals("Women's Fashion"))
+                DatabaseItem.getItemDetails(favoriteItem, WomenClothing.class, this);
+            else if (favoriteItem.getCategory().equals("Girl's Fashion") ||
+                    favoriteItem.getCategory().equals("boy's fashion") )
+                DatabaseItem.getItemDetails(favoriteItem, KidsClothing.class, this);
+        else if (favoriteItem.getSubCategory().equals("shoes"))
+            DatabaseItem.getItemDetails(favoriteItem, KidsShoes.class, this);
+        else if (favoriteItem.getSubCategory().equals("bags"))
+            DatabaseItem.getItemDetails(favoriteItem, WomenBags.class, this);
+        else if (favoriteItem.getSubCategory().equals("makeUp"))
+            DatabaseItem.getItemDetails(favoriteItem, MakeUp.class, this);
+        else if (favoriteItem.getSubCategory().equals("skinCare"))
+            DatabaseItem.getItemDetails(favoriteItem, SkinCare.class, this);
+        else if (favoriteItem.getSubCategory().equals("microwaves") ||
+                favoriteItem.getSubCategory().equals("blendersAndMixers"))
+            DatabaseItem.getItemDetails(favoriteItem, HomeAppliance.class, this);
+        else if (favoriteItem.getSubCategory().equals("laptopBags"))
+            DatabaseItem.getItemDetails(favoriteItem, LaptopBag.class, this);
+        else if (favoriteItem.getSubCategory().equals("laptops"))
+            DatabaseItem.getItemDetails(favoriteItem, Laptop.class, this);
+        else if (favoriteItem.getSubCategory().equals("mobiles") ||
+                favoriteItem.getSubCategory().equals("tablets"))
+            DatabaseItem.getItemDetails(favoriteItem, Mobile.class, this);
+        else if (favoriteItem.getSubCategory().equals("beautyEquipment") ||
+                favoriteItem.getSubCategory().equals("hairStylers"))
+            DatabaseItem.getItemDetails(favoriteItem, PersonalCare.class, this);
+
     }
 
     @Override
