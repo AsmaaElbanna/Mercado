@@ -1,6 +1,7 @@
 package com.iti.mercado.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Item implements Serializable {
 
@@ -8,13 +9,14 @@ public class Item implements Serializable {
     private String item_image;
     private String item_price;
     private String item_title;
-    private String[] slider_images;
+    private List<String> slider_images;
 
-    public String[] getSlider_images() {
+
+    public List<String> getSlider_images() {
         return slider_images;
     }
 
-    public void setSlider_images(String[] slider_images) {
+    public void setSlider_images(List<String> slider_images) {
         this.slider_images = slider_images;
     }
 

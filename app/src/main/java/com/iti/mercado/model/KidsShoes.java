@@ -1,21 +1,22 @@
 package com.iti.mercado.model;
 
+import java.util.List;
+
 public class KidsShoes extends Item{
 
     private String brand;
     private String size;
     private String color;
     private String material;
-    private String[] slider_image;
+    private List<String> slider_image;
 
-    public String[] getSlider_image() {
+    public List<String> getSlider_image() {
         return slider_image;
     }
 
-    public void setSlider_image(String[] slider_image) {
+    public void setSlider_image(List<String> slider_image) {
         this.slider_image = slider_image;
     }
-
     public String getBrand() {
         return brand;
     }

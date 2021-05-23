@@ -44,10 +44,9 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             KidsClothing girlsAndBoysClothing = (KidsClothing) getIntent().getSerializableExtra("MyClass");
 
             List<SlideModel> slideModels = new ArrayList<>();
-            String[] url = girlsAndBoysClothing.getSlider_image();
 
-            for (int i = 0; i < url.length; i++) {
-                slideModels.add(new SlideModel(url[i], girlsAndBoysClothing.getItem_title()));
+            for(String slider:girlsAndBoysClothing.getSlider_image()){
+                slideModels.add(new SlideModel(slider, girlsAndBoysClothing.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
 //
@@ -60,13 +59,10 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         } else if (getIntent().getSerializableExtra("MyClass") instanceof WomenClothing) {
             WomenClothing womenClothing = (WomenClothing) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            String[] url = womenClothing.getSlider_images();
-
-            for (int i = 0; i < url.length; i++) {
-                slideModels.add(new SlideModel(url[i], womenClothing.getItem_title()));
+            for(String slider:womenClothing.getSlider_images()){
+                slideModels.add(new SlideModel(slider, womenClothing.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
-
             price.setText(womenClothing.getItem_price());
             brand.setText(womenClothing.getBrand());
             color.setText(womenClothing.getColor());
@@ -75,10 +71,8 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         } else if (getIntent().getSerializableExtra("MyClass") instanceof KidsShoes) {
             KidsShoes kidsShoes = (KidsShoes) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            String[] url = kidsShoes.getSlider_image();
-
-            for (int i = 0; i < url.length; i++) {
-                slideModels.add(new SlideModel(url[i], kidsShoes.getItem_title()));
+            for(String slider:kidsShoes.getSlider_image()){
+                slideModels.add(new SlideModel(slider, kidsShoes.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
 
@@ -91,10 +85,8 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         }else if (getIntent().getSerializableExtra("MyClass") instanceof WomenBags) {
             WomenBags womenBags = (WomenBags) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            String[] url = womenBags.getSlider_images();
-
-            for (int i = 0; i < url.length; i++) {
-                slideModels.add(new SlideModel(url[i], womenBags.getItem_title()));
+            for(String slider:womenBags.getSlider_images()){
+                slideModels.add(new SlideModel(slider, womenBags.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
 
@@ -107,10 +99,8 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         } else if(getIntent().getSerializableExtra("MyClass") instanceof MakeUp) {
             MakeUp makeUp = (MakeUp) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            String[] url = makeUp.getSlider_images();
-
-            for (int i = 0; i < url.length; i++) {
-                slideModels.add(new SlideModel(url[i], makeUp.getItem_title()));
+            for(String slider:makeUp.getSlider_images()){
+                slideModels.add(new SlideModel(slider, makeUp.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
 
@@ -124,10 +114,8 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         }else if(getIntent().getSerializableExtra("MyClass") instanceof SkinCare) {
             SkinCare skinCare = (SkinCare) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            String[] url = skinCare.getSlider_images();
-
-            for (int i = 0; i < url.length; i++) {
-                slideModels.add(new SlideModel(url[i], skinCare.getItem_title()));
+            for(String slider:skinCare.getSlider_images()){
+                slideModels.add(new SlideModel(slider, skinCare.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
             price.setText(skinCare.getItem_price());

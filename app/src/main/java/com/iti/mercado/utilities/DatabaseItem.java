@@ -26,7 +26,6 @@ public class DatabaseItem {
                 // whenever data at this location is updated.
                 onRetrieveItem.onRetrieveItems(dataSnapshot.getValue(cls));
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value

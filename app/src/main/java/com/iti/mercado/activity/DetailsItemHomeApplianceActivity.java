@@ -15,42 +15,42 @@ import java.util.List;
 
 public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_item_home_appliance);
-
-        TextView power, model_number, item_type, item_capacity, item_brand, item_Features, country, color, price;
-
-        ImageSlider imageSlider = findViewById(R.id.slider);
-        price = findViewById(R.id.price_value);
-        color = findViewById(R.id.color_value);
-        country = findViewById(R.id.country_value);
-        item_Features = findViewById(R.id.item_Features_value);
-        item_brand = findViewById(R.id.item_brand_value);
-        item_capacity = findViewById(R.id.item_capacity_value);
-        item_type = findViewById(R.id.item_type_value);
-        model_number = findViewById(R.id.model_value);
-        power = findViewById(R.id.power_value);
-
-        HomeAppliance homeAppliance = (HomeAppliance) getIntent().getSerializableExtra("MyClass");
-
-        //slider part
-        List<SlideModel> slideModels=new ArrayList<>();
-        for (int i = 0; i < homeAppliance.getSlider_images().length; i++){
-            slideModels.add(new SlideModel(homeAppliance.getSlider_images()[i], homeAppliance.getItem_title()));
-        }
-        imageSlider.setImageList(slideModels,true);
-
-        price.setText(homeAppliance.getItem_price()+ " LE");
-        item_brand.setText(homeAppliance.getItem_brand());
-        color.setText(homeAppliance.getColor());
-        country.setText(homeAppliance.getCountry());
-        item_Features.setText(homeAppliance.getItem_Features());
-        item_capacity.setText(homeAppliance.getItem_capacity());
-        item_type.setText(homeAppliance.getItem_type());
-        model_number.setText(homeAppliance.getModel_number());
-        power.setText(homeAppliance.getPower());
-
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_details_item_home_appliance);
+//
+//        TextView power, model_number, item_type, item_capacity, item_brand, item_Features, country, color, price;
+//
+//        ImageSlider imageSlider = findViewById(R.id.slider);
+//        price = findViewById(R.id.price_value);
+//        color = findViewById(R.id.color_value);
+//        country = findViewById(R.id.country_value);
+//        item_Features = findViewById(R.id.item_Features_value);
+//        item_brand = findViewById(R.id.item_brand_value);
+//        item_capacity = findViewById(R.id.item_capacity_value);
+//        item_type = findViewById(R.id.item_type_value);
+//        model_number = findViewById(R.id.model_value);
+//        power = findViewById(R.id.power_value);
+//
+//        HomeAppliance homeAppliance = (HomeAppliance) getIntent().getSerializableExtra("MyClass");
+//
+//        //slider part
+//        List<SlideModel> slideModels=new ArrayList<>();
+//        for (int i = 0; i < homeAppliance.getSlider_images().length; i++){
+//            slideModels.add(new SlideModel(homeAppliance.getSlider_images()[i], homeAppliance.getItem_title()));
+//        }
+//        imageSlider.setImageList(slideModels,true);
+//
+//        price.setText(homeAppliance.getItem_price()+ " LE");
+//        item_brand.setText(homeAppliance.getItem_brand());
+//        color.setText(homeAppliance.getColor());
+//        country.setText(homeAppliance.getCountry());
+//        item_Features.setText(homeAppliance.getItem_Features());
+//        item_capacity.setText(homeAppliance.getItem_capacity());
+//        item_type.setText(homeAppliance.getItem_type());
+//        model_number.setText(homeAppliance.getModel_number());
+//        power.setText(homeAppliance.getPower());
+//
+//    }
 }

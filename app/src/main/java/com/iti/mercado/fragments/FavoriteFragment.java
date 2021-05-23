@@ -3,13 +3,16 @@ package com.iti.mercado.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
 import com.iti.mercado.R;
+import com.iti.mercado.adapter.FavoriteAdapter;
 import com.iti.mercado.model.FavoriteItem;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.Item;
@@ -35,11 +38,15 @@ import retrofit2.Call;
 
 
 public class FavoriteFragment extends Fragment implements OnRetrieveItem {
+    ArrayList<Item> items;
+    RecyclerView favoriteRecyclerview;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         ArrayList<FavoriteItem> favoriteItems = new ArrayList<>();
+        items = new ArrayList<>();
         DatabaseFavorite.getAllItems(favoriteItems, () -> {
             for (FavoriteItem favoriteItem : favoriteItems) {
                 subCategorySwitch(favoriteItem);
@@ -48,13 +55,13 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
     }
 
     void subCategorySwitch(FavoriteItem favoriteItem) {
-        if(favoriteItem.getSubCategory().equals("clothing"))
+        if (favoriteItem.getSubCategory().equals("clothing")) {
             if (favoriteItem.getCategory().equals("Women's Fashion"))
                 DatabaseItem.getItemDetails(favoriteItem, WomenClothing.class, this);
             else if (favoriteItem.getCategory().equals("Girl's Fashion") ||
-                    favoriteItem.getCategory().equals("boy's fashion") )
+                    favoriteItem.getCategory().equals("boy's fashion"))
                 DatabaseItem.getItemDetails(favoriteItem, KidsClothing.class, this);
-        else if (favoriteItem.getSubCategory().equals("shoes"))
+        } else if (favoriteItem.getSubCategory().equals("shoes"))
             DatabaseItem.getItemDetails(favoriteItem, KidsShoes.class, this);
         else if (favoriteItem.getSubCategory().equals("bags"))
             DatabaseItem.getItemDetails(favoriteItem, WomenBags.class, this);
@@ -75,7 +82,6 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
         else if (favoriteItem.getSubCategory().equals("beautyEquipment") ||
                 favoriteItem.getSubCategory().equals("hairStylers"))
             DatabaseItem.getItemDetails(favoriteItem, PersonalCare.class, this);
-
     }
 
     @Override
@@ -87,6 +93,6 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
 
     @Override
     public void onRetrieveItems(Item item) {
-
+        items.add(item);
     }
 }

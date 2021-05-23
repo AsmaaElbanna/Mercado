@@ -1,5 +1,7 @@
 package com.iti.mercado.model;
 
+import java.util.List;
+
 public class KidsClothing extends Item{
 
 
@@ -7,13 +9,13 @@ public class KidsClothing extends Item{
     private String size;
     private String quality;
     private String color;
-    private String[] slider_image;
+    private List<String> slider_image;
 
-    public String[] getSlider_image() {
+    public List<String> getSlider_image() {
         return slider_image;
     }
 
-    public void setSlider_image(String[] slider_image) {
+    public void setSlider_image(List<String> slider_image) {
         this.slider_image = slider_image;
     }
 
