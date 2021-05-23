@@ -35,16 +35,15 @@ import com.iti.mercado.utilities.DatabaseFavorite;
 
 import java.util.List;
 
-public class FavoriteAdapter<K extends Item> extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private final Context context;
-    private final List<K> items;
-    private final String category, sub_category;
+    private final List<Item> items;
+    private final List<FavoriteItem> favoriteItems;
 
-    public FavoriteAdapter(Context context, List<K> items, String category, String sub_category) {
+    public FavoriteAdapter(Context context, List<Item> items, List<FavoriteItem> favoriteItems) {
         this.context = context;
         this.items = items;
-        this.category = category;
-        this.sub_category = sub_category;
+        this.favoriteItems = favoriteItems;
     }
 
     @NonNull
@@ -98,10 +97,7 @@ public class FavoriteAdapter<K extends Item> extends RecyclerView.Adapter<Favori
 
 
 
-        FavoriteItem favoriteItem = new FavoriteItem();
-        favoriteItem.setItemId(items.get(position).getItem_id());
-        favoriteItem.setCategory(category);
-        favoriteItem.setSubCategory(sub_category);
+        FavoriteItem favoriteItem = favoriteItems.get(position);
         DatabaseFavorite databaseFavorite = new DatabaseFavorite();
 
         holder.unFavoriteImage.setVisibility(View.GONE);

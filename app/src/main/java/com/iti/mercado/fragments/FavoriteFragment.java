@@ -3,6 +3,7 @@ package com.iti.mercado.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -38,14 +39,15 @@ import retrofit2.Call;
 
 
 public class FavoriteFragment extends Fragment implements OnRetrieveItem {
-    ArrayList<Item> items;
-    RecyclerView favoriteRecyclerview;
+
+    private ArrayList<Item> items;
+    private ArrayList<FavoriteItem> favoriteItems;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        ArrayList<FavoriteItem> favoriteItems = new ArrayList<>();
+        favoriteItems = new ArrayList<>();
         items = new ArrayList<>();
         DatabaseFavorite.getAllItems(favoriteItems, () -> {
             for (FavoriteItem favoriteItem : favoriteItems) {
@@ -88,7 +90,18 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.favorite_recyclerview);
+        recyclerView.setHasFixedSize(false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(getActivity(), items,  favoriteItems);
+        recyclerView.setAdapter(favoriteAdapter);
+
+        return view;
     }
 
     @Override
