@@ -94,9 +94,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         });
 
         //Favorite part
-
-
-
         FavoriteItem favoriteItem = favoriteItems.get(position);
         DatabaseFavorite databaseFavorite = new DatabaseFavorite();
 
@@ -108,7 +105,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             public void onClick(View v) {
                 databaseFavorite.delete(favoriteItem,() -> {
                     items.remove(position);
-
+                    notifyDataSetChanged();
 
                 });
             }

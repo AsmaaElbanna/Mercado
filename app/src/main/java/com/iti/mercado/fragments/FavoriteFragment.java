@@ -42,11 +42,12 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
 
     private ArrayList<Item> items;
     private ArrayList<FavoriteItem> favoriteItems;
+    private FavoriteAdapter favoriteAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         favoriteItems = new ArrayList<>();
         items = new ArrayList<>();
         DatabaseFavorite.getAllItems(favoriteItems, () -> {
@@ -98,7 +99,7 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(getActivity(), items,  favoriteItems);
+        favoriteAdapter = new FavoriteAdapter(getActivity(), items, favoriteItems);
         recyclerView.setAdapter(favoriteAdapter);
 
         return view;
@@ -107,5 +108,6 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
     @Override
     public void onRetrieveItems(Item item) {
         items.add(item);
+        favoriteAdapter.notifyDataSetChanged();
     }
 }
