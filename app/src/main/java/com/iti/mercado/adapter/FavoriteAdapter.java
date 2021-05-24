@@ -37,12 +37,10 @@ import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private final Context context;
-    private final List<Item> items;
     private final List<FavoriteItem> favoriteItems;
 
-    public FavoriteAdapter(Context context, List<Item> items, List<FavoriteItem> favoriteItems) {
+    public FavoriteAdapter(Context context, List<FavoriteItem> favoriteItems) {
         this.context = context;
-        this.items = items;
         this.favoriteItems = favoriteItems;
     }
 
@@ -56,65 +54,66 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.itemTitleTextView.setText(items.get(position).getItem_title());
-        holder.itemPriceTextView.setText(items.get(position).getItem_price());
-        Glide.with(context).load(items.get(position).getItem_image())
-                //.apply(new RequestOptions().override(100,100))
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_foreground)
-                .into(holder.itemImageView);
-        holder.linearLayout.setOnClickListener(v -> {
+        if (favoriteItems.get(position).getItem() != null) {
+            holder.itemTitleTextView.setText(favoriteItems.get(position).getItem().getItem_title());
+            holder.itemPriceTextView.setText(favoriteItems.get(position).getItem().getItem_price());
+            Glide.with(context).load(favoriteItems.get(position).getItem().getItem_image())
+                    //.apply(new RequestOptions().override(100,100))
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(holder.itemImageView);
+            holder.linearLayout.setOnClickListener(v -> {
 
-            if (items.get(position) instanceof Laptop) {
-                Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
-                //pass data
-                intent.putExtra("MyClass", items.get(position));
-                context.startActivity(intent);
-            } else if (items.get(position) instanceof LaptopBag) {
-                Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
-                //pass data
-                intent.putExtra("MyClass", items.get(position));
-                context.startActivity(intent);
-            } else if (items.get(position) instanceof Mobile) {
-                Intent intent = new Intent(context, DetailsItemMobileActivity.class);
-                //pass data
-                intent.putExtra("MyClass", items.get(position));
-                context.startActivity(intent);
-            } else if (items.get(position) instanceof HomeAppliance) {
-                Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
-                //pass data
-                intent.putExtra("MyClass", items.get(position));
-                context.startActivity(intent);
-            } else if (items.get(position) instanceof KidsClothing || items.get(position) instanceof KidsShoes || items.get(position) instanceof WomenClothing || items.get(position) instanceof WomenBags || items.get(position) instanceof MakeUp || items.get(position) instanceof SkinCare) {
-                Intent intent = new Intent(context, DetailsItemFashionActivity.class);
-                //pass data
-                intent.putExtra("MyClass", items.get(position));
-                context.startActivity(intent);
-            }
-        });
+                if (favoriteItems.get(position).getItem() instanceof Laptop) {
+                    Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
+                    //pass data
+                    intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+                    context.startActivity(intent);
+                } else if (favoriteItems.get(position).getItem() instanceof LaptopBag) {
+                    Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
+                    //pass data
+                    intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+                    context.startActivity(intent);
+                } else if (favoriteItems.get(position).getItem() instanceof Mobile) {
+                    Intent intent = new Intent(context, DetailsItemMobileActivity.class);
+                    //pass data
+                    intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+                    context.startActivity(intent);
+                } else if (favoriteItems.get(position).getItem() instanceof HomeAppliance) {
+                    Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
+                    //pass data
+                    intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+                    context.startActivity(intent);
+                } else if (favoriteItems.get(position).getItem() instanceof KidsClothing || favoriteItems.get(position).getItem() instanceof KidsShoes || favoriteItems.get(position).getItem() instanceof WomenClothing || favoriteItems.get(position).getItem() instanceof WomenBags || favoriteItems.get(position).getItem() instanceof MakeUp || favoriteItems.get(position).getItem() instanceof SkinCare) {
+                    Intent intent = new Intent(context, DetailsItemFashionActivity.class);
+                    //pass data
+                    intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+                    context.startActivity(intent);
+                }
+            });
 
-        //Favorite part
-        FavoriteItem favoriteItem = favoriteItems.get(position);
-        DatabaseFavorite databaseFavorite = new DatabaseFavorite();
+            //Favorite part
+            FavoriteItem favoriteItem = favoriteItems.get(position);
+            DatabaseFavorite databaseFavorite = new DatabaseFavorite();
 
-        holder.unFavoriteImage.setVisibility(View.GONE);
-        holder.favoriteImage.setVisibility(View.VISIBLE);
+            holder.unFavoriteImage.setVisibility(View.GONE);
+            holder.favoriteImage.setVisibility(View.VISIBLE);
 
-        holder.favoriteImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                databaseFavorite.delete(favoriteItem,() -> {
-                    items.remove(position);
-                    notifyDataSetChanged();
-
-                });
-            }
-        });
+            holder.favoriteImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    databaseFavorite.delete(favoriteItem,() -> {
+                        favoriteItems.remove(position);
+                        notifyDataSetChanged();
+                    });
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return favoriteItems.size();
     }
 
 

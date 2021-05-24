@@ -13,12 +13,11 @@ import com.iti.mercado.fragments.FavoriteFragment;
 import com.iti.mercado.fragments.ShopFragment;
 
 public class TabsAdapter extends FragmentPagerAdapter {
-    private Context myContext;
+
     int totalTabs;
 
-    public TabsAdapter(Context context, FragmentManager fm, int totalTabs) {
-        super(fm);
-        myContext = context;
+    public TabsAdapter(FragmentManager fm, int totalTabs) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.totalTabs = totalTabs;
     }
 

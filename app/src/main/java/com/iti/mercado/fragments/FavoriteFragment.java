@@ -6,17 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.FavoriteAdapter;
 import com.iti.mercado.model.FavoriteItem;
 import com.iti.mercado.model.HomeAppliance;
-import com.iti.mercado.model.Item;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
 import com.iti.mercado.model.Laptop;
@@ -29,27 +26,19 @@ import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.DatabaseFavorite;
 import com.iti.mercado.utilities.DatabaseItem;
-import com.iti.mercado.utilities.Network;
 import com.iti.mercado.utilities.OnRetrieveItem;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
 
 
 public class FavoriteFragment extends Fragment implements OnRetrieveItem {
 
-    private ArrayList<Item> items;
     private ArrayList<FavoriteItem> favoriteItems;
     private FavoriteAdapter favoriteAdapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        favoriteItems = new ArrayList<>();
-        items = new ArrayList<>();
+    public void onStart() {
+        super.onStart();
         DatabaseFavorite.getAllItems(favoriteItems, () -> {
             for (FavoriteItem favoriteItem : favoriteItems) {
                 subCategorySwitch(favoriteItem);
@@ -93,21 +82,21 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        favoriteItems = new ArrayList<>();
 
         RecyclerView recyclerView = view.findViewById(R.id.favorite_recyclerview);
         recyclerView.setHasFixedSize(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        favoriteAdapter = new FavoriteAdapter(getActivity(), items, favoriteItems);
+        favoriteAdapter = new FavoriteAdapter(getActivity(), favoriteItems);
         recyclerView.setAdapter(favoriteAdapter);
 
         return view;
     }
 
     @Override
-    public void onRetrieveItems(Item item) {
-        items.add(item);
+    public void onRetrieveItems() {
         favoriteAdapter.notifyDataSetChanged();
     }
 }

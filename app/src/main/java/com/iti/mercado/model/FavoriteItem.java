@@ -6,6 +6,8 @@ public class FavoriteItem {
     private String subCategory;
     private String itemId;
 
+    private Item item;
+
     public String getCategory() {
         return category;
     }
@@ -30,4 +32,11 @@ public class FavoriteItem {
         this.itemId = itemId;
     }
 
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
 }

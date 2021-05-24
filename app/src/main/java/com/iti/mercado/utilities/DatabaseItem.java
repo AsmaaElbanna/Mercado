@@ -24,7 +24,8 @@ public class DatabaseItem {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                onRetrieveItem.onRetrieveItems(dataSnapshot.getValue(cls));
+                favoriteItem.setItem(dataSnapshot.getValue(cls));
+                onRetrieveItem.onRetrieveItems();
             }
             @Override
             public void onCancelled(DatabaseError error) {
