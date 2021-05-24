@@ -84,7 +84,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                     //pass data
                     intent.putExtra("MyClass", favoriteItems.get(position).getItem());
                     context.startActivity(intent);
-                } else if (favoriteItems.get(position).getItem() instanceof KidsClothing || favoriteItems.get(position).getItem() instanceof KidsShoes || favoriteItems.get(position).getItem() instanceof WomenClothing || favoriteItems.get(position).getItem() instanceof WomenBags || favoriteItems.get(position).getItem() instanceof MakeUp || favoriteItems.get(position).getItem() instanceof SkinCare) {
+                } else if (favoriteItems.get(position).getItem() instanceof KidsClothing
+                        || favoriteItems.get(position).getItem() instanceof KidsShoes
+                        || favoriteItems.get(position).getItem() instanceof WomenClothing
+                        || favoriteItems.get(position).getItem() instanceof WomenBags
+                        || favoriteItems.get(position).getItem() instanceof MakeUp
+                        || favoriteItems.get(position).getItem() instanceof SkinCare) {
                     Intent intent = new Intent(context, DetailsItemFashionActivity.class);
                     //pass data
                     intent.putExtra("MyClass", favoriteItems.get(position).getItem());
@@ -102,7 +107,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             holder.favoriteImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    databaseFavorite.delete(favoriteItem,() -> {
+                    databaseFavorite.delete(favoriteItem, () -> {
                         favoriteItems.remove(position);
                         notifyDataSetChanged();
                     });
@@ -117,12 +122,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
 
-
-
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView itemTitleTextView, itemPriceTextView;
-        public ImageView itemImageView, favoriteImage,unFavoriteImage;
+        public ImageView itemImageView, favoriteImage, unFavoriteImage;
         public LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -132,7 +135,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             itemPriceTextView = itemView.findViewById(R.id.item_price);
             itemImageView = itemView.findViewById(R.id.item_image);
             favoriteImage = itemView.findViewById(R.id.favorite);
-            unFavoriteImage =itemView.findViewById(R.id.unfavorite);
+            unFavoriteImage = itemView.findViewById(R.id.unfavorite);
         }
     }
 }
