@@ -21,7 +21,6 @@ import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
 import com.iti.mercado.model.FavoriteItem;
 import com.iti.mercado.model.HomeAppliance;
-import com.iti.mercado.model.Item;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
 import com.iti.mercado.model.Laptop;
