@@ -15,6 +15,10 @@ public class UserFirebase {
         return userId;
     }
 
+    public static void clearUserId() {
+        userId = "";
+    }
+
     public static FirebaseDatabase getFirebaseDatabase() {
         if (firebaseDatabase == null) {
             firebaseDatabase = FirebaseDatabase.getInstance();
