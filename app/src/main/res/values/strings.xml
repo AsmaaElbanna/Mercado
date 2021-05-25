@@ -67,6 +67,7 @@
     <string name="item_capacity">Capacity</string>
     <string name="item_type">Type</string>
     <string name="power">Power</string>
+    <string name="logout">logout</string>
 
 
 </resources>

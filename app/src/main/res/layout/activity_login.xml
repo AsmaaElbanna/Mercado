@@ -34,7 +34,7 @@
                     android:layout_height="150dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="8dp"
-                    android:src="@drawable/ic_goods" />
+                    android:src="@drawable/carts" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

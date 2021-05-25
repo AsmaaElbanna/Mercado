@@ -9,23 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mercado">
-        <activity android:name=".activity.DetailsItemHomeApplianceActivity"></activity>
+        <activity android:name=".activity.DetailsItemPersonalCareActivity" />
+        <activity android:name=".activity.DetailsItemHomeApplianceActivity" />
         <activity android:name=".activity.DetailsItemMobileActivity" />
         <activity android:name=".activity.DetailsItemLaptopBagActivity" />
         <activity android:name=".activity.DetailsItemLaptopActivity" />
-        <activity android:name=".activity.DetailsItemFashionActivity"></activity>
-        <activity android:name=".activity.TabsActivity">
+        <activity android:name=".activity.DetailsItemFashionActivity" />
+        <activity android:name=".activity.TabsActivity"/>
+        <activity android:name=".activity.ItemsListActivity" />
+        <activity android:name=".activity.GetStartedActivity" />
+        <activity android:name=".activity.SingUpActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ItemsListActivity"></activity>
-        <activity android:name=".activity.GetStartedActivity" />
-        <activity android:name=".activity.SingUpActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.SplashScreenActivity" />
     </application>
 
 </manifest>

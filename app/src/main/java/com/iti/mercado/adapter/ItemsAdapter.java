@@ -19,6 +19,7 @@ import com.iti.mercado.activity.DetailsItemHomeApplianceActivity;
 import com.iti.mercado.activity.DetailsItemLaptopActivity;
 import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
+import com.iti.mercado.activity.DetailsItemPersonalCareActivity;
 import com.iti.mercado.model.FavoriteItem;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.Item;
@@ -28,6 +29,7 @@ import com.iti.mercado.model.Laptop;
 import com.iti.mercado.model.LaptopBag;
 import com.iti.mercado.model.MakeUp;
 import com.iti.mercado.model.Mobile;
+import com.iti.mercado.model.PersonalCare;
 import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
@@ -88,6 +90,11 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 //pass data
                 intent.putExtra("MyClass", items.get(position));
                 context.startActivity(intent);
+            } else if (items.get(position) instanceof PersonalCare) {
+                Intent intent = new Intent(context, DetailsItemPersonalCareActivity.class);
+                //pass data
+                intent.putExtra("MyClass", items.get(position));
+                context.startActivity(intent);
             } else if (items.get(position) instanceof KidsClothing || items.get(position) instanceof KidsShoes || items.get(position) instanceof WomenClothing || items.get(position) instanceof WomenBags || items.get(position) instanceof MakeUp || items.get(position) instanceof SkinCare) {
                 Intent intent = new Intent(context, DetailsItemFashionActivity.class);
                 //pass data
@@ -104,8 +111,8 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         favoriteItem.setSubCategory(sub_category);
         DatabaseFavorite databaseFavorite = new DatabaseFavorite();
 
-        databaseFavorite.Read(favoriteItem,flag -> {
-            if(flag){
+        databaseFavorite.Read(favoriteItem, flag -> {
+            if (flag) {
                 holder.unFavoriteImage.setVisibility(View.GONE);
                 holder.favoriteImage.setVisibility(View.VISIBLE);
             }
@@ -115,7 +122,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
             @Override
             public void onClick(View v) {
                 databaseFavorite.write(favoriteItem
-                        ,() ->{
+                        , () -> {
                             holder.unFavoriteImage.setVisibility(View.GONE);
                             holder.favoriteImage.setVisibility(View.VISIBLE);
                         });
@@ -125,7 +132,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         holder.favoriteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseFavorite.delete(favoriteItem,() -> {
+                databaseFavorite.delete(favoriteItem, () -> {
                     holder.favoriteImage.setVisibility(View.GONE);
                     holder.unFavoriteImage.setVisibility(View.VISIBLE);
                 });
@@ -142,7 +149,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView itemTitleTextView, itemPriceTextView;
-        public ImageView itemImageView, favoriteImage,unFavoriteImage;
+        public ImageView itemImageView, favoriteImage, unFavoriteImage;
         public LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -152,7 +159,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
             itemPriceTextView = itemView.findViewById(R.id.item_price);
             itemImageView = itemView.findViewById(R.id.item_image);
             favoriteImage = itemView.findViewById(R.id.favorite);
-            unFavoriteImage =itemView.findViewById(R.id.unfavorite);
+            unFavoriteImage = itemView.findViewById(R.id.unfavorite);
         }
     }
 }
