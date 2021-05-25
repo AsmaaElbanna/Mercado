@@ -45,43 +45,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user.getPhotoUrl() != null) {
-            String profilePicture = user.getPhotoUrl().toString();
-            profilePicture += "?type=large";
 
-            Log.i("profilePicture", "onStart: profilePicture URL : "+profilePicture);
+        getInfoFromUser();
 
-            Glide.with(getContext()).load(profilePicture)
-                    //.apply(new RequestOptions().override(100,100))
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_foreground)
-                    .into(profilePictureCircleImageView);
-        }
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            if (user.getDisplayName() != null) {
-
-                usernameTextView.setText(user.getDisplayName());
-
-            } else {
-                DatabaseReference ref = UserFirebase.getFirebaseDatabase().getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                        usernameTextView.setText(snapshot.getValue(AppUser.class).getUsername());
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                    }
-                });
-            }
-
-            emailTextView.setText(user.getEmail());
-        }
     }
 
     @Override
@@ -99,6 +65,8 @@ public class AccountFragment extends Fragment {
         emailTextView = view.findViewById(R.id.profile_email);
         Button logoutButton = view.findViewById(R.id.logout_button);
 
+        //getInfoFromUser();
+
         logoutButton.setOnClickListener(v -> {
 
             FirebaseAuth.getInstance().signOut();
@@ -109,4 +77,46 @@ public class AccountFragment extends Fragment {
         });
     }
 
+    private void getInfoFromUser (){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+
+            if (user.getPhotoUrl() != null) {
+
+                String profilePicture = user.getPhotoUrl().toString();
+                profilePicture += "?type=large";
+
+                Log.i("profilePicture", "onStart: profilePicture URL : "+profilePicture);
+
+                Glide.with(getContext()).load(profilePicture)
+                        //.apply(new RequestOptions().override(100,100))
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .error(R.drawable.ic_launcher_foreground)
+                        .into(profilePictureCircleImageView);
+            }
+            if (user.getDisplayName() != null && !user.getDisplayName().equals("") )  {
+                Log.i("appUsername", "getInfoFromUser: ---------------:"+user.getDisplayName());
+                usernameTextView.setText(user.getDisplayName());
+
+            } else {
+                DatabaseReference ref = UserFirebase.getFirebaseDatabase().getReference("users").child(user.getUid());
+                Log.i("appUsername", "getInfoFromUser: ++++++++++++++ ");
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        usernameTextView.setText(snapshot.getValue(AppUser.class).getUsername());
+                        Log.i("appUsername : ", "onDataChange: " + snapshot.getValue(AppUser.class).getUsername());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            emailTextView.setText(user.getEmail());
+        }
+    }
 }
