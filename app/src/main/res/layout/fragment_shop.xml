@@ -6,5 +6,18 @@
     android:orientation="vertical"
     tools:context=".fragments.ShopFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/divider"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:drawablePadding="8dp"
+            android:hint="Search by bbbbbbbbb or bbbbbbbbbbbb"
+            android:padding="8dp" />
+    </LinearLayout>
 
 </LinearLayout>
