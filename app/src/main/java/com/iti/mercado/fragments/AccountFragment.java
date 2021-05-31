@@ -1,12 +1,15 @@
 package com.iti.mercado.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +39,9 @@ public class AccountFragment extends Fragment {
     private TextView usernameTextView;
     private TextView emailTextView;
     private CircleImageView profilePictureCircleImageView;
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,9 +81,13 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
             getActivity().finishAffinity();
         });
+
+        profilePictureCircleImageView.setOnClickListener(v -> {
+            getProfilePicture();
+        });
     }
 
-    private void getInfoFromUser (){
+    private void getInfoFromUser() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
@@ -87,7 +97,7 @@ public class AccountFragment extends Fragment {
                 String profilePicture = user.getPhotoUrl().toString();
                 profilePicture += "?type=large";
 
-                Log.i("profilePicture", "onStart: profilePicture URL : "+profilePicture);
+                Log.i("profilePicture", "onStart: profilePicture URL : " + profilePicture);
 
                 Glide.with(getContext()).load(profilePicture)
                         //.apply(new RequestOptions().override(100,100))
@@ -95,8 +105,8 @@ public class AccountFragment extends Fragment {
                         .error(R.drawable.ic_launcher_foreground)
                         .into(profilePictureCircleImageView);
             }
-            if (user.getDisplayName() != null && !user.getDisplayName().equals("") )  {
-                Log.i("appUsername", "getInfoFromUser: ---------------:"+user.getDisplayName());
+            if (user.getDisplayName() != null && !user.getDisplayName().equals("")) {
+                Log.i("appUsername", "getInfoFromUser: ---------------:" + user.getDisplayName());
                 usernameTextView.setText(user.getDisplayName());
 
             } else {
@@ -117,6 +127,20 @@ public class AccountFragment extends Fragment {
             }
 
             emailTextView.setText(user.getEmail());
+        }
+    }
+
+    private void getProfilePicture() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE){
+            imageUri = data.getData();
+            profilePictureCircleImageView.setImageURI(imageUri);
         }
     }
 }
