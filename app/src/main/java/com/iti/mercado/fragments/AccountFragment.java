@@ -1,6 +1,7 @@
 package com.iti.mercado.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class AccountFragment extends Fragment {
     private AppUser appUser;
     private FirebaseUser currentUser;
     private DatabaseReference databaseReference;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,10 @@ public class AccountFragment extends Fragment {
         //Log.i("databaseReference", "onViewCreated: databaseReference = " + databaseReference);
         appUser = new AppUser();
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Wait few seconds...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -104,7 +110,7 @@ public class AccountFragment extends Fragment {
         });
 
         new Handler().postDelayed(() -> {
-
+            progressDialog.dismiss();
             getInfoFromUser();
 
             logoutButton.setOnClickListener(v -> {
@@ -121,8 +127,6 @@ public class AccountFragment extends Fragment {
             });
 
         }, Constants.TIME_SPLASH);
-
-
     }
 
     private void getInfoFromUser() {
@@ -176,7 +180,7 @@ public class AccountFragment extends Fragment {
                 if (appUser == null) { // == null user don't have saved profilePicture
 
                     Log.i("if", "getInfoFromUser: true == null 'not exist'");
-                    appUser = new AppUser() ;
+                    appUser = new AppUser();
                     appUser.setUsername(currentUser.getDisplayName());
                     usernameTextView.setText(appUser.getUsername());
                     appUser.setProfilePicture(currentUser.getPhotoUrl().toString());
@@ -217,6 +221,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void addImageToFirebase(@Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        progressDialog.show();
 
         appUser.setProfilePicture(data.getData().toString());
 
@@ -257,7 +262,7 @@ public class AccountFragment extends Fragment {
                             });
 
                     Log.i("profilePicture", "onActivityResult: done ");
-
+                    progressDialog.dismiss();
 
                 } else {
                     // Handle failures
@@ -291,6 +296,7 @@ public class AccountFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK && requestCode == Constants.PICK_IMAGE) {
+
             addImageToFirebase(data);
         }
     }
