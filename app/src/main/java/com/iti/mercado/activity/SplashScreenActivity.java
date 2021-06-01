@@ -9,6 +9,7 @@ import android.os.Handler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.iti.mercado.R;
+import com.iti.mercado.utilities.Constants;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -22,8 +23,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        final int timeSplash = 5000; // 1000 = 1 sec
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -34,7 +33,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     changeActivity(TabsActivity.class);
                 finish();
             }
-        }, timeSplash);
+        }, Constants.TIME_SPLASH);
 
     }
 
