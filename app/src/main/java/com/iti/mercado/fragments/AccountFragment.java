@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
@@ -88,7 +90,7 @@ public class AccountFragment extends Fragment {
 
         //Log.i("databaseReference", "onViewCreated: databaseReference = " + databaseReference);
         appUser = new AppUser();
-
+        Log.i("?????????????????????", "onViewCreated: lol ???");
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Wait few seconds...");
         progressDialog.setCancelable(false);
@@ -107,26 +109,35 @@ public class AccountFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
             }
+
         });
 
         new Handler().postDelayed(() -> {
+
             progressDialog.dismiss();
             getInfoFromUser();
 
             logoutButton.setOnClickListener(v -> {
-
-                FirebaseAuth.getInstance().signOut();
-
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                getActivity().finishAffinity();
+                AlertDialog dialog = new AlertDialog.Builder(getContext())
+                        .setTitle("Alert")
+                        .setMessage("Are you want to logout")
+                        .setPositiveButton("Yes", (dialog1, which) -> {
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finishAffinity();
+                        })
+                        .setNegativeButton("No", (dialog1, which) -> {
+                            Toast.makeText(getContext(), "No", Toast.LENGTH_SHORT).show();
+                        })
+                        .show();
             });
 
             profilePictureCircleImageView.setOnClickListener(v -> {
                 getProfilePicture();
             });
 
-        }, Constants.TIME_SPLASH);
+        }, 2000);
     }
 
     private void getInfoFromUser() {
