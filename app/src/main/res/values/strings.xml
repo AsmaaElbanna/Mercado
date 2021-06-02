@@ -68,6 +68,9 @@
     <string name="item_type">Type</string>
     <string name="power">Power</string>
     <string name="logout">logout</string>
+    <string name="new_arrival">New Arrival</string>
+    <string name="exclusive_offers">Exclusive Offers</string>
+    <string name="searchForCategoryOrBrand">Search for category or brand</string>
 
 
 </resources>
