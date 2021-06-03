@@ -14,12 +14,9 @@ import android.widget.LinearLayout;
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.CategoriesAdapter;
 import com.iti.mercado.model.Category;
-import com.iti.mercado.model.Item;
-import com.iti.mercado.model.Mobile;
 import com.iti.mercado.utilities.Network;
 import com.iti.mercado.utilities.OnResponseRetrofit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;

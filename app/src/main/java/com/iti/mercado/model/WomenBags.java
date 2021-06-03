@@ -1,6 +1,6 @@
 package com.iti.mercado.model;
 
-public class WomenBags extends Item{
+public class WomenBags extends Item {
     private String brand;
     private String color;
     private String item_rating;

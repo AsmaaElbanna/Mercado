@@ -1,6 +1,6 @@
 package com.iti.mercado.model;
 
-public class SkinCare extends Item{
+public class SkinCare extends Item {
 
     private String brand;
     private String item_description;

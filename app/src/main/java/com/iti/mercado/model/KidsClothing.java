@@ -2,7 +2,7 @@ package com.iti.mercado.model;
 
 import java.util.List;
 
-public class KidsClothing extends Item{
+public class KidsClothing extends Item {
 
 
     private String brand;
