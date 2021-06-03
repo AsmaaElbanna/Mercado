@@ -19,7 +19,7 @@ import com.iti.mercado.activity.DetailsItemHomeApplianceActivity;
 import com.iti.mercado.activity.DetailsItemLaptopActivity;
 import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
-import com.iti.mercado.model.FavoriteItem;
+import com.iti.mercado.model.ItemPath;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
@@ -36,9 +36,9 @@ import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private final Context context;
-    private final List<FavoriteItem> favoriteItems;
+    private final List<ItemPath> favoriteItems;
 
-    public FavoriteAdapter(Context context, List<FavoriteItem> favoriteItems) {
+    public FavoriteAdapter(Context context, List<ItemPath> favoriteItems) {
         this.context = context;
         this.favoriteItems = favoriteItems;
     }
@@ -97,7 +97,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             });
 
             //Favorite part
-            FavoriteItem favoriteItem = favoriteItems.get(position);
+            ItemPath favoriteItem = favoriteItems.get(position);
             DatabaseFavorite databaseFavorite = new DatabaseFavorite();
 
             holder.unFavoriteImage.setVisibility(View.GONE);

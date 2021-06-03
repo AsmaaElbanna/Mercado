@@ -6,12 +6,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.iti.mercado.model.FavoriteItem;
+import com.iti.mercado.model.ItemPath;
 import com.iti.mercado.model.Item;
 
 public class DatabaseItem {
 
-    public static void getItemDetails(FavoriteItem favoriteItem,
+    public static void getItemDetails(ItemPath favoriteItem,
                                       Class<? extends Item> cls,
                                       OnRetrieveItem onRetrieveItem) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("categories")

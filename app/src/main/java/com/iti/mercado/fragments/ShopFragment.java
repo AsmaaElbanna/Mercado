@@ -3,64 +3,141 @@ package com.iti.mercado.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.iti.mercado.R;
+import com.iti.mercado.RealtimeDatabase.DatabaseItems;
+import com.iti.mercado.adapter.FavoriteAdapter;
+import com.iti.mercado.adapter.NewArrivalAdapter;
+import com.iti.mercado.adapter.OfferAdapter;
+import com.iti.mercado.model.FlashSale;
+import com.iti.mercado.model.HomeAppliance;
+import com.iti.mercado.model.ItemPath;
+import com.iti.mercado.model.KidsClothing;
+import com.iti.mercado.model.KidsShoes;
+import com.iti.mercado.model.Laptop;
+import com.iti.mercado.model.LaptopBag;
+import com.iti.mercado.model.MakeUp;
+import com.iti.mercado.model.Mobile;
+import com.iti.mercado.model.PersonalCare;
+import com.iti.mercado.model.SkinCare;
+import com.iti.mercado.model.WomenBags;
+import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseFlashSale;
+import com.iti.mercado.utilities.DatabaseItem;
+import com.iti.mercado.utilities.OnRetrieveFlashSale;
+import com.iti.mercado.utilities.OnRetrieveItem;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ShopFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ShopFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
 
-    public ShopFragment() {
-        // Required empty public constructor
-    }
+    private ImageSlider imageSlider;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ShopFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ShopFragment newInstance(String param1, String param2) {
-        ShopFragment fragment = new ShopFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private List<ItemPath> newArrivalItems;
+    private List<ItemPath> offersItems;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private NewArrivalAdapter newArrivalAdapter;
+    private OfferAdapter offerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop, container, false);
+        View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        imageSlider = view.findViewById(R.id.slider);
+
+
+        RecyclerView newArrivalRecyclerview = view.findViewById(R.id.new_arrival_recyclerview);
+        RecyclerView offerRecyclerview = view.findViewById(R.id.offer_recyclerview);
+
+        newArrivalRecyclerview.setHasFixedSize(false);
+        offerRecyclerview.setHasFixedSize(false);
+
+        LinearLayoutManager newArrivalLayoutManager = new LinearLayoutManager(getActivity());
+        newArrivalLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+        LinearLayoutManager offerLayoutManager = new LinearLayoutManager(getActivity());
+        offerLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+        newArrivalRecyclerview.setLayoutManager(newArrivalLayoutManager);
+        offerRecyclerview.setLayoutManager(offerLayoutManager);
+
+        DatabaseFlashSale.getImages(this);
+
+        DatabaseItems.getItems("new arrival", itemsPath -> {
+            this.newArrivalItems = itemsPath;
+
+            newArrivalAdapter = new NewArrivalAdapter(getActivity(), newArrivalItems);
+            newArrivalRecyclerview.setAdapter(newArrivalAdapter);
+
+            for (ItemPath favoriteItem : itemsPath) {
+                subCategorySwitch(favoriteItem, () -> {
+                    this.newArrivalAdapter.notifyDataSetChanged();
+                });
+            }
+        });
+
+        DatabaseItems.getItems("offers", itemsPath -> {
+            this.offersItems = itemsPath;
+
+            offerAdapter = new OfferAdapter(getActivity(), offersItems);
+            offerRecyclerview.setAdapter(offerAdapter);
+
+            for (ItemPath favoriteItem : itemsPath) {
+                subCategorySwitch(favoriteItem, () -> {
+                    this.offerAdapter.notifyDataSetChanged();
+                });
+            }
+        });
+
+        return view;
+    }
+
+    void subCategorySwitch(ItemPath itemPath, OnRetrieveItem onRetrieveItem) {
+        if (itemPath.getSubCategory().equals("clothing")) {
+            if (itemPath.getCategory().equals("Women's Fashion"))
+                DatabaseItem.getItemDetails(itemPath, WomenClothing.class, onRetrieveItem);
+            else if (itemPath.getCategory().equals("Girl's Fashion") ||
+                    itemPath.getCategory().equals("boy's fashion"))
+                DatabaseItem.getItemDetails(itemPath, KidsClothing.class, onRetrieveItem);
+        } else if (itemPath.getSubCategory().equals("shoes"))
+            DatabaseItem.getItemDetails(itemPath, KidsShoes.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("bags"))
+            DatabaseItem.getItemDetails(itemPath, WomenBags.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("makeUp"))
+            DatabaseItem.getItemDetails(itemPath, MakeUp.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("skinCare"))
+            DatabaseItem.getItemDetails(itemPath, SkinCare.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("microwaves") ||
+                itemPath.getSubCategory().equals("blendersAndMixers"))
+            DatabaseItem.getItemDetails(itemPath, HomeAppliance.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("laptopBags"))
+            DatabaseItem.getItemDetails(itemPath, LaptopBag.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("laptops"))
+            DatabaseItem.getItemDetails(itemPath, Laptop.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("mobiles") ||
+                itemPath.getSubCategory().equals("tablets"))
+            DatabaseItem.getItemDetails(itemPath, Mobile.class, onRetrieveItem);
+        else if (itemPath.getSubCategory().equals("beautyEquipment") ||
+                itemPath.getSubCategory().equals("hairStylers"))
+            DatabaseItem.getItemDetails(itemPath, PersonalCare.class, onRetrieveItem);
+    }
+
+    @Override
+    public void getFlashSaleList(List<FlashSale> flashSales) {
+        List<SlideModel> slideModels = new ArrayList<>();
+        for (FlashSale flashSale: flashSales) {
+            slideModels.add(new SlideModel(flashSale.getImage()));
+        }
+        imageSlider.setImageList(slideModels, false);
     }
 }

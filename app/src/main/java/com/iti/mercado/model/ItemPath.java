@@ -1,6 +1,6 @@
 package com.iti.mercado.model;
 
-public class FavoriteItem {
+public class ItemPath {
 
     private String category;
     private String subCategory;

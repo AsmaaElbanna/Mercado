@@ -10,6 +10,7 @@ public class Item implements Serializable {
     private String item_price;
     private String item_title;
     private List<String> slider_images;
+    private String price_afterSale;
 
 
     public List<String> getSlider_images() {
@@ -50,5 +51,13 @@ public class Item implements Serializable {
 
     public void setItem_title(String item_title) {
         this.item_title = item_title;
+    }
+
+    public String getPrice_afterSale() {
+        return price_afterSale;
+    }
+
+    public void setPrice_afterSale(String price_afterSale) {
+        this.price_afterSale = price_afterSale;
     }
 }

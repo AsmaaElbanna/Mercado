@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.FavoriteAdapter;
-import com.iti.mercado.model.FavoriteItem;
+import com.iti.mercado.model.ItemPath;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
@@ -33,20 +33,20 @@ import java.util.ArrayList;
 
 public class FavoriteFragment extends Fragment implements OnRetrieveItem {
 
-    private ArrayList<FavoriteItem> favoriteItems;
+    private ArrayList<ItemPath> favoriteItems;
     private FavoriteAdapter favoriteAdapter;
 
     @Override
     public void onStart() {
         super.onStart();
         DatabaseFavorite.getAllItems(favoriteItems, () -> {
-            for (FavoriteItem favoriteItem : favoriteItems) {
+            for (ItemPath favoriteItem : favoriteItems) {
                 subCategorySwitch(favoriteItem);
             }
         });
     }
 
-    void subCategorySwitch(FavoriteItem favoriteItem) {
+    void subCategorySwitch(ItemPath favoriteItem) {
         if (favoriteItem.getSubCategory().equals("clothing")) {
             if (favoriteItem.getCategory().equals("Women's Fashion"))
                 DatabaseItem.getItemDetails(favoriteItem, WomenClothing.class, this);

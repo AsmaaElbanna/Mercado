@@ -6,7 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.iti.mercado.model.FavoriteItem;
+import com.iti.mercado.model.ItemPath;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DatabaseFavorite {
 
 
-    public void write(FavoriteItem favoriteItem, OnSuccess onSuccess) {
+    public void write(ItemPath favoriteItem, OnSuccess onSuccess) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("favorite")
                 .child(UserFirebase.getUserId())
                 .child(favoriteItem.getItemId());
@@ -22,7 +22,7 @@ public class DatabaseFavorite {
 
     }
 
-    public void Read(FavoriteItem favoriteItem, OnDataFound onDataFound) {
+    public void read(ItemPath favoriteItem, OnDataFound onDataFound) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("favorite")
                 .child(UserFirebase.getUserId())
                 .child(favoriteItem.getItemId());
@@ -43,7 +43,7 @@ public class DatabaseFavorite {
         });
     }
 
-    public void delete(FavoriteItem favoriteItem, OnSuccess onSuccess) {
+    public void delete(ItemPath favoriteItem, OnSuccess onSuccess) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("favorite")
                 .child(UserFirebase.getUserId())
                 .child(favoriteItem.getItemId());
@@ -51,7 +51,7 @@ public class DatabaseFavorite {
 
     }
 
-    public static void getAllItems(ArrayList<FavoriteItem>favoriteItems,
+    public static void getAllItems(ArrayList<ItemPath> favoriteItems,
                                    OnRetrieveFavoriteItems onRetrieveFavoriteItems) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("favorite")
                 .child(UserFirebase.getUserId());
@@ -62,7 +62,7 @@ public class DatabaseFavorite {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (DataSnapshot dataSnapshot : dataSnapshots.getChildren()) {
-                    favoriteItems.add(dataSnapshot.getValue(FavoriteItem.class));
+                    favoriteItems.add(dataSnapshot.getValue(ItemPath.class));
                 }
                 onRetrieveFavoriteItems.onRetrieveItems();
             }
