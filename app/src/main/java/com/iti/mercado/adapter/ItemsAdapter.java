@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.iti.mercado.activity.DetailsItemLaptopActivity;
 import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
 import com.iti.mercado.activity.DetailsItemPersonalCareActivity;
+import com.iti.mercado.model.Cart;
 import com.iti.mercado.model.FavoriteItem;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.Item;
@@ -33,6 +35,7 @@ import com.iti.mercado.model.PersonalCare;
 import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
 
 import java.util.List;
@@ -138,6 +141,28 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 });
             }
         });
+
+        // cart part
+
+        Cart cart =new Cart();
+        cart.setItemId(items.get(position).getItem_id());
+        cart.setCategory(category);
+        cart.setSubCategory(sub_category);
+        DatabaseCart databaseCart = new DatabaseCart();
+
+        databaseCart.Read(cart, flag -> {
+            if (flag) {
+                holder.addCart.setText("Added");
+            }
+        });
+        holder.addCart.setOnClickListener(v -> {
+            databaseCart.write(cart
+                    , () -> {
+                      holder.addCart.setText("Added");
+                    });
+        });
+
+
     }
 
     @Override
@@ -151,6 +176,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         public TextView itemTitleTextView, itemPriceTextView;
         public ImageView itemImageView, favoriteImage, unFavoriteImage;
         public LinearLayout linearLayout;
+        Button addCart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -160,6 +186,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
             itemImageView = itemView.findViewById(R.id.item_image);
             favoriteImage = itemView.findViewById(R.id.favorite);
             unFavoriteImage = itemView.findViewById(R.id.unfavorite);
+            addCart = itemView.findViewById(R.id.add_to_cart);
         }
     }
 }

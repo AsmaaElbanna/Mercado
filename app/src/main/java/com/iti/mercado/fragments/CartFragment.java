@@ -3,64 +3,108 @@ package com.iti.mercado.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.iti.mercado.R;
+import com.iti.mercado.adapter.CartAdapter;
+import com.iti.mercado.adapter.FavoriteAdapter;
+import com.iti.mercado.model.Cart;
+import com.iti.mercado.model.FavoriteItem;
+import com.iti.mercado.model.HomeAppliance;
+import com.iti.mercado.model.KidsClothing;
+import com.iti.mercado.model.KidsShoes;
+import com.iti.mercado.model.Laptop;
+import com.iti.mercado.model.LaptopBag;
+import com.iti.mercado.model.MakeUp;
+import com.iti.mercado.model.Mobile;
+import com.iti.mercado.model.PersonalCare;
+import com.iti.mercado.model.SkinCare;
+import com.iti.mercado.model.WomenBags;
+import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseCart;
+import com.iti.mercado.utilities.DatabaseFavorite;
+import com.iti.mercado.utilities.DatabaseItem;
+import com.iti.mercado.utilities.DatabaseItemCart;
+import com.iti.mercado.utilities.OnRetrieveItem;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CartFragment extends Fragment {
+import java.util.ArrayList;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class CartFragment extends Fragment implements OnRetrieveItem {
 
-    public CartFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ArrayList<Cart> carts;
+    private CartAdapter cartAdapter;
+    private RecyclerView recyclerView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onStart() {
+        super.onStart();
+        carts = new ArrayList<>();
+        cartAdapter = new CartAdapter(getActivity(), carts);
+        recyclerView.setAdapter(cartAdapter);
+        DatabaseCart.getAllItems(carts, () -> {
+            for (Cart cart : carts) {
+                subCategorySwitch(cart);
+            }
+        });
+    }
+
+
+    private void subCategorySwitch(Cart cart) {
+        if (cart.getSubCategory().equals("clothing")) {
+            if (cart.getCategory().equals("Women's Fashion"))
+                DatabaseItemCart.getItemDetails(cart, WomenClothing.class, this);
+            else if (cart.getCategory().equals("Girl's Fashion") ||
+                    cart.getCategory().equals("boy's fashion"))
+                DatabaseItemCart.getItemDetails(cart, KidsClothing.class, this);
+        } else if (cart.getSubCategory().equals("shoes"))
+            DatabaseItemCart.getItemDetails(cart, KidsShoes.class, this);
+        else if (cart.getSubCategory().equals("bags"))
+            DatabaseItemCart.getItemDetails(cart, WomenBags.class, this);
+        else if (cart.getSubCategory().equals("makeUp"))
+            DatabaseItemCart.getItemDetails(cart, MakeUp.class, this);
+        else if (cart.getSubCategory().equals("skinCare"))
+            DatabaseItemCart.getItemDetails(cart, SkinCare.class, this);
+        else if (cart.getSubCategory().equals("microwaves") ||
+                cart.getSubCategory().equals("blendersAndMixers"))
+            DatabaseItemCart.getItemDetails(cart, HomeAppliance.class, this);
+        else if (cart.getSubCategory().equals("laptopBags"))
+            DatabaseItemCart.getItemDetails(cart, LaptopBag.class, this);
+        else if (cart.getSubCategory().equals("laptops"))
+            DatabaseItemCart.getItemDetails(cart, Laptop.class, this);
+        else if (cart.getSubCategory().equals("mobiles") ||
+                cart.getSubCategory().equals("tablets"))
+            DatabaseItemCart.getItemDetails(cart, Mobile.class, this);
+        else if (cart.getSubCategory().equals("beautyEquipment") ||
+                cart.getSubCategory().equals("hairStylers"))
+            DatabaseItemCart.getItemDetails(cart, PersonalCare.class, this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        Log.i("TAG", "onCreateView:Cart ");
+
+        recyclerView = view.findViewById(R.id.cart_recycler);
+        recyclerView.setHasFixedSize(false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        return view;
+    }
+
+    public void onRetrieveItems() {
+        cartAdapter.notifyDataSetChanged();
     }
 }
