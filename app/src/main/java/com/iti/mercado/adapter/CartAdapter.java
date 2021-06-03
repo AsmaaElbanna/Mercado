@@ -14,24 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iti.mercado.R;
-import com.iti.mercado.activity.DetailsItemFashionActivity;
-import com.iti.mercado.activity.DetailsItemHomeApplianceActivity;
-import com.iti.mercado.activity.DetailsItemLaptopActivity;
-import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
-import com.iti.mercado.activity.DetailsItemMobileActivity;
 import com.iti.mercado.model.Cart;
-import com.iti.mercado.model.FavoriteItem;
-import com.iti.mercado.model.HomeAppliance;
-import com.iti.mercado.model.KidsClothing;
-import com.iti.mercado.model.KidsShoes;
-import com.iti.mercado.model.Laptop;
-import com.iti.mercado.model.LaptopBag;
-import com.iti.mercado.model.MakeUp;
-import com.iti.mercado.model.Mobile;
-import com.iti.mercado.model.SkinCare;
-import com.iti.mercado.model.WomenBags;
-import com.iti.mercado.model.WomenClothing;
-import com.iti.mercado.utilities.DatabaseFavorite;
 
 import java.util.List;
 

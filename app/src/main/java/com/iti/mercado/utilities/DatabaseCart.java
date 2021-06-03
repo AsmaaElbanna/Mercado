@@ -7,7 +7,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.iti.mercado.model.Cart;
-import com.iti.mercado.model.FavoriteItem;
 
 import java.util.ArrayList;
 

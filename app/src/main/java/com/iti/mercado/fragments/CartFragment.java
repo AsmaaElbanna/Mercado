@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.CartAdapter;
-import com.iti.mercado.adapter.FavoriteAdapter;
 import com.iti.mercado.model.Cart;
-import com.iti.mercado.model.FavoriteItem;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
@@ -28,8 +26,6 @@ import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.DatabaseCart;
-import com.iti.mercado.utilities.DatabaseFavorite;
-import com.iti.mercado.utilities.DatabaseItem;
 import com.iti.mercado.utilities.DatabaseItemCart;
 import com.iti.mercado.utilities.OnRetrieveItem;
 

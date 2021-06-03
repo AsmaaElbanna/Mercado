@@ -2,6 +2,7 @@ package com.iti.mercado.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
 import com.iti.mercado.activity.DetailsItemPersonalCareActivity;
 import com.iti.mercado.model.Cart;
-import com.iti.mercado.model.FavoriteItem;
+import com.iti.mercado.model.ItemPath;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.Item;
 import com.iti.mercado.model.KidsClothing;
@@ -108,18 +109,20 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
 
         //Favorite part
 
-        FavoriteItem favoriteItem = new FavoriteItem();
+        ItemPath favoriteItem = new ItemPath();
         favoriteItem.setItemId(items.get(position).getItem_id());
         favoriteItem.setCategory(category);
         favoriteItem.setSubCategory(sub_category);
         DatabaseFavorite databaseFavorite = new DatabaseFavorite();
 
-        databaseFavorite.Read(favoriteItem, flag -> {
+        databaseFavorite.read(favoriteItem, flag -> {
             if (flag) {
                 holder.unFavoriteImage.setVisibility(View.GONE);
                 holder.favoriteImage.setVisibility(View.VISIBLE);
             }
         });
+
+        Log.i("TAG", "onBindViewHolder: " + favoriteItem.getItemId());
 
         holder.unFavoriteImage.setOnClickListener(new View.OnClickListener() {
             @Override
