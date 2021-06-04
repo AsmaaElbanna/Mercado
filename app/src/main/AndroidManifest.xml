@@ -31,6 +31,7 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".activity.DeliveryActivity" />
+        <activity android:name=".activity.SearchActivity"/>
         <activity android:name=".activity.DetailsItemPersonalCareActivity" />
         <activity android:name=".activity.DetailsItemHomeApplianceActivity" />
         <activity android:name=".activity.DetailsItemMobileActivity" />

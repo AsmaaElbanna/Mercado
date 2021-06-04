@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SearchActivity">
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="30dp"
+        android:autofillHints="@string/searchForCategoryOrBrand"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:drawablePadding="8dp"
+        android:hint="@string/searchForCategoryOrBrand"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textColorHint="#adacae"
+        android:textColor="@color/black"
+        android:transitionName="searchAnimation" />
+
+</LinearLayout>

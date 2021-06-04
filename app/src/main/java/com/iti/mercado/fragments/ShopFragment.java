@@ -1,7 +1,10 @@
 package com.iti.mercado.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,11 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.iti.mercado.R;
 import com.iti.mercado.RealtimeDatabase.DatabaseItems;
+import com.iti.mercado.activity.SearchActivity;
 import com.iti.mercado.adapter.FavoriteAdapter;
 import com.iti.mercado.adapter.NewArrivalAdapter;
 import com.iti.mercado.adapter.OfferAdapter;
@@ -54,6 +60,18 @@ public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         imageSlider = view.findViewById(R.id.slider);
+
+        TextView searchEditText = view.findViewById(R.id.search);
+        searchEditText.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(
+                            getActivity(),
+                            searchEditText,
+                            ViewCompat.getTransitionName(searchEditText));
+                    getActivity().startActivity(intent, activityOptionsCompat.toBundle());
+
+        });
 
 
         RecyclerView newArrivalRecyclerview = view.findViewById(R.id.new_arrival_recyclerview);
