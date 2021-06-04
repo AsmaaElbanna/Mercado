@@ -23,16 +23,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (currentFirebaseUser == null)
-                    changeActivity(GetStartedActivity.class);
-                else
-                    changeActivity(TabsActivity.class);
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentFirebaseUser == null)
+                changeActivity(GetStartedActivity.class);
+            else
+                changeActivity(TabsActivity.class);
+            finish();
         }, Constants.TIME_SPLASH);
 
     }

@@ -8,6 +8,17 @@
         <font color="#53b175">Privacy Policy.</font>
     </string>
 
+    <string-array name="countries_array">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Anguilla</item>
+        <item>Antarctica</item>
+    </string-array>
+
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="enter_your_emails_and_password">Enter your emails and password</string>
@@ -45,7 +56,6 @@
     <string name="color_text">Color</string>
     <string name="quality">Quality</string>
     <string name="price_text">Price</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="display_size">Display Size</string>
     <string name="graphics_card_type">Graphics Card Type</string>
@@ -71,6 +81,7 @@
     <string name="new_arrival">New Arrival</string>
     <string name="exclusive_offers">Exclusive Offers</string>
     <string name="searchForCategoryOrBrand">Search for category or brand</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

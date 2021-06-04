@@ -223,7 +223,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:gravity=""
-                        android:text="help"
+                        android:text="Help"
                         android:textColor="@color/primary_text" />
 
                     <ImageView
