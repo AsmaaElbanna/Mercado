@@ -25,4 +25,9 @@
         android:textColor="@color/black"
         android:transitionName="searchAnimation" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
