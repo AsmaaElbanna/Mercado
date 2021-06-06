@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/empty_cart"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#e8e8e8"
+    android:weightSum="7">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:src="@drawable/carttwo">
+    </ImageView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your cart is empty"
+        android:textSize="30dp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="@color/black">
+    </TextView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="explore"
+        android:background="@drawable/border_button">
+
+    </Button>
+
+
+</LinearLayout>

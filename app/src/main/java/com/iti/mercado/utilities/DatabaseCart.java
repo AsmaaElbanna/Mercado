@@ -48,6 +48,15 @@ public class DatabaseCart {
 //
 //    }
 
+
+
+    public void updateCount(int count,String item_id){
+        DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("cart")
+                .child(UserFirebase.getUserId())
+                .child(item_id);
+        myRef.child("count").setValue(count);
+    }
+
     public static void getAllItems(ArrayList<Cart> carts,
                                    OnRetrieveFavoriteItems onRetrieveFavoriteItems) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("cart")

@@ -151,6 +151,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         cart.setItemId(items.get(position).getItem_id());
         cart.setCategory(category);
         cart.setSubCategory(sub_category);
+        cart.setCount(1);
         DatabaseCart databaseCart = new DatabaseCart();
 
         databaseCart.Read(cart, flag -> {
