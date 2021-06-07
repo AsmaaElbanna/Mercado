@@ -151,15 +151,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         }
     }
 
-    @Override
-    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
 
-    }
 
     @Override
     public int getItemCount() {
         return carts.size();
+    }
+
+    public void removeItem(int position) {
+        Cart cart = carts.get(position);
+        carts.remove(position);
+        DatabaseCart databaseCart = new DatabaseCart();
+        databaseCart.delete(cart,() -> {
+            notifyItemRemoved(position);
+        });
+
+    }
+
+    public void restoreItem(Cart cart, int position) {
+        carts.add(position, cart);
+        notifyItemInserted(position);
+    }
+
+    public List<Cart> getData() {
+        return carts;
     }
 
 

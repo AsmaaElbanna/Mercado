@@ -154,7 +154,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         cart.setCount(1);
         DatabaseCart databaseCart = new DatabaseCart();
 
-        databaseCart.Read(cart, flag -> {
+        databaseCart.read(cart, flag -> {
             if (flag) {
                 holder.addCart.setText("Added");
             }

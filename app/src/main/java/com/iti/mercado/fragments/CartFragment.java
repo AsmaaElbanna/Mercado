@@ -1,11 +1,13 @@
 package com.iti.mercado.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.CartAdapter;
 import com.iti.mercado.model.Cart;
@@ -34,6 +37,7 @@ import com.iti.mercado.utilities.CountSubPrice;
 import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseItemCart;
 import com.iti.mercado.utilities.OnRetrieveItem;
+import com.iti.mercado.utilities.SwipeToDeleteCallback;
 
 import java.util.ArrayList;
 
@@ -44,6 +48,7 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
     private CartAdapter cartAdapter;
     private RecyclerView recyclerView;
     TextView subTotalText, shippingText, totalText;
+    LinearLayout linearLayout;
     private Double subTotal = 0.0;
 
 
@@ -114,10 +119,12 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
         subTotalText = view.findViewById(R.id.subtotal);
         shippingText = view.findViewById(R.id.shipping);
         totalText = view.findViewById(R.id.total);
+        linearLayout=view.findViewById(R.id.item_cart_container);
+
         //subTotalText.setText(subTotal + " EGP");
         shippingText.setText("50 EGP");
 
-
+        enableSwipeToDeleteAndUndo();
 
 //        } else if(carts == null){
 //        view = inflater.inflate(R.layout.fragment_cart_empty, container, false);
@@ -180,5 +187,42 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         subTotal=0.0;
+    }
+
+
+
+    // Swipe part
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(getContext()) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+                final int position = viewHolder.getAdapterPosition();
+                final Cart cart = cartAdapter.getData().get(position);
+
+                cartAdapter.removeItem(position);
+
+
+//                Snackbar snackbar = Snackbar
+//                        .make(linearLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
+//                snackbar.setAction("UNDO", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                        cartAdapter.restoreItem(cart, position);
+//                        recyclerView.scrollToPosition(position);
+//                    }
+//                });
+
+//                snackbar.setActionTextColor(Color.YELLOW);
+//                snackbar.show();
+
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(recyclerView);
     }
 }

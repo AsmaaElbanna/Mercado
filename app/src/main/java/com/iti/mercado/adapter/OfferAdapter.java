@@ -21,6 +21,7 @@ import com.iti.mercado.activity.DetailsItemHomeApplianceActivity;
 import com.iti.mercado.activity.DetailsItemLaptopActivity;
 import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
+import com.iti.mercado.model.Cart;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.ItemPath;
 import com.iti.mercado.model.KidsClothing;
@@ -32,7 +33,9 @@ import com.iti.mercado.model.Mobile;
 import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
+import com.iti.mercado.utilities.DatabaseItem;
 
 import java.util.List;
 
@@ -134,6 +137,29 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
                     });
                 }
             });
+
+            // cart part
+            DatabaseCart databaseCart = new DatabaseCart();
+
+//
+//            databaseItem.read(itemPaths.get(position), flag -> {
+//                if (flag) {
+//                    holder.unfavorite.setVisibility(View.GONE);
+//                    holder.favorite.setVisibility(View.VISIBLE);
+//                }
+//            });
+//
+//            holder.addToCartButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                 //   databaseCart.write(itemPaths.get(position)
+//                            , () -> {
+//                                holder.unfavorite.setVisibility(View.GONE);
+//                                holder.favorite.setVisibility(View.VISIBLE);
+//                            });
+//                }
+//            });
+
 
         }
     }

@@ -4,17 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.iti.mercado.R;
+import com.iti.mercado.model.Cart;
 import com.iti.mercado.model.KidsClothing;
 import com.iti.mercado.model.KidsShoes;
 import com.iti.mercado.model.MakeUp;
 import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseCart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
 public class DetailsItemFashionActivity extends AppCompatActivity {
     TextView price, brand, size, color, quality;
     TextView sizeText,qualityText,colorText;
+    Button addCartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         sizeText =findViewById(R.id.size_txt);
         qualityText=findViewById(R.id.quality_txt);
         colorText=findViewById(R.id.color_txt);
+        addCartButton=findViewById(R.id.add_to_cart_from_details);
 
         //slider part
         ImageSlider imageSlider = findViewById(R.id.slider);
@@ -126,5 +131,27 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             quality.setText(skinCare.getItem_description());
             size.setText(skinCare.getSize());
         }
+
+        // cart part
+        Cart cart =new Cart();
+        cart.setItemId("");
+        cart.setCategory(" ");
+        cart.setSubCategory(" ");
+        cart.setCount(1);
+        DatabaseCart databaseCart = new DatabaseCart();
+//
+//        databaseCart.Read(cart, flag -> {
+//            if (flag) {
+//
+//            }
+//        });
+        addCartButton.setOnClickListener(v -> {
+            databaseCart.write(cart
+                    , () -> {
+                addCartButton.setText("added");
+
+                    });
+        });
+
     }
 }

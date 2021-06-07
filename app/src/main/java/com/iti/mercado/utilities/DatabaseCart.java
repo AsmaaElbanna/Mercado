@@ -19,7 +19,7 @@ public class DatabaseCart {
         myRef.setValue(cart).addOnCompleteListener(command -> onSuccess.change());
     }
 
-    public void Read(Cart cart, OnDataFound onDataFound) {
+    public void read(Cart cart, OnDataFound onDataFound) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("cart")
                 .child(UserFirebase.getUserId())
                 .child(cart.getItemId());
@@ -40,13 +40,13 @@ public class DatabaseCart {
         });
     }
 
-//    public void delete(FavoriteItem favoriteItem, OnSuccess onSuccess) {
-//        DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("favorite")
-//                .child(UserFirebase.getUserId())
-//                .child(favoriteItem.getItemId());
-//        myRef.removeValue().addOnCompleteListener(command -> onSuccess.change());
-//
-//    }
+    public void delete(Cart cart, OnSuccess onSuccess) {
+        DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("cart")
+                .child(UserFirebase.getUserId())
+                .child(cart.getItemId());
+        myRef.removeValue().addOnCompleteListener(command -> onSuccess.change());
+
+    }
 
 
 
