@@ -3,17 +3,24 @@ package com.iti.mercado.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.iti.mercado.R;
+import com.iti.mercado.model.Cart;
 import com.iti.mercado.model.Mobile;
+import com.iti.mercado.utilities.DatabaseCart;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsItemMobileActivity extends AppCompatActivity {
+
+    Button addCartButton;
+    private String category,sub_category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,7 @@ public class DetailsItemMobileActivity extends AppCompatActivity {
         memory = findViewById(R.id.memory_value);
         front_camera = findViewById(R.id.front_camera_value);
         connectivity = findViewById(R.id.connectivity_value);
+        addCartButton=findViewById(R.id.add);
 
         Mobile mobile = (Mobile) getIntent().getSerializableExtra("MyClass");
 
@@ -56,5 +64,36 @@ public class DetailsItemMobileActivity extends AppCompatActivity {
         memory.setText(mobile.getMemory());
         front_camera.setText(mobile.getFront_camera());
         connectivity.setText(mobile.getConnectivity());
+
+        // cart part
+        category = getIntent().getStringExtra("category");
+        sub_category= getIntent().getStringExtra("subcategory");
+        Cart cart =new Cart();
+        cart.setItemId(mobile.getItem_id());
+        cart.setCategory(category);
+        Log.i("TAG", "onCreate: category "+category);
+        cart.setSubCategory(sub_category);
+        Log.i("TAG", "onCreate: category "+sub_category);
+        cart.setCount(1);
+        DatabaseCart databaseCart = new DatabaseCart();
+
+        databaseCart.read(cart, flag -> {
+            if (flag) {
+                addCartButton.setText("Added");
+            }
+        });
+        addCartButton.setOnClickListener(v -> {
+
+            if (addCartButton.getText() == "Added") {
+                databaseCart.delete(cart, () -> {
+                    addCartButton.setText("Add to cart");
+                });
+            }else{
+                databaseCart.write(cart
+                        , () -> {
+                            addCartButton.setText("Added");
+                        });
+            }
+        });
     }
 }

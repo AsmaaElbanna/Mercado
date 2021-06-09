@@ -3,6 +3,7 @@ package com.iti.mercado.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
     TextView price, brand, size, color, quality;
     TextView sizeText,qualityText,colorText;
     Button addCartButton;
+    private  String category, sub_category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +51,45 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             KidsClothing girlsAndBoysClothing = (KidsClothing) getIntent().getSerializableExtra("MyClass");
 
             List<SlideModel> slideModels = new ArrayList<>();
-
             for(String slider:girlsAndBoysClothing.getSlider_image()){
                 slideModels.add(new SlideModel(slider, girlsAndBoysClothing.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
-//
             price.setText(girlsAndBoysClothing.getItem_price());
             brand.setText(girlsAndBoysClothing.getBrand());
             color.setText(girlsAndBoysClothing.getColor());
             size.setText(girlsAndBoysClothing.getSize());
             quality.setText(girlsAndBoysClothing.getQuality());
+            // cart part
+            category = getIntent().getStringExtra("category");
+            sub_category= getIntent().getStringExtra("subcategory");
+            Cart cart =new Cart();
+            cart.setItemId(girlsAndBoysClothing.getItem_id());
+             cart.setCategory(category);
+            Log.i("TAG", "onCreate: category "+category);
+            cart.setSubCategory(sub_category);
+            Log.i("TAG", "onCreate: category "+sub_category);
+            cart.setCount(1);
+             DatabaseCart databaseCart = new DatabaseCart();
+
+        databaseCart.read(cart, flag -> {
+            if (flag) {
+                addCartButton.setText("Added");
+            }
+        });
+        addCartButton.setOnClickListener(v -> {
+
+            if (addCartButton.getText() == "Added") {
+                databaseCart.delete(cart, () -> {
+                    addCartButton.setText("Add to cart");
+                });
+            }else{
+                databaseCart.write(cart
+                        , () -> {
+                            addCartButton.setText("Added");
+                        });
+            }
+        });
 
         } else if (getIntent().getSerializableExtra("MyClass") instanceof WomenClothing) {
             WomenClothing womenClothing = (WomenClothing) getIntent().getSerializableExtra("MyClass");
@@ -73,6 +103,36 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             color.setText(womenClothing.getColor());
             size.setText(womenClothing.getLength());
             quality.setText(womenClothing.getMaterial());
+            // cart part
+            category = getIntent().getStringExtra("category");
+            sub_category= getIntent().getStringExtra("subcategory");
+            Cart cart =new Cart();
+            cart.setItemId(womenClothing.getItem_id());
+            cart.setCategory(category);
+            Log.i("TAG", "onCreate: category "+category);
+            cart.setSubCategory(sub_category);
+            Log.i("TAG", "onCreate: category "+sub_category);
+            cart.setCount(1);
+            DatabaseCart databaseCart = new DatabaseCart();
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    addCartButton.setText("Added");
+                }
+            });
+            addCartButton.setOnClickListener(v -> {
+
+                if (addCartButton.getText() == "Added") {
+                    databaseCart.delete(cart, () -> {
+                        addCartButton.setText("Add to cart");
+                    });
+                }else{
+                    databaseCart.write(cart
+                            , () -> {
+                                addCartButton.setText("Added");
+                            });
+                }
+            });
         } else if (getIntent().getSerializableExtra("MyClass") instanceof KidsShoes) {
             KidsShoes kidsShoes = (KidsShoes) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
@@ -86,6 +146,36 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             color.setText(kidsShoes.getColor());
             size.setText(kidsShoes.getSize());
             quality.setText(kidsShoes.getMaterial());
+            // cart part
+            category = getIntent().getStringExtra("category");
+            sub_category= getIntent().getStringExtra("subcategory");
+            Cart cart =new Cart();
+            cart.setItemId(kidsShoes.getItem_id());
+            cart.setCategory(category);
+            Log.i("TAG", "onCreate: category "+category);
+            cart.setSubCategory(sub_category);
+            Log.i("TAG", "onCreate: category "+sub_category);
+            cart.setCount(1);
+            DatabaseCart databaseCart = new DatabaseCart();
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    addCartButton.setText("Added");
+                }
+            });
+            addCartButton.setOnClickListener(v -> {
+
+                if (addCartButton.getText() == "Added") {
+                    databaseCart.delete(cart, () -> {
+                        addCartButton.setText("Add to cart");
+                    });
+                }else{
+                    databaseCart.write(cart
+                            , () -> {
+                                addCartButton.setText("Added");
+                            });
+                }
+            });
 
         }else if (getIntent().getSerializableExtra("MyClass") instanceof WomenBags) {
             WomenBags womenBags = (WomenBags) getIntent().getSerializableExtra("MyClass");
@@ -100,6 +190,36 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             color.setText(womenBags.getColor());
             quality.setText(womenBags.getMaterial());
             sizeText.setVisibility(View.GONE);
+            // cart part
+            category = getIntent().getStringExtra("category");
+            sub_category= getIntent().getStringExtra("subcategory");
+            Cart cart =new Cart();
+            cart.setItemId(womenBags.getItem_id());
+            cart.setCategory(category);
+            Log.i("TAG", "onCreate: category "+category);
+            cart.setSubCategory(sub_category);
+            Log.i("TAG", "onCreate: category "+sub_category);
+            cart.setCount(1);
+            DatabaseCart databaseCart = new DatabaseCart();
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    addCartButton.setText("Added");
+                }
+            });
+            addCartButton.setOnClickListener(v -> {
+
+                if (addCartButton.getText() == "Added") {
+                    databaseCart.delete(cart, () -> {
+                        addCartButton.setText("Add to cart");
+                    });
+                }else{
+                    databaseCart.write(cart
+                            , () -> {
+                                addCartButton.setText("Added");
+                            });
+                }
+            });
 
         } else if(getIntent().getSerializableExtra("MyClass") instanceof MakeUp) {
             MakeUp makeUp = (MakeUp) getIntent().getSerializableExtra("MyClass");
@@ -116,6 +236,36 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             quality.setText(makeUp.getItem_description());
             sizeText.setText("Weight");
             size.setText(makeUp.getWeight());
+            // cart part
+            category = getIntent().getStringExtra("category");
+            sub_category= getIntent().getStringExtra("subcategory");
+            Cart cart =new Cart();
+            cart.setItemId(makeUp.getItem_id());
+            cart.setCategory(category);
+            Log.i("TAG", "onCreate: category "+category);
+            cart.setSubCategory(sub_category);
+            Log.i("TAG", "onCreate: category "+sub_category);
+            cart.setCount(1);
+            DatabaseCart databaseCart = new DatabaseCart();
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    addCartButton.setText("Added");
+                }
+            });
+            addCartButton.setOnClickListener(v -> {
+
+                if (addCartButton.getText() == "Added") {
+                    databaseCart.delete(cart, () -> {
+                        addCartButton.setText("Add to cart");
+                    });
+                }else{
+                    databaseCart.write(cart
+                            , () -> {
+                                addCartButton.setText("Added");
+                            });
+                }
+            });
         }else if(getIntent().getSerializableExtra("MyClass") instanceof SkinCare) {
             SkinCare skinCare = (SkinCare) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
@@ -130,28 +280,39 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             qualityText.setText("Description");
             quality.setText(skinCare.getItem_description());
             size.setText(skinCare.getSize());
+            // cart part
+            category = getIntent().getStringExtra("category");
+            sub_category= getIntent().getStringExtra("subcategory");
+            Cart cart =new Cart();
+            cart.setItemId(skinCare.getItem_id());
+            cart.setCategory(category);
+            Log.i("TAG", "onCreate: category "+category);
+            cart.setSubCategory(sub_category);
+            Log.i("TAG", "onCreate: category "+sub_category);
+            cart.setCount(1);
+            DatabaseCart databaseCart = new DatabaseCart();
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    addCartButton.setText("Added");
+                }
+            });
+            addCartButton.setOnClickListener(v -> {
+
+                if (addCartButton.getText() == "Added") {
+                    databaseCart.delete(cart, () -> {
+                        addCartButton.setText("Add to cart");
+                    });
+                }else{
+                    databaseCart.write(cart
+                            , () -> {
+                                addCartButton.setText("Added");
+                            });
+                }
+            });
         }
 
-        // cart part
-        Cart cart =new Cart();
-        cart.setItemId("");
-        cart.setCategory(" ");
-        cart.setSubCategory(" ");
-        cart.setCount(1);
-        DatabaseCart databaseCart = new DatabaseCart();
-//
-//        databaseCart.Read(cart, flag -> {
-//            if (flag) {
-//
-//            }
-//        });
-        addCartButton.setOnClickListener(v -> {
-            databaseCart.write(cart
-                    , () -> {
-                addCartButton.setText("added");
 
-                    });
-        });
 
     }
 }

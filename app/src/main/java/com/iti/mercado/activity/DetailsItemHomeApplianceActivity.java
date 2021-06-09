@@ -3,12 +3,16 @@ package com.iti.mercado.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.iti.mercado.R;
+import com.iti.mercado.model.Cart;
 import com.iti.mercado.model.HomeAppliance;
+import com.iti.mercado.utilities.DatabaseCart;
 
 
 import java.util.ArrayList;
@@ -16,6 +20,8 @@ import java.util.List;
 
 public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
 
+    Button addCartButton;
+    private String category,sub_category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,7 @@ public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
         item_type = findViewById(R.id.item_type_value);
         model_number = findViewById(R.id.model_value);
         power = findViewById(R.id.power_value);
+        addCartButton =findViewById(R.id.add);
 
         HomeAppliance homeAppliance = (HomeAppliance) getIntent().getSerializableExtra("MyClass");
 
@@ -53,6 +60,36 @@ public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
         item_type.setText(homeAppliance.getItem_type());
         model_number.setText(homeAppliance.getModel_number());
         power.setText(homeAppliance.getPower());
+        // cart part
+        category = getIntent().getStringExtra("category");
+        sub_category= getIntent().getStringExtra("subcategory");
+        Cart cart =new Cart();
+        cart.setItemId(homeAppliance.getItem_id());
+        cart.setCategory(category);
+        Log.i("TAG", "onCreate: category "+category);
+        cart.setSubCategory(sub_category);
+        Log.i("TAG", "onCreate: category "+sub_category);
+        cart.setCount(1);
+        DatabaseCart databaseCart = new DatabaseCart();
+
+        databaseCart.read(cart, flag -> {
+            if (flag) {
+                addCartButton.setText("Added");
+            }
+        });
+        addCartButton.setOnClickListener(v -> {
+
+            if (addCartButton.getText() == "Added") {
+                databaseCart.delete(cart, () -> {
+                    addCartButton.setText("Add to cart");
+                });
+            }else{
+                databaseCart.write(cart
+                        , () -> {
+                            addCartButton.setText("Added");
+                        });
+            }
+        });
 
     }
 }

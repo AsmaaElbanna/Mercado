@@ -78,31 +78,45 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
                 //pass data
                 intent.putExtra("MyClass", items.get(position));
+                intent.putExtra("category",category);
+                intent.putExtra("subcategory",sub_category);
                 context.startActivity(intent);
             } else if (items.get(position) instanceof LaptopBag) {
                 Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
                 //pass data
                 intent.putExtra("MyClass", items.get(position));
+                intent.putExtra("category",category);
+                intent.putExtra("subcategory",sub_category);
                 context.startActivity(intent);
             } else if (items.get(position) instanceof Mobile) {
                 Intent intent = new Intent(context, DetailsItemMobileActivity.class);
                 //pass data
                 intent.putExtra("MyClass", items.get(position));
+                intent.putExtra("category",category);
+                intent.putExtra("subcategory",sub_category);
                 context.startActivity(intent);
             } else if (items.get(position) instanceof HomeAppliance) {
                 Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
                 //pass data
                 intent.putExtra("MyClass", items.get(position));
+                intent.putExtra("category",category);
+                intent.putExtra("subcategory",sub_category);
                 context.startActivity(intent);
             } else if (items.get(position) instanceof PersonalCare) {
                 Intent intent = new Intent(context, DetailsItemPersonalCareActivity.class);
                 //pass data
                 intent.putExtra("MyClass", items.get(position));
+                intent.putExtra("category",category);
+                intent.putExtra("subcategory",sub_category);
                 context.startActivity(intent);
-            } else if (items.get(position) instanceof KidsClothing || items.get(position) instanceof KidsShoes || items.get(position) instanceof WomenClothing || items.get(position) instanceof WomenBags || items.get(position) instanceof MakeUp || items.get(position) instanceof SkinCare) {
+            } else if (items.get(position) instanceof KidsClothing || items.get(position) instanceof KidsShoes ||
+                       items.get(position) instanceof WomenClothing || items.get(position) instanceof WomenBags ||
+                       items.get(position) instanceof MakeUp || items.get(position) instanceof SkinCare) {
                 Intent intent = new Intent(context, DetailsItemFashionActivity.class);
                 //pass data
                 intent.putExtra("MyClass", items.get(position));
+                intent.putExtra("category",category);
+                intent.putExtra("subcategory",sub_category);
                 context.startActivity(intent);
             }
         });
@@ -159,10 +173,17 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
             }
         });
         holder.addCart.setOnClickListener(v -> {
-            databaseCart.write(cart
-                    , () -> {
-                      holder.addCart.setText("Added");
-                    });
+            if (holder.addCart.getText() == "Added") {
+                databaseCart.delete(cart, () -> {
+                    holder.addCart.setText("Add to cart");
+                });
+            }else{
+                databaseCart.write(cart
+                        , () -> {
+                            holder.addCart.setText("Added");
+                        });
+            }
+
         });
 
 
