@@ -134,7 +134,6 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                         });
             }
         });
-
         holder.favoriteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

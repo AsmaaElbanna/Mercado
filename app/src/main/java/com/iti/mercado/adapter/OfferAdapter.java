@@ -139,26 +139,38 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
             });
 
             // cart part
+            Cart cart =new Cart();
+            cart.setItemId(itemPaths.get(position).getItemId());
+            cart.setCategory(itemPaths.get(position).getCategory());
+            cart.setSubCategory(itemPaths.get(position).getSubCategory());
+            cart.setCount(1);
             DatabaseCart databaseCart = new DatabaseCart();
 
-//
-//            databaseItem.read(itemPaths.get(position), flag -> {
-//                if (flag) {
-//                    holder.unfavorite.setVisibility(View.GONE);
-//                    holder.favorite.setVisibility(View.VISIBLE);
-//                }
-//            });
-//
-//            holder.addToCartButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                 //   databaseCart.write(itemPaths.get(position)
-//                            , () -> {
-//                                holder.unfavorite.setVisibility(View.GONE);
-//                                holder.favorite.setVisibility(View.VISIBLE);
-//                            });
-//                }
-//            });
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    holder.addToCartButton.setText("Added");
+                }
+            });
+
+            holder.addToCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (holder.addToCartButton.getText() == "Added") {
+                        databaseCart.delete(cart, () -> {
+                            holder.addToCartButton.setText("Add to cart");
+                        });
+                    } else {
+                        databaseCart.write(cart
+                                , () -> {
+                                    holder.addToCartButton.setText("Added");
+                                });
+                    }
+                }
+                // twist
+
+            });
 
 
         }

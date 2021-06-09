@@ -20,6 +20,7 @@ import com.iti.mercado.activity.DetailsItemHomeApplianceActivity;
 import com.iti.mercado.activity.DetailsItemLaptopActivity;
 import com.iti.mercado.activity.DetailsItemLaptopBagActivity;
 import com.iti.mercado.activity.DetailsItemMobileActivity;
+import com.iti.mercado.model.Cart;
 import com.iti.mercado.model.HomeAppliance;
 import com.iti.mercado.model.ItemPath;
 import com.iti.mercado.model.KidsClothing;
@@ -31,6 +32,7 @@ import com.iti.mercado.model.Mobile;
 import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
 
 import java.util.List;
@@ -128,6 +130,39 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
                         holder.unfavorite.setVisibility(View.VISIBLE);
                     });
                 }
+            });
+            // cart part
+            Cart cart =new Cart();
+            cart.setItemId(itemPaths.get(position).getItemId());
+            cart.setCategory(itemPaths.get(position).getCategory());
+            cart.setSubCategory(itemPaths.get(position).getSubCategory());
+            cart.setCount(1);
+            DatabaseCart databaseCart = new DatabaseCart();
+
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    holder.addToCartButton.setText("Added");
+                }
+            });
+
+            holder.addToCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (holder.addToCartButton.getText() == "Added") {
+                        databaseCart.delete(cart, () -> {
+                            holder.addToCartButton.setText("Add to cart");
+                        });
+                    } else {
+
+                    databaseCart.write(cart
+                            , () -> {
+                                holder.addToCartButton.setText("Added");
+                            });
+                }
+                }
+                // twist
+
             });
 
         }

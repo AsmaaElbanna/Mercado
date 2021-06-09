@@ -42,7 +42,7 @@ public class TabsActivity extends AppCompatActivity {
 
         final TabsAdapter adapter = new TabsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-        //viewPager.setCurrentItem(0);
+        //viewPager.setCurrentItem(2);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
