@@ -19,6 +19,7 @@ import com.iti.mercado.model.Cart;
 import com.iti.mercado.utilities.CountSubPrice;
 import com.iti.mercado.utilities.DatabaseCart;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,13 +29,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private final List<Cart> carts;
     private CountSubPrice countSubPrice;
     double subTotal = 0;
+    HashSet<Integer> set;
 
-    //private int count=1;
+
     public CartAdapter(Context context, List<Cart> carts, CountSubPrice countSubPrice) {
 
         this.context = context;
         this.carts = carts;
         this.countSubPrice = countSubPrice;
+        set =new HashSet<>();
     }
 
     @NonNull
@@ -48,6 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         if (carts.get(position).getItem() == null) {
 
         } else if (carts.get(position).getItem() != null) {
@@ -61,13 +65,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_foreground)
                     .into(holder.itemImageView);
-            if(position==0 && subTotal!=0){
 
-            }else {
-                Double price = Double.valueOf(carts.get(position).getItem().getItem_price());
-                subTotal = price * carts.get(position).getCount();
-                countSubPrice.countSubTotal(subTotal);
-            }
+             if(!set.contains(position)){
+                 Double price = Double.valueOf(carts.get(position).getItem().getItem_price());
+                 subTotal = price * carts.get(position).getCount();
+                 countSubPrice.countSubTotal(subTotal);
+                 set.add(position);
+             }
+
 
 
 //            holder.linearLayout.setOnClickListener(v -> {
@@ -104,22 +109,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 //                }
 //            });
 
-            //Favorite part
-//            FavoriteItem favoriteItem = favoriteItems.get(position);
-//            DatabaseFavorite databaseFavorite = new DatabaseFavorite();
-//
-//            holder.unFavoriteImage.setVisibility(View.GONE);
-//            holder.favoriteImage.setVisibility(View.VISIBLE);
-//
-//            holder.favoriteImage.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    databaseFavorite.delete(favoriteItem, () -> {
-//                        favoriteItems.remove(position);
-//                        notifyDataSetChanged();
-//                    });
-//                }
-//            });
+
 
             DatabaseCart databaseCart = new DatabaseCart();
             holder.incAmount.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +150,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public void removeItem(int position) {
         Cart cart = carts.get(position);
+        Double price = Double.valueOf(carts.get(position).getItem().getItem_price());
+        subTotal = price * carts.get(position).getCount();
+        countSubPrice.countSubTotal(-subTotal);
         carts.remove(position);
         DatabaseCart databaseCart = new DatabaseCart();
         databaseCart.delete(cart,() -> {
@@ -167,7 +160,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         });
 
     }
-
     public void restoreItem(Cart cart, int position) {
         carts.add(position, cart);
         notifyItemInserted(position);

@@ -68,8 +68,6 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
 //            Log.i("TAG", "it's onStart: ");
 //            sum=sum+countSubTotal(cart);
 //        }
-
-
     }
 
     private void subCategorySwitch(Cart cart) {
