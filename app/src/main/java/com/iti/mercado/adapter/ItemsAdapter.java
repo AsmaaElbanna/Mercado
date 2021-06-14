@@ -66,7 +66,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.itemTitleTextView.setText(items.get(position).getItem_title());
-        holder.itemPriceTextView.setText(items.get(position).getItem_price());
+        holder.itemPriceTextView.setText(items.get(position).getItem_price()+" EGP");
         Glide.with(context).load(items.get(position).getItem_image())
                 //.apply(new RequestOptions().override(100,100))
                 .placeholder(R.drawable.ic_launcher_background)

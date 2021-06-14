@@ -6,7 +6,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.ItemsAdapter;
 import com.iti.mercado.model.HomeAppliance;
@@ -22,6 +30,7 @@ import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.Constants;
+import com.iti.mercado.utilities.MyBottomSheetDialogFilter;
 import com.iti.mercado.utilities.Network;
 import com.iti.mercado.utilities.OnResponseRetrofit;
 
@@ -33,11 +42,13 @@ public class ItemsListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private String category, sub_category;
+    private ImageView filterImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_list);
+        filterImageView = (ImageView) findViewById(R.id.filter);
 
         recyclerView = findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
@@ -49,6 +60,18 @@ public class ItemsListActivity extends AppCompatActivity {
         String message = bundle.getString("message");
 
         subCategorySwitch(getSubCategoryName(message));
+
+
+        filterImageView.setClickable(true);
+        filterImageView.setOnClickListener(v -> {
+            MyBottomSheetDialogFilter bottomSheetDialogFilter =new MyBottomSheetDialogFilter();
+            bottomSheetDialogFilter.show(getSupportFragmentManager(),"bottomSheet");
+            bundle.putString("Category ItemListActivity",category);
+            bundle.putString("SubCategory ItemListActivity", sub_category);
+            bottomSheetDialogFilter.setArguments(bundle);
+
+        });
+
     }
 
     void subCategorySwitch(String subCategory) {

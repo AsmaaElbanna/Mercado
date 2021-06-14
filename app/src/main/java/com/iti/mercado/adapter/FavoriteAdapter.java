@@ -55,7 +55,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (favoriteItems.get(position).getItem() != null) {
             holder.itemTitleTextView.setText(favoriteItems.get(position).getItem().getItem_title());
-            holder.itemPriceTextView.setText(favoriteItems.get(position).getItem().getItem_price());
+            holder.itemPriceTextView.setText(favoriteItems.get(position).getItem().getItem_price()+" EGP");
             Glide.with(context).load(favoriteItems.get(position).getItem().getItem_image())
                     //.apply(new RequestOptions().override(100,100))
                     .placeholder(R.drawable.ic_launcher_background)

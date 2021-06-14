@@ -57,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         } else if (carts.get(position).getItem() != null) {
 
             holder.titleTextView.setText(carts.get(position).getItem().getItem_title());
-            holder.priceTextView.setText(carts.get(position).getItem().getItem_price());
+            holder.priceTextView.setText(carts.get(position).getItem().getItem_price()+" EGP");
             holder.amountTextView.setText(carts.get(position).getCount() + "");
             // count=Integer.parseInt((String) holder.amountTextView.getText());
             Glide.with(context).load(carts.get(position).getItem().getItem_image())
