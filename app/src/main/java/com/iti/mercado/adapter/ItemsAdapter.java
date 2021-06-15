@@ -45,7 +45,7 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
 
 
     private final Context context;
-    private final List<K> items;
+    private List<K> items;
     private final String category, sub_category;
 
     public ItemsAdapter(Context context, List<K> items, String category, String sub_category) {
@@ -53,6 +53,11 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         this.items = items;
         this.category = category;
         this.sub_category = sub_category;
+    }
+
+    public void setItems(List<K> items) {
+        this.items = items;
+        this.notifyDataSetChanged();
     }
 
     @NonNull

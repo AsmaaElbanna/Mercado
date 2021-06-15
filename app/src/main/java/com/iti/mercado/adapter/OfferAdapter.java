@@ -63,7 +63,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
         if (itemPaths.get(position).getItem() != null) {
             holder.itemTitleTextView.setText(itemPaths.get(position).getItem().getItem_title());
             holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getPrice_afterSale());
-            holder.itemOldPriceTextView.setText(itemPaths.get(position).getItem().getItem_price());
+            holder.itemOldPriceTextView.setText(itemPaths.get(position).getItem().getItem_price()+" EGP");
 //            holder.itemOldPriceTextView.setPaintFlags(holder.itemOldPriceTextView.getPaintFlags() |
 //                    Paint.STRIKE_THRU_TEXT_FLAG);
 
