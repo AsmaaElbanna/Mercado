@@ -74,48 +74,34 @@ public class AccountFragment extends Fragment {
         super.onResume();
         Log.d(TAG, "onResume: display Data ");
 
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Wait few seconds...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        logoutButton.setOnClickListener(v -> {
+            if (getContext() != null) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Alert")
+                        .setMessage("Are you want to logout")
+                        .setPositiveButton("Yes", (dialog1, which) -> {
+                            UserFirebase.clearUserId();
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finishAffinity();
+                        })
+                        .setNegativeButton("No", (dialog1, which) -> {
+                            Toast.makeText(getContext(), "No", Toast.LENGTH_SHORT).show();
+                        })
+                        .show();
+            }
 
+        });
 
-        new Handler().postDelayed(() -> {
+        deliveryAddressLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), DeliveryActivity.class);
+            startActivity(intent);
+        });
 
-            progressDialog.dismiss();
-            getInfoFromUser();
-
-            logoutButton.setOnClickListener(v -> {
-                if (getContext() != null) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Alert")
-                            .setMessage("Are you want to logout")
-                            .setPositiveButton("Yes", (dialog1, which) -> {
-                                UserFirebase.clearUserId();
-                                FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                startActivity(intent);
-                                getActivity().finishAffinity();
-                            })
-                            .setNegativeButton("No", (dialog1, which) -> {
-                                Toast.makeText(getContext(), "No", Toast.LENGTH_SHORT).show();
-                            })
-                            .show();
-                }
-
-
-            });
-
-            deliveryAddressLayout.setOnClickListener(v -> {
-                Intent intent = new Intent(getActivity(), DeliveryActivity.class);
-                startActivity(intent);
-            });
-
-            profilePictureCircleImageView.setOnClickListener(v -> {
-                getProfilePicture();
-            });
-
-        }, 2000);
+        profilePictureCircleImageView.setOnClickListener(v -> {
+            getProfilePicture();
+        });
     }
 
     @Override
@@ -139,7 +125,11 @@ public class AccountFragment extends Fragment {
         //Log.i("databaseReference", "onViewCreated: databaseReference = " + databaseReference);
         appUser = new AppUser();
 
-        Log.w(TAG, "onCreate: get Data From firebase");
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Wait few seconds...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -148,6 +138,8 @@ public class AccountFragment extends Fragment {
                     Log.i("if", "onDataChange: not found");
                 } else {
                     Log.i("if", "onDataChange:  found");
+                    progressDialog.dismiss();
+                    getInfoFromUser();
                 }
             }
 
@@ -166,31 +158,6 @@ public class AccountFragment extends Fragment {
             Log.i("if", "getInfoFromUser: 1= " + currentUser.getPhotoUrl());
 
             if (currentUser.getPhotoUrl() == null) { // the currentUser is lodged by email and password
-                /*databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                        //usernameTextView.setText(snapshot.getValue(AppUser.class).getUsername());
-
-                        appUser = snapshot.getValue(AppUser.class);
-
-                        if (appUser != null) {
-                            usernameTextView.setText(appUser.getUsername());
-                            //profilePictureCircleImageView.setImageURI(Uri.parse(appUser.getProfilePicture()));
-                            Glide.with(getContext())
-                                    .load(Uri.parse(appUser.getProfilePicture()))
-                                    //.apply(new RequestOptions().override(100,100))
-                                    .placeholder(R.drawable.ic_launcher_background)
-                                    .error(R.drawable.ic_baseline_account_circle_24)
-                                    .into(profilePictureCircleImageView);
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                    }
-                });*/
 
                 if (appUser != null) {
                     usernameTextView.setText(appUser.getUsername());
