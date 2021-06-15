@@ -185,15 +185,13 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
                 itemsFilter = (List<Item>) items;
 
               for(Item item:itemsFilter){
-                  Log.i("TAG", "onResponse: "+item.getItem_price());
+                  Log.i("TAG", "onResponse: "+item.getBrand());
               }
-
                 ItemsAdapter<K> adapter =
                         new ItemsAdapter<K>(ItemsListActivity.this, items, category, sub_category);
                 recyclerView.setAdapter(adapter);
             }
         });
-
     }
 
     private String getSubCategoryName(String message) {

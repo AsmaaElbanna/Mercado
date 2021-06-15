@@ -52,7 +52,7 @@ public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
         imageSlider.setImageList(slideModels,true);
 
         price.setText(homeAppliance.getItem_price()+ " LE");
-        item_brand.setText(homeAppliance.getItem_brand());
+        item_brand.setText(homeAppliance.getBrand());
         color.setText(homeAppliance.getColor());
         country.setText(homeAppliance.getCountry());
         item_Features.setText(homeAppliance.getItem_Features());

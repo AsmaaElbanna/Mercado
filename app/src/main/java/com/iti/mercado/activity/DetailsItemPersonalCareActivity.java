@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DetailsItemPersonalCareActivity extends AppCompatActivity {
 
-    Button addCartButton;
+    private Button addCartButton;
     private  String category, sub_category;
 
     @Override

@@ -5,7 +5,6 @@ public class HomeAppliance extends Item {
     private String color;
     private String country;
     private String item_Features;
-    private String item_brand;
     private String item_capacity;
     private String item_type;
     private String model_number;
@@ -33,14 +32,6 @@ public class HomeAppliance extends Item {
 
     public void setItem_Features(String item_Features) {
         this.item_Features = item_Features;
-    }
-
-    public String getItem_brand() {
-        return item_brand;
-    }
-
-    public void setItem_brand(String item_brand) {
-        this.item_brand = item_brand;
     }
 
     public String getItem_capacity() {

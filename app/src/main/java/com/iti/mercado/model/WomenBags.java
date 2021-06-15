@@ -1,18 +1,10 @@
 package com.iti.mercado.model;
 
 public class WomenBags extends Item {
-    private String brand;
+
     private String color;
     private String item_rating;
     private String material;
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     public String getColor() {
         return color;
