@@ -1,109 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/bottom_sheet"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bottom_sheet_background">
+    android:orientation="vertical">
 
     <View
         android:layout_width="40dp"
         android:layout_height="2dp"
-        android:background="@color/secondary_text"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/secondary_text"
         android:src="@drawable/ic_baseline_remove_24" />
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:orientation="vertical"
-       android:layout_marginRight="15dp"
-       android:layout_marginLeft="10dp">
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="16sp"
-               android:textStyle="bold"
-               android:layout_marginTop="10dp"
-               android:layout_marginBottom="10dp"
-               android:textColor="@color/black"
-               android:text="Filter"/>
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="1dp"
-           android:background="@color/primary_dark"
-         />
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:layout_marginTop="10dp">
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Brand"
-               android:textSize="16sp"
-               android:layout_marginBottom="10dp"/>
-           <androidx.recyclerview.widget.RecyclerView
-               android:id="@+id/list_brands"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
 
-           </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Filter"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-       </LinearLayout>
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="1dp"
-           android:background="@color/primary_dark" />
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:layout_marginTop="10dp">
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Price"
-               android:textSize="16sp"
-               android:layout_marginBottom="10dp"/>
-           <CheckBox
-               android:id="@+id/filter_price_one"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="16sp"/>
-           <CheckBox
-               android:id="@+id/filter_price_two"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:backgroundTint="@color/primary_dark"
-               android:textSize="16sp"/>
-           <CheckBox
-               android:id="@+id/filter_price_three"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="16sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Brand"
+                android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_brands"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Price"
+                android:textSize="16sp" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/filter_price_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp" />
+                <RadioButton
+                    android:id="@+id/filter_price_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary_dark"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/filter_price_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp" />
+            </RadioGroup>
 
 
-       </LinearLayout>
-       <Button
-           android:id="@+id/apply_filter"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:gravity="center"
-           android:text="apply filter"
-           android:layout_marginTop="10dp"
-           android:layout_marginLeft="40dp"
-           android:layout_marginRight="40dp"
-           android:layout_marginBottom="10dp"
-           android:textSize="16sp"
-           android:background="@drawable/border_button"
-           android:textColor="@color/white" />
+        </LinearLayout>
 
-   </LinearLayout>
+        <Button
+            android:id="@+id/apply_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_button"
+            android:gravity="center"
+            android:text="apply filter"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
+    </LinearLayout>
 
 
 </LinearLayout>

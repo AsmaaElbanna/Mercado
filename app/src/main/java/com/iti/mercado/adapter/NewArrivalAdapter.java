@@ -59,7 +59,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     public void onBindViewHolder(@NonNull NewArrivalAdapter.ViewHolder holder, int position) {
         if (itemPaths.get(position).getItem() != null) {
             holder.itemTitleTextView.setText(itemPaths.get(position).getItem().getItem_title());
-            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getItem_price());
+            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getItem_price()+" EGP");
 
             Glide.with(context).load(itemPaths.get(position).getItem().getItem_image())
                     //.apply(new RequestOptions().override(100,100))

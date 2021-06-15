@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,8 +36,10 @@ import com.iti.mercado.utilities.MyBottomSheetDialogFilter;
 import com.iti.mercado.utilities.Network;
 import com.iti.mercado.utilities.OnResponseRetrofit;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 
@@ -47,33 +50,27 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
     private ImageView filterImageView;
 
     private List<Item> itemsFilter;
+    private List<Item> items;
+    private ItemsAdapter<Item> adapter;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_list);
         filterImageView = (ImageView) findViewById(R.id.filter);
-
         recyclerView = findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        Bundle bundle = getIntent().getExtras();
+         bundle = getIntent().getExtras();
         String message = bundle.getString("message");
 
         subCategorySwitch(getSubCategoryName(message));
 
 
-        filterImageView.setClickable(true);
-        filterImageView.setOnClickListener(v -> {
-            MyBottomSheetDialogFilter bottomSheetDialogFilter = new MyBottomSheetDialogFilter();
-            bottomSheetDialogFilter.show(getSupportFragmentManager(), "bottomSheet");
-            bundle.putString("Category ItemListActivity", category);
-            bundle.putString("SubCategory ItemListActivity", sub_category);
-            bottomSheetDialogFilter.setArguments(bundle);
-        });
     }
 
     void subCategorySwitch(String subCategory) {
@@ -182,14 +179,19 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
             @Override
             public void onResponse(List<K> items) {
 
-                itemsFilter = (List<Item>) items;
+                ItemsListActivity.this.items = new ArrayList<>((List<Item>) items);
+                ItemsListActivity.this.itemsFilter = (List<Item>) items;      // itemsFilter refer to items
 
-              for(Item item:itemsFilter){
-                  Log.i("TAG", "onResponse: "+item.getBrand());
-              }
-                ItemsAdapter<K> adapter =
-                        new ItemsAdapter<K>(ItemsListActivity.this, items, category, sub_category);
+                adapter = new ItemsAdapter(ItemsListActivity.this, items, category, sub_category);
                 recyclerView.setAdapter(adapter);
+                filterImageView.setClickable(true);
+                filterImageView.setOnClickListener(v -> {
+                    MyBottomSheetDialogFilter bottomSheetDialogFilter = new MyBottomSheetDialogFilter();
+                    bottomSheetDialogFilter.show(getSupportFragmentManager(), "bottomSheet");
+                    bundle.putString("Category ItemListActivity", category);
+                    bundle.putString("SubCategory ItemListActivity", sub_category);
+                    bottomSheetDialogFilter.setArguments(bundle);
+                });
             }
         });
     }
@@ -200,8 +202,22 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
     }
 
     @Override
-    public void onApplyFilterClicked(HashSet<String> filter) {
+    public void onApplyFilterClicked(HashSet<String> filterValues) {
 
-        Log.i("TAG", "onApplyFilterClicked: filter " + filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (filterValues.contains("All brands")) {
+                itemsFilter = items;
+            } else {
+                itemsFilter = items.stream().filter(item -> {
+                    for (String filterValue : filterValues) {
+                        if (item.getBrand().equals(filterValue)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }).collect(Collectors.toList());
+            }
+        }
+        adapter.setItems(itemsFilter);
     }
 }
