@@ -48,7 +48,7 @@ public class DetailsItemPersonalCareActivity extends AppCompatActivity {
         imageSlider.setImageList(slideModels,true);
 
         price.setText(personalCare.getItem_price()+ " LE");
-        item_brand.setText(personalCare.getItem_brand());
+        item_brand.setText(personalCare.getBrand());
         color.setText(personalCare.getColor());
         item_Features.setText(personalCare.getItem_features());
         item_type.setText(personalCare.getItem_type());
