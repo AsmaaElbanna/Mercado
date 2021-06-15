@@ -2,20 +2,11 @@ package com.iti.mercado.model;
 
 public class LaptopBag extends Item {
 
-    private String brand;
     private String color;
     private String compatible_with;
     private String model;
     private String warranty_years;
     private String water_resistant;
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     public String getColor() {
         return color;

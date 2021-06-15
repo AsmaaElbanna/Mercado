@@ -3,7 +3,6 @@ package com.iti.mercado.model;
 public class PersonalCare extends Item {
 
     private String color;
-    private String item_brand;
     private String item_features;
     private String item_type;
     private String model_number;
@@ -14,14 +13,6 @@ public class PersonalCare extends Item {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public String getItem_brand() {
-        return item_brand;
-    }
-
-    public void setItem_brand(String item_brand) {
-        this.item_brand = item_brand;
     }
 
     public String getItem_features() {

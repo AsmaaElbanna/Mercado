@@ -46,8 +46,7 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
     private String category, sub_category;
     private ImageView filterImageView;
 
-
-
+    private List<Item> itemsFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +68,9 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
 
         filterImageView.setClickable(true);
         filterImageView.setOnClickListener(v -> {
-            MyBottomSheetDialogFilter bottomSheetDialogFilter =new MyBottomSheetDialogFilter();
-            bottomSheetDialogFilter.show(getSupportFragmentManager(),"bottomSheet");
-            bundle.putString("Category ItemListActivity",category);
+            MyBottomSheetDialogFilter bottomSheetDialogFilter = new MyBottomSheetDialogFilter();
+            bottomSheetDialogFilter.show(getSupportFragmentManager(), "bottomSheet");
+            bundle.putString("Category ItemListActivity", category);
             bundle.putString("SubCategory ItemListActivity", sub_category);
             bottomSheetDialogFilter.setArguments(bundle);
         });
@@ -182,6 +181,13 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
         Network.parsJson(call, new OnResponseRetrofit<K>() {
             @Override
             public void onResponse(List<K> items) {
+
+                itemsFilter = (List<Item>) items;
+
+              for(Item item:itemsFilter){
+                  Log.i("TAG", "onResponse: "+item.getItem_price());
+              }
+
                 ItemsAdapter<K> adapter =
                         new ItemsAdapter<K>(ItemsListActivity.this, items, category, sub_category);
                 recyclerView.setAdapter(adapter);
@@ -196,8 +202,8 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
     }
 
     @Override
-    public void onApplyFilterClicked(HashSet<String>filter) {
+    public void onApplyFilterClicked(HashSet<String> filter) {
 
-        Log.i("TAG", "onApplyFilterClicked: filter "+filter);
+        Log.i("TAG", "onApplyFilterClicked: filter " + filter);
     }
 }

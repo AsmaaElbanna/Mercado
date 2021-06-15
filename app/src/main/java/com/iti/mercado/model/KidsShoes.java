@@ -4,7 +4,6 @@ import java.util.List;
 
 public class KidsShoes extends Item {
 
-    private String brand;
     private String size;
     private String color;
     private String material;
@@ -16,13 +15,6 @@ public class KidsShoes extends Item {
 
     public void setSlider_image(List<String> slider_image) {
         this.slider_image = slider_image;
-    }
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getSize() {

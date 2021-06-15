@@ -202,6 +202,6 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment impleme
     public void sendTextFilter(String filterValue) {
        filterValuesHashSet.add(filterValue);
 
-       Log.i("TAG", "sendTextFilter: "+filterValuesHashSet);
+//       Log.i("TAG", "sendTextFilter: "+filterValuesHashSet);
     }
 }

@@ -2,7 +2,6 @@ package com.iti.mercado.model;
 
 public class Mobile extends Item {
     private String battery_capacity ;
-    private String brand;
     private String color;
     private String connectivity;
     private String display;
@@ -18,14 +17,6 @@ public class Mobile extends Item {
 
     public void setBattery_capacity(String battery_capacity) {
         this.battery_capacity = battery_capacity;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getColor() {

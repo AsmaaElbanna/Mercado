@@ -11,7 +11,15 @@ public class Item implements Serializable {
     private String item_title;
     private List<String> slider_images;
     private String price_afterSale;
+    private String brand;
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
     public List<String> getSlider_images() {
         return slider_images;

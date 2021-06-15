@@ -2,20 +2,11 @@ package com.iti.mercado.model;
 
 public class MakeUp extends Item {
 
-    private String brand;
     private String color;
     private String dimensions;
     private String item_description;
     private String item_rating;
     private String weight;
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     public String getColor() {
         return color;

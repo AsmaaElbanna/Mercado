@@ -2,7 +2,6 @@ package com.iti.mercado.model;
 
 public class Laptop extends Item {
 
-    private String brand;
     private String color;
     private String display_size;
     private String graphics_card_type;
@@ -12,14 +11,6 @@ public class Laptop extends Item {
     private String ram;
     private String storage;
 
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     public String getColor() {
         return color;
@@ -41,7 +32,9 @@ public class Laptop extends Item {
         return graphics_card_type;
     }
 
-    public void setGraphics_card_type(String graphics_card_type) { this.graphics_card_type = graphics_card_type; }
+    public void setGraphics_card_type(String graphics_card_type) {
+        this.graphics_card_type = graphics_card_type;
+    }
 
     public String getModel() {
         return model;
@@ -55,7 +48,9 @@ public class Laptop extends Item {
         return operating_system;
     }
 
-    public void setOperating_system(String operating_system) { this.operating_system = operating_system; }
+    public void setOperating_system(String operating_system) {
+        this.operating_system = operating_system;
+    }
 
     public String getProcessor() {
         return processor;
