@@ -29,20 +29,25 @@ import com.iti.mercado.model.PersonalCare;
 import com.iti.mercado.model.SkinCare;
 import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
+import com.iti.mercado.utilities.BottomSheetFilterListener;
 import com.iti.mercado.utilities.Constants;
 import com.iti.mercado.utilities.MyBottomSheetDialogFilter;
 import com.iti.mercado.utilities.Network;
 import com.iti.mercado.utilities.OnResponseRetrofit;
 
+import java.util.HashSet;
 import java.util.List;
 
 import retrofit2.Call;
 
-public class ItemsListActivity extends AppCompatActivity {
+public class ItemsListActivity extends AppCompatActivity implements BottomSheetFilterListener {
 
     private RecyclerView recyclerView;
     private String category, sub_category;
     private ImageView filterImageView;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +74,7 @@ public class ItemsListActivity extends AppCompatActivity {
             bundle.putString("Category ItemListActivity",category);
             bundle.putString("SubCategory ItemListActivity", sub_category);
             bottomSheetDialogFilter.setArguments(bundle);
-
         });
-
     }
 
     void subCategorySwitch(String subCategory) {
@@ -192,4 +195,9 @@ public class ItemsListActivity extends AppCompatActivity {
         return message.substring(Constants.BASE_URI.length());
     }
 
+    @Override
+    public void onApplyFilterClicked(HashSet<String>filter) {
+
+        Log.i("TAG", "onApplyFilterClicked: filter "+filter);
+    }
 }

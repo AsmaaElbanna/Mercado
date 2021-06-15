@@ -1,6 +1,7 @@
 package com.iti.mercado.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iti.mercado.R;
 import com.iti.mercado.model.Cart;
+import com.iti.mercado.utilities.SendDataToFragment;
 
 import java.util.List;
 
@@ -18,10 +20,12 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
 
     private Context context;
     private List<String> brands;
+    private SendDataToFragment sendDataToFragment;
 
-    public BrandAdapter(Context context, List<String> brands) {
+    public BrandAdapter(Context context, List<String> brands,SendDataToFragment sendDataToFragment) {
         this.context = context;
         this.brands = brands;
+        this.sendDataToFragment=sendDataToFragment;
     }
 
     @NonNull
@@ -36,6 +40,13 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     holder.brandCheckBox.setText(brands.get(position));
+
+    holder.brandCheckBox.setOnClickListener(v -> {
+
+        String text = brands.get(position);
+        sendDataToFragment.sendTextFilter(text);
+
+    });
     }
 
     @Override

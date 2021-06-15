@@ -1,5 +1,6 @@
 package com.iti.mercado.utilities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,22 +20,26 @@ import com.iti.mercado.R;
 import com.iti.mercado.adapter.BrandAdapter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
-public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment {
+public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment implements SendDataToFragment {
 
     private List<String> brands;
     private RecyclerView recyclerView;
-    CheckBox filterPriceOneCheckBox, filterPriceTwoCheckBox, filterPriceThreeCheckBox;
-    Button applyFilterButton;
-
+    private CheckBox filterPriceOneCheckBox, filterPriceTwoCheckBox, filterPriceThreeCheckBox;
+    private Button applyFilterButton;
+    private BottomSheetFilterListener filterListener;
     private String category, sub_category;
+
+    private HashSet<String> filterValuesHashSet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable
             ViewGroup container, @Nullable Bundle savedInstanceState) {
         brands = new ArrayList<>();
-        category = getArguments().getString("Category ItemListActivity");
+        filterValuesHashSet = new HashSet<>();
+                category = getArguments().getString("Category ItemListActivity");
         sub_category = getArguments().getString("SubCategory ItemListActivity");
 
         View view = inflater.inflate(R.layout.bottom_sheet_filter, container, false);
@@ -41,20 +47,27 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment {
         filterPriceOneCheckBox = view.findViewById(R.id.filter_price_one);
         filterPriceTwoCheckBox = view.findViewById(R.id.filter_price_two);
         filterPriceThreeCheckBox = view.findViewById(R.id.filter_price_three);
-        applyFilterButton=view.findViewById(R.id.apply_filter);
+        applyFilterButton = view.findViewById(R.id.apply_filter);
         recyclerView.setHasFixedSize(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        BrandAdapter brandAdapter = new BrandAdapter(getActivity(), brands);
+        BrandAdapter brandAdapter = new BrandAdapter(getActivity(), brands,this);
         recyclerView.setAdapter(brandAdapter);
         setFilterValues();
 
         applyFilterButton.setOnClickListener(v -> {
-            Log.i("TAG", "onCreateView: Hello");
-            Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
+            filterListener.onApplyFilterClicked(filterValuesHashSet);
+            dismiss();
         });
 
+//        filterPriceOneCheckBox.setOnClickListener(v -> {
+//            if (filterPriceOneCheckBox.isChecked()) {
+//                Toast.makeText(getActivity(), "clicked", Toast.LENGTH_SHORT).show();
+//            } else {
+//
+//            }
+//        });
 
         return view;
     }
@@ -125,7 +138,7 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment {
             filterPriceOneCheckBox.setText("Less than 100 EGP");
             filterPriceTwoCheckBox.setText("100 EGP - 300 EGP");
             filterPriceThreeCheckBox.setText("+ 300 EGP");
-        } else if ((category == "homeAppliances" && sub_category == "blendersAndMixers")||
+        } else if ((category == "homeAppliances" && sub_category == "blendersAndMixers") ||
                 (category == "homeAppliances" && sub_category == "microwaves")) {
 
             brands.add("All brands");
@@ -171,7 +184,24 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment {
         }
 
 
-
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            filterListener = (BottomSheetFilterListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + "must implemented BottomSheetListener");
+        }
+    }
+
+    @Override
+    public void sendTextFilter(String filterValue) {
+       filterValuesHashSet.add(filterValue);
+
+       Log.i("TAG", "sendTextFilter: "+filterValuesHashSet);
+    }
 }
