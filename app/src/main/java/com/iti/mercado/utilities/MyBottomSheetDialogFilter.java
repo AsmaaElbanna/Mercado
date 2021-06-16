@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,15 +30,19 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment impleme
     private Button applyFilterButton;
     private BottomSheetFilterListener filterListener;
     private String category, sub_category;
-
-    private HashSet<String> filterValuesHashSet;
+    private HashSet<String> filterValuesBrandsHashSet;
+    private int lessThanPrice, greaterThanPrice, rangePrice1, rangePrice2;
+    private List<Double> filterValuesPrice;
+    private int flagCheckedRadioButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable
             ViewGroup container, @Nullable Bundle savedInstanceState) {
         brands = new ArrayList<>();
-        filterValuesHashSet = new HashSet<>();
-                category = getArguments().getString("Category ItemListActivity");
+        filterValuesBrandsHashSet = new HashSet<>();
+        filterValuesPrice = new ArrayList<>();
+        flagCheckedRadioButton =-1;
+        category = getArguments().getString("Category ItemListActivity");
         sub_category = getArguments().getString("SubCategory ItemListActivity");
 
         View view = inflater.inflate(R.layout.bottom_sheet_filter, container, false);
@@ -53,14 +55,37 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment impleme
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        BrandAdapter brandAdapter = new BrandAdapter(getActivity(), brands,this);
+        BrandAdapter brandAdapter = new BrandAdapter(getActivity(), brands, this);
         recyclerView.setAdapter(brandAdapter);
         setFilterValues();
 
+        // radio buttons action
+        filterPriceOneRadioButton.setOnClickListener(v -> {
+            filterValuesPrice.clear();
+            filterValuesPrice.add((double) lessThanPrice);
+            flagCheckedRadioButton =0;
+        });
+
+        filterPriceTwoRadioButton.setOnClickListener(v -> {
+            filterValuesPrice.clear();
+            filterValuesPrice.add((double) rangePrice1);
+            filterValuesPrice.add((double) rangePrice2);
+            flagCheckedRadioButton =1;
+        });
+
+        filterPriceThreeRadioButton.setOnClickListener(v -> {
+            filterValuesPrice.clear();
+            filterValuesPrice.add((double) greaterThanPrice);
+            flagCheckedRadioButton =2;
+
+        });
+        // apply filter button action
         applyFilterButton.setOnClickListener(v -> {
-            filterListener.onApplyFilterClicked(filterValuesHashSet);
+            filterListener.onApplyFilterClicked(filterValuesBrandsHashSet, filterValuesPrice, flagCheckedRadioButton);
+            Log.i("TAG", "onCreateView: filterValuesPrice"+ filterValuesPrice);
             dismiss();
         });
+
 
 //        filterPriceOneCheckBox.setOnClickListener(v -> {
 //            if (filterPriceOneCheckBox.isChecked()) {
@@ -82,18 +107,26 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment impleme
             brands.add("SHEIN");
             brands.add("Defacto");
 
-            filterPriceOneRadioButton.setText("Less than 300 EGP");
-            filterPriceTwoRadioButton.setText("300 EGP - 600 EGP");
-            filterPriceThreeRadioButton.setText("+ 600 EGP");
+            lessThanPrice = 300;
+            greaterThanPrice = 600;
+            rangePrice1 = 300;
+            rangePrice2 = 600;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if (category == "Women's Fashion" && sub_category == "bags") {
 
             brands.add("All brands");
             brands.add("Shein");
             brands.add("Generic");
 
-            filterPriceOneRadioButton.setText("Less than 400 EGP");
-            filterPriceTwoRadioButton.setText("400 EGP - 700 EGP");
-            filterPriceThreeRadioButton.setText("+ 700 EGP");
+            lessThanPrice = 400;
+            greaterThanPrice = 700;
+            rangePrice1 = 400;
+            rangePrice2 = 700;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if ((category == "Girl's Fashion" && sub_category == "clothing") ||
                 (category == "Girl's Fashion" && sub_category == "shoes") ||
                 (category == "boy's fashion" && sub_category == "clothing") ||
@@ -103,42 +136,63 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment impleme
             brands.add("Zara");
             brands.add("Defacto");
 
-            filterPriceOneRadioButton.setText("Less than 500 EGP");
-            filterPriceTwoRadioButton.setText("+ 500 EGP");
-            filterPriceThreeRadioButton.setVisibility(View.GONE);
+            lessThanPrice = 400;
+            greaterThanPrice = 600;
+            rangePrice1 = 400;
+            rangePrice2 = 600;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
+
         } else if (category == "personalCare" && sub_category == "beautyEquipment") {
 
             brands.add("All brands");
             brands.add("Hapilin");
 
-            filterPriceOneRadioButton.setText("Less than 400 EGP");
-            filterPriceTwoRadioButton.setText("400 EGP - 1000 EGP");
-            filterPriceThreeRadioButton.setText("+ 1000 EGP");
+            lessThanPrice = 400;
+            greaterThanPrice = 1000;
+            rangePrice1 = 400;
+            rangePrice2 = 1000;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if (category == "personalCare" && sub_category == "hairStylers") {
 
             brands.add("All brands");
             brands.add("Mienta");
 
-            filterPriceOneRadioButton.setText("Less than 400 EGP");
-            filterPriceTwoRadioButton.setText("400 EGP - 1000 EGP");
-            filterPriceThreeRadioButton.setText("+ 1000 EGP");
+            lessThanPrice = 400;
+            greaterThanPrice = 1000;
+            rangePrice1 = 400;
+            rangePrice2 = 1000;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if (category == "beautyCare" && sub_category == "makeUp") {
 
             brands.add("All brands");
             brands.add("Bioderma");
             brands.add("Maybelline New York");
 
-            filterPriceOneRadioButton.setText("Less than 100 EGP");
-            filterPriceTwoRadioButton.setText("100 EGP - 300 EGP");
-            filterPriceThreeRadioButton.setText("+ 300 EGP");
+            lessThanPrice = 100;
+            greaterThanPrice = 200;
+            rangePrice1 = 100;
+            rangePrice2 = 200;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if (category == "beautyCare" && sub_category == "skinCare") {
 
             brands.add("All brands");
             brands.add("L'oreal Paris");
 
-            filterPriceOneRadioButton.setText("Less than 100 EGP");
-            filterPriceTwoRadioButton.setText("100 EGP - 300 EGP");
-            filterPriceThreeRadioButton.setText("+ 300 EGP");
+            lessThanPrice = 100;
+            greaterThanPrice = 300;
+            rangePrice1 = 100;
+            rangePrice2 = 300;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if ((category == "homeAppliances" && sub_category == "blendersAndMixers") ||
                 (category == "homeAppliances" && sub_category == "microwaves")) {
 
@@ -146,45 +200,63 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment impleme
             brands.add("Tornado");
             brands.add("Braun");
 
-            filterPriceOneRadioButton.setText("Less than 1000 EGP");
-            filterPriceTwoRadioButton.setText("1000 EGP - 5000 EGP");
-            filterPriceThreeRadioButton.setText("+ 5000 EGP");
+            lessThanPrice = 1000;
+            greaterThanPrice = 5000;
+            rangePrice1 = 1000;
+            rangePrice2 = 5000;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if ((category == "laptopAndPC" && sub_category == "laptops")) {
 
             brands.add("All brands");
             brands.add("Lenovo");
 
-            filterPriceOneRadioButton.setText("Less than 10000 EGP");
-            filterPriceTwoRadioButton.setText("10000 EGP - 15000 EGP");
-            filterPriceThreeRadioButton.setText("+ 15000 EGP");
+            lessThanPrice = 10000;
+            greaterThanPrice = 15000;
+            rangePrice1 = 10000;
+            rangePrice2 = 15000;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if ((category == "laptopAndPC" && sub_category == "laptopBags")) {
 
             brands.add("All brands");
             brands.add("Lenovo");
 
-            filterPriceOneRadioButton.setText("Less than 400 EGP");
-            filterPriceTwoRadioButton.setText("+ 400 EGP");
-            filterPriceThreeRadioButton.setVisibility(View.GONE);
+            lessThanPrice = 350;
+            greaterThanPrice = 500;
+            rangePrice1 = 300;
+            rangePrice2 = 500;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if ((category == "mobilesAndTablets" && sub_category == "mobiles")) {
 
             brands.add("All brands");
             brands.add("Xiaomi");
 
-            filterPriceOneRadioButton.setText("Less than 3000 EGP");
-            filterPriceTwoRadioButton.setText("3000 EGP - 5000 EGP");
-            filterPriceThreeRadioButton.setText("+ 5000 EGP");
+            lessThanPrice = 3000;
+            greaterThanPrice = 5000;
+            rangePrice1 = 3000;
+            rangePrice2 = 5000;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         } else if ((category == "mobilesAndTablets" && sub_category == "tablets")) {
 
             brands.add("All brands");
             brands.add("Lenovo");
             brands.add("Samsung");
 
-            filterPriceOneRadioButton.setText("Less than 3000 EGP");
-            filterPriceTwoRadioButton.setText("3000 EGP - 5000 EGP");
-            filterPriceThreeRadioButton.setText("+ 5000 EGP");
+            lessThanPrice = 3000;
+            greaterThanPrice = 5000;
+            rangePrice1 = 3000;
+            rangePrice2 = 5000;
+            filterPriceOneRadioButton.setText("Less than " + lessThanPrice + " EGP");
+            filterPriceTwoRadioButton.setText(rangePrice1 + " EGP - " + rangePrice2 + " EGP");
+            filterPriceThreeRadioButton.setText("+ " + greaterThanPrice + " EGP");
         }
-
-
     }
 
     @Override
@@ -201,7 +273,7 @@ public class MyBottomSheetDialogFilter extends BottomSheetDialogFragment impleme
 
     @Override
     public void sendTextFilter(String filterValue) {
-       filterValuesHashSet.add(filterValue);
+        filterValuesBrandsHashSet.add(filterValue);
 
 //       Log.i("TAG", "sendTextFilter: "+filterValuesHashSet);
     }

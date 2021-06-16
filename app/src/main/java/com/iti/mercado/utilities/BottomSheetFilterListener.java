@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface BottomSheetFilterListener{
 
-    void onApplyFilterClicked(HashSet<String>filterValues);
+    void onApplyFilterClicked(HashSet<String>filterValuesBrands,List<Double>filterValuesPrice,
+                              int flagLessChecked);
 }

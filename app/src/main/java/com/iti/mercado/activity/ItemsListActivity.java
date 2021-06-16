@@ -65,7 +65,7 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-         bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         String message = bundle.getString("message");
 
         subCategorySwitch(getSubCategoryName(message));
@@ -202,21 +202,67 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
     }
 
     @Override
-    public void onApplyFilterClicked(HashSet<String> filterValues) {
+    public void onApplyFilterClicked(HashSet<String> filterBrands, List<Double> filterPrice, int flag) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (filterValues.contains("All brands")) {
+            if (filterBrands.contains("All brands") && filterPrice.isEmpty()) {
                 itemsFilter = items;
             } else {
                 itemsFilter = items.stream().filter(item -> {
-                    for (String filterValue : filterValues) {
+                    for (String filterValue : filterBrands) {
                         if (item.getBrand().equals(filterValue)) {
                             return true;
                         }
                     }
                     return false;
                 }).collect(Collectors.toList());
+            } // end else
+
+            // price filter test
+
+            if (!filterPrice.isEmpty()) {
+                switch (flag) {
+                    case 0:
+                        itemsFilter = items.stream().filter(item -> {
+                            for (double filterValue : filterPrice) {
+                                double price = Double.parseDouble((item.getItem_price()));
+                                if (price < filterPrice.get(0)) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }).collect(Collectors.toList());
+                        break;
+                    case 1:
+                        itemsFilter = items.stream().filter(item -> {
+                            for (double filterValue : filterPrice) {
+                                double price = Double.parseDouble(item.getItem_price());
+                                Log.i("TAG", "onApplyFilterClicked: "+filterPrice.get(1));
+                                if (price > filterPrice.get(0) && price < filterPrice.get(1)) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }).collect(Collectors.toList());
+                        break;
+                    case 2:
+                        itemsFilter = items.stream().filter(item -> {
+                            for (double filterValue : filterPrice) {
+                                double price = Double.parseDouble(item.getItem_price());
+                                if (price > filterPrice.get(0)) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }).collect(Collectors.toList());
+                        break;
+                    default:
+                        Log.i("TAG", "onApplyFilterClicked: ");
+                }
             }
+
+
+            // end test
         }
         adapter.setItems(itemsFilter);
     }
