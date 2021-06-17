@@ -13,7 +13,8 @@ public class DatabaseItemCart {
 
     public static void getItemDetails(Cart cart,
                                       Class<? extends Item> cls,
-                                      OnRetrieveItem onRetrieveItem) {
+                                      OnRetrieveItem onRetrieveItem,
+                                      CountSubPrice countSubPrice) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("categories")
                 .child(cart.getCategory())
                 .child(cart.getSubCategory())
@@ -24,7 +25,13 @@ public class DatabaseItemCart {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                cart.setItem(dataSnapshot.getValue(cls));
+                Item item = dataSnapshot.getValue(cls);
+                cart.setItem(item);
+
+                double price = Double.parseDouble(item.getItem_price());
+                double subTotal = price * cart.getCount();
+                countSubPrice.countSubTotal(subTotal);
+
                 onRetrieveItem.onRetrieveItems();
             }
             @Override

@@ -1,6 +1,8 @@
 package com.iti.mercado.model;
 
-public class ItemPath {
+import java.io.Serializable;
+
+public class ItemPath implements Serializable {
 
     private String category;
     private String subCategory;

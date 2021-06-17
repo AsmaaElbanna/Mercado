@@ -40,7 +40,7 @@ public class DatabaseCart {
         });
     }
 
-    public void delete(Cart cart, OnSuccess onSuccess) {
+    public static void delete(Cart cart, OnSuccess onSuccess) {
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("cart")
                 .child(UserFirebase.getUserId())
                 .child(cart.getItemId());
@@ -50,7 +50,7 @@ public class DatabaseCart {
 
 
 
-    public void updateCount(int count,String item_id){
+    public static void updateCount(int count,String item_id){
         DatabaseReference myRef = UserFirebase.getFirebaseDatabase().getReference("cart")
                 .child(UserFirebase.getUserId())
                 .child(item_id);

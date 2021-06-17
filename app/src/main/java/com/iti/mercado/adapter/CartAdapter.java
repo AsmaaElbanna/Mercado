@@ -1,7 +1,6 @@
 package com.iti.mercado.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,25 +18,19 @@ import com.iti.mercado.model.Cart;
 import com.iti.mercado.utilities.CountSubPrice;
 import com.iti.mercado.utilities.DatabaseCart;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     private final Context context;
     private final List<Cart> carts;
     private CountSubPrice countSubPrice;
-    double subTotal = 0;
-    HashSet<Integer> set;
-
 
     public CartAdapter(Context context, List<Cart> carts, CountSubPrice countSubPrice) {
 
         this.context = context;
         this.carts = carts;
         this.countSubPrice = countSubPrice;
-        set =new HashSet<>();
     }
 
     @NonNull
@@ -52,12 +45,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if (carts.get(position).getItem() == null) {
-
-        } else if (carts.get(position).getItem() != null) {
+        if (carts.get(position).getItem() != null) {
 
             holder.titleTextView.setText(carts.get(position).getItem().getItem_title());
-            holder.priceTextView.setText(carts.get(position).getItem().getItem_price()+" EGP");
+            holder.priceTextView.setText(carts.get(position).getItem().getItem_price() + " EGP");
             holder.amountTextView.setText(carts.get(position).getCount() + "");
             // count=Integer.parseInt((String) holder.amountTextView.getText());
             Glide.with(context).load(carts.get(position).getItem().getItem_image())
@@ -66,81 +57,38 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     .error(R.drawable.ic_launcher_foreground)
                     .into(holder.itemImageView);
 
-             if(!set.contains(position)){
-                 Double price = Double.valueOf(carts.get(position).getItem().getItem_price());
-                 subTotal = price * carts.get(position).getCount();
-                 countSubPrice.countSubTotal(subTotal);
-                 set.add(position);
-             }
-
-
-
-//            holder.linearLayout.setOnClickListener(v -> {
-//                if (carts.get(position).getItem() instanceof Laptop) {
-//                    Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
-//                    //pass data
-//                    intent.putExtra("MyClass", carts.get(position).getItem());
-//                    context.startActivity(intent);
-//                } else if (carts.get(position).getItem() instanceof LaptopBag) {
-//                    Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
-//                    //pass data
-//                    intent.putExtra("MyClass", carts.get(position).getItem());
-//                    context.startActivity(intent);
-//                } else if (carts.get(position).getItem() instanceof Mobile) {
-//                    Intent intent = new Intent(context, DetailsItemMobileActivity.class);
-//                    //pass data
-//                    intent.putExtra("MyClass", carts.get(position).getItem());
-//                    context.startActivity(intent);
-//                } else if (carts.get(position).getItem() instanceof HomeAppliance) {
-//                    Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
-//                    //pass data
-//                    intent.putExtra("MyClass", carts.get(position).getItem());
-//                    context.startActivity(intent);
-//                } else if (carts.get(position).getItem() instanceof KidsClothing
-//                        || carts.get(position).getItem() instanceof KidsShoes
-//                        || carts.get(position).getItem() instanceof WomenClothing
-//                        || carts.get(position).getItem() instanceof WomenBags
-//                        || carts.get(position).getItem() instanceof MakeUp
-//                        || carts.get(position).getItem() instanceof SkinCare) {
-//                    Intent intent = new Intent(context, DetailsItemFashionActivity.class);
-//                    //pass data
-//                    intent.putExtra("MyClass", carts.get(position).getItem());
-//                    context.startActivity(intent);
-//                }
-//            });
-
-
-
-            DatabaseCart databaseCart = new DatabaseCart();
-            holder.incAmount.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int countInc = Integer.parseInt((String) holder.amountTextView.getText()) + 1;
-                    databaseCart.updateCount(countInc, carts.get(position).getItemId());
-                    holder.amountTextView.setText(countInc + "");
-                    countSubPrice.countSubTotal(Double.valueOf(carts.get(position).getItem().getItem_price()));
-                }
-            });
-            holder.decAmount.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int countDec = Integer.parseInt((String) holder.amountTextView.getText()) - 1;
-                    if (countDec >= 1) {
-                        carts.get(position).setCount(countDec);
-//                        countDec = 1;
-//                        databaseCart.updateCount(countDec, carts.get(position).getItemId());
-//                        holder.amountTextView.setText(countDec + "");
-//                      //  countSubPrice.countSubTotal(-Double.valueOf(carts.get(position).getItem().getItem_price()));
-//                    } else {
-                        databaseCart.updateCount(countDec, carts.get(position).getItemId());
-                        holder.amountTextView.setText(countDec + "");
-                        countSubPrice.countSubTotal(-Double.valueOf(carts.get(position).getItem().getItem_price()));
+            if (countSubPrice != null) {
+                holder.incAmount.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int count = carts.get(position).getCount();
+                        count++;
+                        DatabaseCart.updateCount(count, carts.get(position).getItemId());
+                        holder.amountTextView.setText(String.valueOf(count));
+                        countSubPrice.countSubTotal(Double.parseDouble(carts.get(position).getItem().getItem_price()));
+                        carts.get(position).setCount(carts.get(position).getCount() + 1);
                     }
-                }
-            });
+                });
+
+                holder.decAmount.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int count = carts.get(position).getCount();
+                        if (count > 1) {
+                            count--;
+                            carts.get(position).setCount(count);
+                            DatabaseCart.updateCount(count, carts.get(position).getItemId());
+                            holder.amountTextView.setText(String.valueOf(count));
+                            countSubPrice.countSubTotal(-Double.parseDouble(carts.get(position).getItem().getItem_price()));
+                        }
+                    }
+                });
+            } else {
+                holder.incAmount.setVisibility(View.INVISIBLE);
+                holder.decAmount.setVisibility(View.INVISIBLE);
+            }
         }
     }
-
 
 
     @Override
@@ -150,25 +98,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public void removeItem(int position) {
         Cart cart = carts.get(position);
-        Double price = Double.valueOf(carts.get(position).getItem().getItem_price());
-        subTotal = price * carts.get(position).getCount();
-        countSubPrice.countSubTotal(-subTotal);
-        carts.remove(position);
-        DatabaseCart databaseCart = new DatabaseCart();
-        databaseCart.delete(cart,() -> {
+        double price = Double.parseDouble(carts.get(position).getItem().getItem_price());
+        double subTotal = price * carts.get(position).getCount();
+        DatabaseCart.delete(cart, () -> {
+            carts.remove(position);
             notifyItemRemoved(position);
+            countSubPrice.countSubTotal(-subTotal);
         });
-
     }
-    public void restoreItem(Cart cart, int position) {
-        carts.add(position, cart);
-        notifyItemInserted(position);
-    }
-
-    public List<Cart> getData() {
-        return carts;
-    }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView titleTextView, priceTextView, amountTextView;

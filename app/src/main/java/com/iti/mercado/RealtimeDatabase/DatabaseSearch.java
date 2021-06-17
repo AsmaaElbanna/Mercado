@@ -23,7 +23,7 @@ public class DatabaseSearch {
                 .getReference("allItems");
         Query query = databaseReference.orderByChild("item_title")
                 .startAt(name.toUpperCase())
-                .endAt(name.toLowerCase() + "\uf8ff").limitToFirst(5);
+                .endAt(name.toLowerCase() + "\uf8ff").limitToFirst(10);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
