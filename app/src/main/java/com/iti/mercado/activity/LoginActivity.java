@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         emailInputLayout = findViewById(R.id.email_EditText);
         passwordInputLayout = findViewById(R.id.password_EditText);
+        TextView forgotPasswordTextView = findViewById(R.id.forgot_password_TextView);
         //ImageView passwordVisibilityImageView = findViewById(R.id.password_visibility_ImageView);
 
         Button loginEmailPasswordButton = findViewById(R.id.login_Button);
@@ -93,6 +94,28 @@ public class LoginActivity extends AppCompatActivity {
 
         signUpTextView.setOnClickListener(v -> {
             changeActivity(SingUpActivity.class);
+        });
+
+        forgotPasswordTextView.setOnClickListener(v -> {
+
+            String emailAddress = emailInputLayout.getEditText().getText().toString();
+
+            if (!emailAddress.isEmpty()) {
+
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+
+                auth.sendPasswordResetEmail(emailAddress)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.d("TAG", "Email sent.");
+                                Toast.makeText(LoginActivity.this, "Check your email", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Task not Successful", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+            }
         });
 
         loginEmailPasswordButton.setOnClickListener(v -> {

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent"
+    android:background="@color/white"
     tools:context=".activity.SplashScreenActivity">
 
     <LinearLayout
@@ -18,10 +18,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="250dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/main_animation_view"
+            android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/logo" />
+            android:background="@color/white"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/an_launch_screen" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

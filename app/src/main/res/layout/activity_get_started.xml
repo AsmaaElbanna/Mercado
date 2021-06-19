@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,14 +16,14 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/get_started_background" />
+            android:src="@drawable/get_started" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#80000000" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="#80000000" />-->
 
         <TextView
             android:id="@+id/welcome_msg"
@@ -36,7 +35,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="Welcome to our store"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_text"
             android:textSize="50sp" />
 
         <TextView
@@ -49,9 +48,9 @@
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="Get your groceries as fast as one hour"
             android:textColor="@color/white"
             android:textSize="20sp" />
+        <!--        android:text="Get your groceries as fast as one hour"-->
 
         <Button
             android:id="@+id/get_started_Button"

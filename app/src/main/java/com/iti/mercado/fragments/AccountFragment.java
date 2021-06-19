@@ -36,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.iti.mercado.R;
 import com.iti.mercado.activity.DeliveryActivity;
+import com.iti.mercado.activity.EditAccountActivity;
 import com.iti.mercado.activity.LoginActivity;
 import com.iti.mercado.model.AppUser;
 import com.iti.mercado.utilities.Constants;
@@ -52,6 +53,7 @@ public class AccountFragment extends Fragment {
     private CircleImageView profilePictureCircleImageView;
     private Button logoutButton;
     private LinearLayout deliveryAddressLayout;
+    private LinearLayout myAccountLayout;
     private AppUser appUser;
     private FirebaseUser currentUser;
     private DatabaseReference databaseReference;
@@ -99,6 +101,11 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
         });
 
+        myAccountLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditAccountActivity.class);
+            startActivity(intent);
+        });
+
         profilePictureCircleImageView.setOnClickListener(v -> {
             getProfilePicture();
         });
@@ -118,6 +125,7 @@ public class AccountFragment extends Fragment {
         emailTextView = view.findViewById(R.id.profile_email);
         logoutButton = view.findViewById(R.id.logout_button);
         deliveryAddressLayout = view.findViewById(R.id.delivery_address);
+        myAccountLayout = view.findViewById(R.id.my_details);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
@@ -158,17 +166,18 @@ public class AccountFragment extends Fragment {
             Log.i("if", "getInfoFromUser: 1= " + currentUser.getPhotoUrl());
 
             if (currentUser.getPhotoUrl() == null) { // the currentUser is lodged by email and password
-
                 if (appUser != null) {
                     usernameTextView.setText(appUser.getUsername());
                     //profilePictureCircleImageView.setImageURI(Uri.parse(appUser.getProfilePicture()));
                     if (getContext() != null) {
-                        Glide.with(getContext())
-                                .load(Uri.parse(appUser.getProfilePicture()))
-                                //.apply(new RequestOptions().override(100,100))
-                                .placeholder(R.drawable.ic_launcher_background)
-                                .error(R.drawable.ic_baseline_account_circle_24)
-                                .into(profilePictureCircleImageView);
+                        if (appUser.getProfilePicture() != null) {
+                            Glide.with(getContext())
+                                    .load(Uri.parse(appUser.getProfilePicture()))
+                                    //.apply(new RequestOptions().override(100,100))
+                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .error(R.drawable.ic_baseline_account_circle_24)
+                                    .into(profilePictureCircleImageView);
+                        }
                     }
                 }
 
@@ -310,4 +319,6 @@ public class AccountFragment extends Fragment {
             addImageToFirebase(data);
         }
     }
+
+
 }
