@@ -8,6 +8,15 @@ public class Order {
     private String shippingAddress;
     private List<OrderItem> items;
     private long timestamp;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public double getTotalPrice() {
         return totalPrice;

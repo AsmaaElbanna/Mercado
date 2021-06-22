@@ -38,6 +38,7 @@ import com.iti.mercado.R;
 import com.iti.mercado.activity.DeliveryActivity;
 import com.iti.mercado.activity.EditAccountActivity;
 import com.iti.mercado.activity.LoginActivity;
+import com.iti.mercado.activity.OrdersActivity;
 import com.iti.mercado.model.AppUser;
 import com.iti.mercado.utilities.Constants;
 import com.iti.mercado.utilities.UserFirebase;
@@ -54,6 +55,7 @@ public class AccountFragment extends Fragment {
     private Button logoutButton;
     private LinearLayout deliveryAddressLayout;
     private LinearLayout myAccountLayout;
+    private LinearLayout orderLayout;
     private AppUser appUser;
     private FirebaseUser currentUser;
     private DatabaseReference databaseReference;
@@ -109,6 +111,11 @@ public class AccountFragment extends Fragment {
         profilePictureCircleImageView.setOnClickListener(v -> {
             getProfilePicture();
         });
+        orderLayout.setOnClickListener(v -> {
+
+            Intent intent =new Intent(getActivity(), OrdersActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -126,6 +133,7 @@ public class AccountFragment extends Fragment {
         logoutButton = view.findViewById(R.id.logout_button);
         deliveryAddressLayout = view.findViewById(R.id.delivery_address);
         myAccountLayout = view.findViewById(R.id.my_details);
+        orderLayout = view.findViewById(R.id.orders);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());

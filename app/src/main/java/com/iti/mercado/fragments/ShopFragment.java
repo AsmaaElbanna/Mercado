@@ -48,7 +48,6 @@ import java.util.List;
 public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
 
     private ImageSlider imageSlider;
-
     private List<ItemPath> newArrivalItems;
     private List<ItemPath> offersItems;
 
@@ -70,10 +69,7 @@ public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
                             searchEditText,
                             ViewCompat.getTransitionName(searchEditText));
                     getActivity().startActivity(intent, activityOptionsCompat.toBundle());
-
         });
-
-
         RecyclerView newArrivalRecyclerview = view.findViewById(R.id.new_arrival_recyclerview);
         RecyclerView offerRecyclerview = view.findViewById(R.id.offer_recyclerview);
 
