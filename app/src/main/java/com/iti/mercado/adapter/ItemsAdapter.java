@@ -164,7 +164,6 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         });
 
         // cart part
-
         Cart cart =new Cart();
         cart.setItemId(items.get(position).getItem_id());
         cart.setCategory(category);
@@ -188,7 +187,6 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                             holder.addCart.setText("Added");
                         });
             }
-
         });
 
 

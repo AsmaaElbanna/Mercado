@@ -55,7 +55,11 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
             }
         });
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setAdapter(cartAdapter);
+    }
     private void subCategorySwitch(Cart cart) {
         if (cart.getSubCategory().equals("clothing")) {
             if (cart.getCategory().equals("Women's Fashion"))
