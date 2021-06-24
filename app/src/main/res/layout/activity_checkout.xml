@@ -62,7 +62,7 @@
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:minLines="1"
-                            android:text="my home"
+                            android:text="My Home"
                             android:textColor="@color/primary_text"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -94,20 +94,20 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/building"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="No 123"
                                 android:textColor="@color/secondary_text"
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=" , "
                                 android:textColor="@color/secondary_text"
@@ -115,7 +115,7 @@
 
                             <TextView
                                 android:id="@+id/street"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Sub street"
                                 android:textColor="@color/secondary_text"
@@ -123,20 +123,20 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/area"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Main street"
                                 android:textColor="@color/secondary_text"
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=" , "
                                 android:textColor="@color/secondary_text"
@@ -145,20 +145,20 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/governorate"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="City name"
                                 android:textColor="@color/secondary_text"
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=" , "
                                 android:textColor="@color/secondary_text"
@@ -166,7 +166,7 @@
 
                             <TextView
                                 android:id="@+id/country"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Country"
                                 android:textColor="@color/secondary_text"
