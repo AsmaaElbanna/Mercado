@@ -34,6 +34,7 @@ import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
+import com.iti.mercado.utilities.ReloadItem;
 
 import java.util.List;
 
@@ -69,25 +70,47 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
 
             holder.itemContainerLinearLayout.setOnClickListener(v -> {
 
+                ReloadItem.adapterName = "NewArrivalAdapter";
+                ReloadItem.itemNumberInAdapter = position;
+
+                itemPaths.get(position).getItem().setItem_id(itemPaths.get(position).getItemId());
+
+
                 if (itemPaths.get(position).getItem() instanceof Laptop) {
                     Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof LaptopBag) {
                     Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof Mobile) {
                     Intent intent = new Intent(context, DetailsItemMobileActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof HomeAppliance) {
                     Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof KidsClothing
                         || itemPaths.get(position).getItem() instanceof KidsShoes
@@ -98,6 +121,10 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
                     Intent intent = new Intent(context, DetailsItemFashionActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 }
             });

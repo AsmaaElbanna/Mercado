@@ -10,7 +10,7 @@ public class Item implements Serializable {
     private String item_price;
     private String item_title;
     private List<String> slider_images;
-    private String price_afterSale;
+    private String oldPrice;
     private String brand;
 
     public String getBrand() {
@@ -61,11 +61,11 @@ public class Item implements Serializable {
         this.item_title = item_title;
     }
 
-    public String getPrice_afterSale() {
-        return price_afterSale;
+    public String getOldPrice() {
+        return oldPrice;
     }
 
-    public void setPrice_afterSale(String price_afterSale) {
-        this.price_afterSale = price_afterSale;
+    public void setOldPrice(String oldPrice) {
+        this.oldPrice = oldPrice;
     }
 }

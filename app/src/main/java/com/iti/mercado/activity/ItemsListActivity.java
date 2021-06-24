@@ -35,6 +35,7 @@ import com.iti.mercado.utilities.Constants;
 import com.iti.mercado.utilities.MyBottomSheetDialogFilter;
 import com.iti.mercado.utilities.Network;
 import com.iti.mercado.utilities.OnResponseRetrofit;
+import com.iti.mercado.utilities.ReloadItem;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -276,5 +277,17 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
             // end test
         }
         adapter.setItems(itemsFilter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (adapter != null) {
+            if (ReloadItem.adapterName.equals("ItemsAdapter"))
+                adapter.notifyItemChanged(ReloadItem.itemNumberInAdapter);
+        }
+
+        ReloadItem.adapterName = "";
     }
 }

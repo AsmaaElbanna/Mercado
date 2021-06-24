@@ -3,12 +3,14 @@ package com.iti.mercado.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ import com.iti.mercado.utilities.DatabaseFlashSale;
 import com.iti.mercado.utilities.DatabaseItem;
 import com.iti.mercado.utilities.OnRetrieveFlashSale;
 import com.iti.mercado.utilities.OnRetrieveItem;
+import com.iti.mercado.utilities.ReloadItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,5 +156,22 @@ public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
             slideModels.add(new SlideModel(flashSale.getImage()));
         }
         imageSlider.setImageList(slideModels, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (offerAdapter != null) {
+            if (ReloadItem.adapterName.equals("OfferAdapter"))
+                offerAdapter.notifyItemChanged(ReloadItem.itemNumberInAdapter);
+        }
+
+        if (newArrivalAdapter != null) {
+            if (ReloadItem.adapterName.equals("NewArrivalAdapter"))
+                newArrivalAdapter.notifyItemChanged(ReloadItem.itemNumberInAdapter);
+        }
+
+        ReloadItem.adapterName = "";
     }
 }

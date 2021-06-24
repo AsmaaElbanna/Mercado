@@ -2,7 +2,6 @@ package com.iti.mercado.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,7 @@ import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
-import com.iti.mercado.utilities.DatabaseItem;
+import com.iti.mercado.utilities.ReloadItem;
 
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (itemPaths.get(position).getItem() != null) {
             holder.itemTitleTextView.setText(itemPaths.get(position).getItem().getItem_title());
-            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getPrice_afterSale());
+            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getOldPrice()+" EGP");
             holder.itemOldPriceTextView.setText(itemPaths.get(position).getItem().getItem_price()+" EGP");
 //            holder.itemOldPriceTextView.setPaintFlags(holder.itemOldPriceTextView.getPaintFlags() |
 //                    Paint.STRIKE_THRU_TEXT_FLAG);
@@ -75,25 +74,46 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
 
             holder.itemContainerLinearLayout.setOnClickListener(v -> {
 
+                ReloadItem.adapterName = "OfferAdapter";
+                ReloadItem.itemNumberInAdapter = position;
+
+                itemPaths.get(position).getItem().setItem_id(itemPaths.get(position).getItemId());
+
                 if (itemPaths.get(position).getItem() instanceof Laptop) {
                     Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof LaptopBag) {
                     Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof Mobile) {
                     Intent intent = new Intent(context, DetailsItemMobileActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof HomeAppliance) {
                     Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (itemPaths.get(position).getItem() instanceof KidsClothing
                         || itemPaths.get(position).getItem() instanceof KidsShoes
@@ -104,6 +124,10 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
                     Intent intent = new Intent(context, DetailsItemFashionActivity.class);
                     //pass data
                     intent.putExtra("MyClass", itemPaths.get(position).getItem());
+
+                    intent.putExtra("category", itemPaths.get(position).getCategory());
+                    intent.putExtra("subcategory", itemPaths.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 }
             });

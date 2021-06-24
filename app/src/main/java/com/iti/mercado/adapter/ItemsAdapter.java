@@ -38,6 +38,7 @@ import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
+import com.iti.mercado.utilities.ReloadItem;
 
 import java.util.List;
 
@@ -78,6 +79,9 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.itemImageView);
         holder.linearLayout.setOnClickListener(v -> {
+
+            ReloadItem.adapterName = "ItemsAdapter";
+            ReloadItem.itemNumberInAdapter = position;
 
             if (items.get(position) instanceof Laptop) {
                 Intent intent = new Intent(context, DetailsItemLaptopActivity.class);

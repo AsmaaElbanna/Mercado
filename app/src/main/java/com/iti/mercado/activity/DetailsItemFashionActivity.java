@@ -2,6 +2,7 @@ package com.iti.mercado.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,9 +26,9 @@ import java.util.List;
 
 public class DetailsItemFashionActivity extends AppCompatActivity {
     TextView price, brand, size, color, quality;
-    TextView sizeText,qualityText,colorText;
+    TextView sizeText, qualityText, colorText;
     Button addCartButton;
-    private  String category, sub_category;
+    private String category, sub_category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,10 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         size = findViewById(R.id.size_value);
         color = findViewById(R.id.color_value);
         quality = findViewById(R.id.quality_value);
-        sizeText =findViewById(R.id.size_txt);
-        qualityText=findViewById(R.id.quality_txt);
-        colorText=findViewById(R.id.color_txt);
-        addCartButton=findViewById(R.id.add_to_cart_from_details);
+        sizeText = findViewById(R.id.size_txt);
+        qualityText = findViewById(R.id.quality_txt);
+        colorText = findViewById(R.id.color_txt);
+        addCartButton = findViewById(R.id.add_to_cart_from_details);
 
         //slider part
         ImageSlider imageSlider = findViewById(R.id.slider);
@@ -51,7 +52,7 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             KidsClothing girlsAndBoysClothing = (KidsClothing) getIntent().getSerializableExtra("MyClass");
 
             List<SlideModel> slideModels = new ArrayList<>();
-            for(String slider:girlsAndBoysClothing.getSlider_image()){
+            for (String slider : girlsAndBoysClothing.getSlider_image()) {
                 slideModels.add(new SlideModel(slider, girlsAndBoysClothing.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
@@ -62,56 +63,13 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             quality.setText(girlsAndBoysClothing.getQuality());
             // cart part
             category = getIntent().getStringExtra("category");
-            sub_category= getIntent().getStringExtra("subcategory");
-            Cart cart =new Cart();
+            sub_category = getIntent().getStringExtra("subcategory");
+            Cart cart = new Cart();
             cart.setItemId(girlsAndBoysClothing.getItem_id());
-             cart.setCategory(category);
-            Log.i("TAG", "onCreate: category "+category);
-            cart.setSubCategory(sub_category);
-            Log.i("TAG", "onCreate: category "+sub_category);
-            cart.setCount(1);
-             DatabaseCart databaseCart = new DatabaseCart();
-
-        databaseCart.read(cart, flag -> {
-            if (flag) {
-                addCartButton.setText("Added");
-            }
-        });
-        addCartButton.setOnClickListener(v -> {
-
-            if (addCartButton.getText() == "Added") {
-                databaseCart.delete(cart, () -> {
-                    addCartButton.setText("Add to cart");
-                });
-            }else{
-                databaseCart.write(cart
-                        , () -> {
-                            addCartButton.setText("Added");
-                        });
-            }
-        });
-
-        } else if (getIntent().getSerializableExtra("MyClass") instanceof WomenClothing) {
-            WomenClothing womenClothing = (WomenClothing) getIntent().getSerializableExtra("MyClass");
-            List<SlideModel> slideModels = new ArrayList<>();
-            for(String slider:womenClothing.getSlider_images()){
-                slideModels.add(new SlideModel(slider, womenClothing.getItem_title()));
-                imageSlider.setImageList(slideModels, true);
-            }
-            price.setText(womenClothing.getItem_price());
-            brand.setText(womenClothing.getBrand());
-            color.setText(womenClothing.getColor());
-            size.setText(womenClothing.getLength());
-            quality.setText(womenClothing.getMaterial());
-            // cart part
-            category = getIntent().getStringExtra("category");
-            sub_category= getIntent().getStringExtra("subcategory");
-            Cart cart =new Cart();
-            cart.setItemId(womenClothing.getItem_id());
             cart.setCategory(category);
-            Log.i("TAG", "onCreate: category "+category);
+            Log.i("TAG", "onCreate: category " + category);
             cart.setSubCategory(sub_category);
-            Log.i("TAG", "onCreate: category "+sub_category);
+            Log.i("TAG", "onCreate: category " + sub_category);
             cart.setCount(1);
             DatabaseCart databaseCart = new DatabaseCart();
 
@@ -126,17 +84,59 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                     databaseCart.delete(cart, () -> {
                         addCartButton.setText("Add to cart");
                     });
-                }else{
+                } else {
                     databaseCart.write(cart
                             , () -> {
                                 addCartButton.setText("Added");
                             });
                 }
             });
+
+        } else if (getIntent().getSerializableExtra("MyClass") instanceof WomenClothing) {
+            WomenClothing womenClothing = (WomenClothing) getIntent().getSerializableExtra("MyClass");
+            List<SlideModel> slideModels = new ArrayList<>();
+            for (String slider : womenClothing.getSlider_images()) {
+                slideModels.add(new SlideModel(slider, womenClothing.getItem_title()));
+                imageSlider.setImageList(slideModels, true);
+            }
+            price.setText(womenClothing.getItem_price());
+            brand.setText(womenClothing.getBrand());
+            color.setText(womenClothing.getColor());
+            size.setText(womenClothing.getLength());
+            quality.setText(womenClothing.getMaterial());
+            // cart part
+            category = getIntent().getStringExtra("category");
+            sub_category = getIntent().getStringExtra("subcategory");
+            Cart cart = new Cart();
+            cart.setItemId(womenClothing.getItem_id());
+            cart.setCategory(category);
+            Log.i("TAG", "onCreate: category " + category);
+            cart.setSubCategory(sub_category);
+            Log.i("TAG", "onCreate: category " + sub_category);
+            cart.setCount(1);
+            DatabaseCart databaseCart = new DatabaseCart();
+
+            databaseCart.read(cart, flag -> {
+                if (flag) {
+                    addCartButton.setText("Added");
+                }
+            });
+            addCartButton.setOnClickListener(v -> {
+
+                if (addCartButton.getText() == "Added") {
+                    databaseCart.delete(cart, () -> {
+                        addCartButton.setText("Add to cart");
+                    });
+                } else {
+                    databaseCart.write(cart, () -> {
+                        addCartButton.setText("Added");
+                    });
+                }
+            });
         } else if (getIntent().getSerializableExtra("MyClass") instanceof KidsShoes) {
             KidsShoes kidsShoes = (KidsShoes) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            for(String slider:kidsShoes.getSlider_image()){
+            for (String slider : kidsShoes.getSlider_image()) {
                 slideModels.add(new SlideModel(slider, kidsShoes.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
@@ -148,13 +148,13 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             quality.setText(kidsShoes.getMaterial());
             // cart part
             category = getIntent().getStringExtra("category");
-            sub_category= getIntent().getStringExtra("subcategory");
-            Cart cart =new Cart();
+            sub_category = getIntent().getStringExtra("subcategory");
+            Cart cart = new Cart();
             cart.setItemId(kidsShoes.getItem_id());
             cart.setCategory(category);
-            Log.i("TAG", "onCreate: category "+category);
+            Log.i("TAG", "onCreate: category " + category);
             cart.setSubCategory(sub_category);
-            Log.i("TAG", "onCreate: category "+sub_category);
+            Log.i("TAG", "onCreate: category " + sub_category);
             cart.setCount(1);
             DatabaseCart databaseCart = new DatabaseCart();
 
@@ -169,7 +169,7 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                     databaseCart.delete(cart, () -> {
                         addCartButton.setText("Add to cart");
                     });
-                }else{
+                } else {
                     databaseCart.write(cart
                             , () -> {
                                 addCartButton.setText("Added");
@@ -177,10 +177,10 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                 }
             });
 
-        }else if (getIntent().getSerializableExtra("MyClass") instanceof WomenBags) {
+        } else if (getIntent().getSerializableExtra("MyClass") instanceof WomenBags) {
             WomenBags womenBags = (WomenBags) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            for(String slider:womenBags.getSlider_images()){
+            for (String slider : womenBags.getSlider_images()) {
                 slideModels.add(new SlideModel(slider, womenBags.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
@@ -192,13 +192,13 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             sizeText.setVisibility(View.GONE);
             // cart part
             category = getIntent().getStringExtra("category");
-            sub_category= getIntent().getStringExtra("subcategory");
-            Cart cart =new Cart();
+            sub_category = getIntent().getStringExtra("subcategory");
+            Cart cart = new Cart();
             cart.setItemId(womenBags.getItem_id());
             cart.setCategory(category);
-            Log.i("TAG", "onCreate: category "+category);
+            Log.i("TAG", "onCreate: category " + category);
             cart.setSubCategory(sub_category);
-            Log.i("TAG", "onCreate: category "+sub_category);
+            Log.i("TAG", "onCreate: category " + sub_category);
             cart.setCount(1);
             DatabaseCart databaseCart = new DatabaseCart();
 
@@ -213,7 +213,7 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                     databaseCart.delete(cart, () -> {
                         addCartButton.setText("Add to cart");
                     });
-                }else{
+                } else {
                     databaseCart.write(cart
                             , () -> {
                                 addCartButton.setText("Added");
@@ -221,10 +221,10 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                 }
             });
 
-        } else if(getIntent().getSerializableExtra("MyClass") instanceof MakeUp) {
+        } else if (getIntent().getSerializableExtra("MyClass") instanceof MakeUp) {
             MakeUp makeUp = (MakeUp) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            for(String slider:makeUp.getSlider_images()){
+            for (String slider : makeUp.getSlider_images()) {
                 slideModels.add(new SlideModel(slider, makeUp.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
@@ -238,13 +238,13 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             size.setText(makeUp.getWeight());
             // cart part
             category = getIntent().getStringExtra("category");
-            sub_category= getIntent().getStringExtra("subcategory");
-            Cart cart =new Cart();
+            sub_category = getIntent().getStringExtra("subcategory");
+            Cart cart = new Cart();
             cart.setItemId(makeUp.getItem_id());
             cart.setCategory(category);
-            Log.i("TAG", "onCreate: category "+category);
+            Log.i("TAG", "onCreate: category " + category);
             cart.setSubCategory(sub_category);
-            Log.i("TAG", "onCreate: category "+sub_category);
+            Log.i("TAG", "onCreate: category " + sub_category);
             cart.setCount(1);
             DatabaseCart databaseCart = new DatabaseCart();
 
@@ -259,17 +259,17 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                     databaseCart.delete(cart, () -> {
                         addCartButton.setText("Add to cart");
                     });
-                }else{
+                } else {
                     databaseCart.write(cart
                             , () -> {
                                 addCartButton.setText("Added");
                             });
                 }
             });
-        }else if(getIntent().getSerializableExtra("MyClass") instanceof SkinCare) {
+        } else if (getIntent().getSerializableExtra("MyClass") instanceof SkinCare) {
             SkinCare skinCare = (SkinCare) getIntent().getSerializableExtra("MyClass");
             List<SlideModel> slideModels = new ArrayList<>();
-            for(String slider:skinCare.getSlider_images()){
+            for (String slider : skinCare.getSlider_images()) {
                 slideModels.add(new SlideModel(slider, skinCare.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
@@ -282,13 +282,13 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
             size.setText(skinCare.getSize());
             // cart part
             category = getIntent().getStringExtra("category");
-            sub_category= getIntent().getStringExtra("subcategory");
-            Cart cart =new Cart();
+            sub_category = getIntent().getStringExtra("subcategory");
+            Cart cart = new Cart();
             cart.setItemId(skinCare.getItem_id());
             cart.setCategory(category);
-            Log.i("TAG", "onCreate: category "+category);
+            Log.i("TAG", "onCreate: category " + category);
             cart.setSubCategory(sub_category);
-            Log.i("TAG", "onCreate: category "+sub_category);
+            Log.i("TAG", "onCreate: category " + sub_category);
             cart.setCount(1);
             DatabaseCart databaseCart = new DatabaseCart();
 
@@ -303,7 +303,7 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                     databaseCart.delete(cart, () -> {
                         addCartButton.setText("Add to cart");
                     });
-                }else{
+                } else {
                     databaseCart.write(cart
                             , () -> {
                                 addCartButton.setText("Added");
@@ -311,8 +311,5 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-
     }
 }

@@ -34,6 +34,7 @@ import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
+import com.iti.mercado.utilities.ReloadItem;
 
 import java.util.List;
 
@@ -66,25 +67,43 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                     .into(holder.itemImageView);
             holder.linearLayout.setOnClickListener(v -> {
 
+                favoriteItems.get(position).getItem().setItem_id(favoriteItems.get(position).getItemId());
+
                 if (favoriteItems.get(position).getItem() instanceof Laptop) {
                     Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
                     //pass data
                     intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+
+                    intent.putExtra("category", favoriteItems.get(position).getCategory());
+                    intent.putExtra("subcategory", favoriteItems.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (favoriteItems.get(position).getItem() instanceof LaptopBag) {
                     Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
                     //pass data
                     intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+
+                    intent.putExtra("category", favoriteItems.get(position).getCategory());
+                    intent.putExtra("subcategory", favoriteItems.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (favoriteItems.get(position).getItem() instanceof Mobile) {
                     Intent intent = new Intent(context, DetailsItemMobileActivity.class);
                     //pass data
                     intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+
+                    intent.putExtra("category", favoriteItems.get(position).getCategory());
+                    intent.putExtra("subcategory", favoriteItems.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (favoriteItems.get(position).getItem() instanceof HomeAppliance) {
                     Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
                     //pass data
                     intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+
+                    intent.putExtra("category", favoriteItems.get(position).getCategory());
+                    intent.putExtra("subcategory", favoriteItems.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 } else if (favoriteItems.get(position).getItem() instanceof KidsClothing
                         || favoriteItems.get(position).getItem() instanceof KidsShoes
@@ -95,6 +114,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                     Intent intent = new Intent(context, DetailsItemFashionActivity.class);
                     //pass data
                     intent.putExtra("MyClass", favoriteItems.get(position).getItem());
+
+                    intent.putExtra("category", favoriteItems.get(position).getCategory());
+                    intent.putExtra("subcategory", favoriteItems.get(position).getSubCategory());
+
                     context.startActivity(intent);
                 }
             });

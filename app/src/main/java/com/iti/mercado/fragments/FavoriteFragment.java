@@ -35,15 +35,20 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
 
     private ArrayList<ItemPath> favoriteItems;
     private FavoriteAdapter favoriteAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     public void onStart() {
         super.onStart();
+        favoriteItems = new ArrayList<>();
         DatabaseFavorite.getAllItems(favoriteItems, () -> {
             for (ItemPath favoriteItem : favoriteItems) {
                 subCategorySwitch(favoriteItem);
             }
         });
+
+        favoriteAdapter = new FavoriteAdapter(getActivity(), favoriteItems);
+        recyclerView.setAdapter(favoriteAdapter);
     }
 
     void subCategorySwitch(ItemPath favoriteItem) {
@@ -82,15 +87,13 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        favoriteItems = new ArrayList<>();
 
-        RecyclerView recyclerView = view.findViewById(R.id.favorite_recyclerview);
+        recyclerView = view.findViewById(R.id.favorite_recyclerview);
         recyclerView.setHasFixedSize(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        favoriteAdapter = new FavoriteAdapter(getActivity(), favoriteItems);
-        recyclerView.setAdapter(favoriteAdapter);
+
 
         return view;
     }
