@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckoutActivity extends AppCompatActivity implements OnSuccess {
-
+    private ImageView backArrow;
     private TextView countryTextView;
     private TextView governorateTextView;
     private TextView areaTextView;
@@ -61,6 +62,8 @@ public class CheckoutActivity extends AppCompatActivity implements OnSuccess {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        backArrow = findViewById(R.id.back_button);
 
         totalPriceTextView = findViewById(R.id.total_price);
 
@@ -120,6 +123,9 @@ public class CheckoutActivity extends AppCompatActivity implements OnSuccess {
 
         });
 
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     private void getAddressData() {

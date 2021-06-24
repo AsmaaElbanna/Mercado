@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,14 +26,22 @@ import java.util.List;
 
 public class OrdersActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    List<Order> orderList;
-    DatabaseReference databaseReference;
+    private ImageView backArrow;
+    private RecyclerView recyclerView;
+    private List<Order> orderList;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
+
+        // to  hide action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        backArrow = findViewById(R.id.back_button);
         recyclerView = findViewById(R.id.ordersRecyclerView);
         orderList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("orders").child(UserFirebase.getUserId());
@@ -41,7 +50,7 @@ public class OrdersActivity extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        OrderAdapter orderAdapter =new OrderAdapter(OrdersActivity.this,orderList);
+        OrderAdapter orderAdapter = new OrderAdapter(OrdersActivity.this, orderList);
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -51,8 +60,8 @@ public class OrdersActivity extends AppCompatActivity {
 
                     orderList.add(dataSnapshot.getValue(Order.class));
                     orderList.get(x).setId(dataSnapshot.getKey());
-                    Log.i("TAG", "onDataChange: ddddddd"+dataSnapshot.getKey());
-                     x++;
+                    Log.i("TAG", "onDataChange: ddddddd" + dataSnapshot.getKey());
+                    x++;
                 }
                 recyclerView.setAdapter(orderAdapter);
             }
@@ -63,6 +72,8 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
-
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
     }
 }

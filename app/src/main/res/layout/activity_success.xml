@@ -5,7 +5,6 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/accent"
     android:orientation="vertical"
     tools:context=".activity.SuccessActivity">
 
@@ -13,7 +12,6 @@
         android:id="@+id/main_animation_view"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@color/white"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/an_checkmark" />
 
@@ -24,7 +22,7 @@
         android:layout_margin="16dp"
         android:gravity="center"
         android:text="Order Placed !"
-        android:textColor="@color/white"
+        android:textColor="@color/primary_text"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -34,8 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:gravity="center"
-        android:text="jkjsadjfdafjashdfjkshdafkjhasdkjfhjkdafhkjsdfhsdakjfhsdjkf jkahsdfjkhakjdfhkjahsfkjhasdkfhsadjkfhjksdfakjsdfhjkhadskjhfkjashdfkjahjkdshfkjahdsfjkhsadfkjhsdajkfhkajdfhakjhdfkjashdfkhakdjfhjaklf"
-        android:textColor="@color/white"
+        android:text="Your order was placed successfully and will be delivered after 3-days, you can check order history under the profile tab"
+        android:textColor="@color/primary_text"
         android:textSize="20sp" />
 
     <Button
@@ -45,12 +43,11 @@
         android:layout_gravity="center"
         android:layout_margin="16dp"
         android:background="@drawable/round_button"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/accent"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:text="Delivery Status"
-        android:textAllCaps="false"
-        android:textColor="@color/accent" />
+        android:text="go home"
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

@@ -45,6 +45,8 @@ import retrofit2.Call;
 
 public class ItemsListActivity extends AppCompatActivity implements BottomSheetFilterListener {
 
+
+    private ImageView backArrow;
     private RecyclerView recyclerView;
     private String category, sub_category;
     private ImageView filterImageView;
@@ -58,6 +60,8 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_list);
+
+        backArrow = findViewById(R.id.back_button);
         filterImageView = (ImageView) findViewById(R.id.filter);
         recyclerView = findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
@@ -70,7 +74,9 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
 
         subCategorySwitch(getSubCategoryName(message));
 
-
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     void subCategorySwitch(String subCategory) {
@@ -237,7 +243,7 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
                         itemsFilter = items.stream().filter(item -> {
                             for (double filterValue : filterPrice) {
                                 double price = Double.parseDouble(item.getItem_price());
-                                Log.i("TAG", "onApplyFilterClicked: "+filterPrice.get(1));
+                                Log.i("TAG", "onApplyFilterClicked: " + filterPrice.get(1));
                                 if (price > filterPrice.get(0) && price < filterPrice.get(1)) {
                                     return true;
                                 }

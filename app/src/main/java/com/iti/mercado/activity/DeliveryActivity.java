@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class DeliveryActivity extends AppCompatActivity {
     //AutoCompleteTextView searchEditText;
     //Button getAddressButton;
     //FusedLocationProviderClient mFusedLocationClient;
-
+    private ImageView backArrow;
     private TextInputLayout countryInputLayout;
     private Spinner governorateSpinner;
     private TextInputLayout areaInputLayout;
@@ -53,6 +54,7 @@ public class DeliveryActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        backArrow = findViewById(R.id.back_button);
 
         //searchEditText = findViewById(R.id.search_place);
         //getAddressButton = findViewById(R.id.get_delivery_address);
@@ -98,6 +100,10 @@ public class DeliveryActivity extends AppCompatActivity {
         //String[] countries = getResources().getStringArray(R.array.countries_array);
         //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
         //searchEditText.setAdapter(adapter);
+
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     @Override

@@ -52,6 +52,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditAccountActivity extends AppCompatActivity implements NewPasswordDialog.NewPasswordDialogListener,
         NewEmailDialog.NewEmailDialogListener, NewNameDialog.NewNameDialogListener {
+
+    private ImageView backArrow;
     private TextView usernameTextView;
     private TextView emailTextView;
     private ImageView editPasswordImageView;
@@ -75,6 +77,7 @@ public class EditAccountActivity extends AppCompatActivity implements NewPasswor
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        backArrow = findViewById(R.id.back_button);
 
         profilePictureCircleImageView = findViewById(R.id.profile_image);
         usernameTextView = findViewById(R.id.user_name_TextView);
@@ -116,6 +119,9 @@ public class EditAccountActivity extends AppCompatActivity implements NewPasswor
 
         });
 
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
     }
 
 
