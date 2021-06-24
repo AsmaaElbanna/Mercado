@@ -14,7 +14,8 @@
     <color name="google_Button">#5383EC</color>
     <color name="baby_green">#E5FFE7</color>
     <color name="category_onClick">#52B376</color>
-    <color name="red">#C70000</color>
+<!--    <color name="red">#C70000</color>-->
+    <color name="red">#f3603f</color>
 
 
 

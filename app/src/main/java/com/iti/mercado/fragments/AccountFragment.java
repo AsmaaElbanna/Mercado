@@ -35,6 +35,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.iti.mercado.R;
+import com.iti.mercado.activity.AboutActivity;
 import com.iti.mercado.activity.DeliveryActivity;
 import com.iti.mercado.activity.EditAccountActivity;
 import com.iti.mercado.activity.LoginActivity;
@@ -56,6 +57,7 @@ public class AccountFragment extends Fragment {
     private LinearLayout deliveryAddressLayout;
     private LinearLayout myAccountLayout;
     private LinearLayout orderLayout;
+    private LinearLayout aboutLayout;
     private AppUser appUser;
     private FirebaseUser currentUser;
     private DatabaseReference databaseReference;
@@ -113,7 +115,12 @@ public class AccountFragment extends Fragment {
         });
         orderLayout.setOnClickListener(v -> {
 
-            Intent intent =new Intent(getActivity(), OrdersActivity.class);
+            Intent intent = new Intent(getActivity(), OrdersActivity.class);
+            startActivity(intent);
+        });
+
+        aboutLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AboutActivity.class);
             startActivity(intent);
         });
     }
@@ -134,6 +141,7 @@ public class AccountFragment extends Fragment {
         deliveryAddressLayout = view.findViewById(R.id.delivery_address);
         myAccountLayout = view.findViewById(R.id.my_details);
         orderLayout = view.findViewById(R.id.orders);
+        aboutLayout = view.findViewById(R.id.about);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
@@ -144,7 +152,7 @@ public class AccountFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Wait few seconds...");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+        //progressDialog.show();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -154,7 +162,7 @@ public class AccountFragment extends Fragment {
                     Log.i("if", "onDataChange: not found");
                 } else {
                     Log.i("if", "onDataChange:  found");
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                     getInfoFromUser();
                 }
             }
