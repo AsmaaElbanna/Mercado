@@ -61,6 +61,11 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_list);
 
+        // to  hide action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         backArrow = findViewById(R.id.back_button);
         filterImageView = (ImageView) findViewById(R.id.filter);
         recyclerView = findViewById(R.id.listView);

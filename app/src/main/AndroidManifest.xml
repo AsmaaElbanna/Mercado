@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mercado">
+        <activity android:name=".activity.AboutActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -32,10 +33,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activity.OrdersActivity"></activity>
-        <activity android:name=".activity.EditAccountActivity"></activity>
-        <activity android:name=".activity.SuccessActivity"></activity>
-        <activity android:name=".activity.CheckoutActivity"></activity>
+        <activity android:name=".activity.OrdersActivity" />
+        <activity android:name=".activity.EditAccountActivity" />
+        <activity android:name=".activity.SuccessActivity" />
+        <activity android:name=".activity.CheckoutActivity" />
         <activity android:name=".activity.DeliveryActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.DetailsItemPersonalCareActivity" />
