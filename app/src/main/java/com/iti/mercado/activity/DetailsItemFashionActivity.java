@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -25,15 +26,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsItemFashionActivity extends AppCompatActivity {
-    TextView price, brand, size, color, quality;
-    TextView sizeText, qualityText, colorText;
-    Button addCartButton;
+    private TextView price, brand, size, color, quality;
+    private TextView sizeText, qualityText, colorText;
+    private Button addCartButton;
+    private ImageView backArrow;
     private String category, sub_category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_item_fashion);
+
+        // to  hide action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         price = findViewById(R.id.price_value);
         brand = findViewById(R.id.brand_value);
         size = findViewById(R.id.size_value);
@@ -44,6 +52,10 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
         colorText = findViewById(R.id.color_txt);
         addCartButton = findViewById(R.id.add_to_cart_from_details);
 
+        backArrow = findViewById(R.id.back_button);
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
         //slider part
         ImageSlider imageSlider = findViewById(R.id.slider);
 

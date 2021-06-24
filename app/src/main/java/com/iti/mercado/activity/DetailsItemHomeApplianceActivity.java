@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -20,12 +21,19 @@ import java.util.List;
 
 public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
 
-    Button addCartButton;
-    private String category,sub_category;
+    private Button addCartButton;
+    private String category, sub_category;
+    private ImageView backArrow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_item_home_appliance);
+
+        // to  hide action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         TextView power, model_number, item_type, item_capacity, item_brand, item_Features, country, color, price;
 
@@ -39,19 +47,24 @@ public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
         item_type = findViewById(R.id.item_type_value);
         model_number = findViewById(R.id.model_value);
         power = findViewById(R.id.power_value);
-        addCartButton =findViewById(R.id.add);
+        addCartButton = findViewById(R.id.add);
+
+        backArrow = findViewById(R.id.back_button);
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
 
         HomeAppliance homeAppliance = (HomeAppliance) getIntent().getSerializableExtra("MyClass");
 
 
         //slider part
-        List<SlideModel> slideModels=new ArrayList<>();
-        for (String slider:homeAppliance.getSlider_images()){
+        List<SlideModel> slideModels = new ArrayList<>();
+        for (String slider : homeAppliance.getSlider_images()) {
             slideModels.add(new SlideModel(slider, homeAppliance.getItem_title()));
         }
-        imageSlider.setImageList(slideModels,true);
+        imageSlider.setImageList(slideModels, true);
 
-        price.setText(homeAppliance.getItem_price()+ " LE");
+        price.setText(homeAppliance.getItem_price() + " EGP");
         item_brand.setText(homeAppliance.getBrand());
         color.setText(homeAppliance.getColor());
         country.setText(homeAppliance.getCountry());
@@ -62,13 +75,13 @@ public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
         power.setText(homeAppliance.getPower());
         // cart part
         category = getIntent().getStringExtra("category");
-        sub_category= getIntent().getStringExtra("subcategory");
-        Cart cart =new Cart();
+        sub_category = getIntent().getStringExtra("subcategory");
+        Cart cart = new Cart();
         cart.setItemId(homeAppliance.getItem_id());
         cart.setCategory(category);
-        Log.i("TAG", "onCreate: category "+category);
+        Log.i("TAG", "onCreate: category " + category);
         cart.setSubCategory(sub_category);
-        Log.i("TAG", "onCreate: category "+sub_category);
+        Log.i("TAG", "onCreate: category " + sub_category);
         cart.setCount(1);
         DatabaseCart databaseCart = new DatabaseCart();
 
@@ -83,7 +96,7 @@ public class DetailsItemHomeApplianceActivity extends AppCompatActivity {
                 databaseCart.delete(cart, () -> {
                     addCartButton.setText("Add to cart");
                 });
-            }else{
+            } else {
                 databaseCart.write(cart
                         , () -> {
                             addCartButton.setText("Added");

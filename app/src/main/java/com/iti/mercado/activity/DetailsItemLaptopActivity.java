@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -19,13 +20,19 @@ import java.util.List;
 
 public class DetailsItemLaptopActivity extends AppCompatActivity {
 
-    Button addCartButton;
-    private String category,sub_category;
+    private Button addCartButton;
+    private String category, sub_category;
+    private ImageView backArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_item_laptop);
+
+        // to  hide action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         TextView storage, ram, processor, operating_system, model, graphics_card_type, display_size, color, brand, price;
 
@@ -40,18 +47,23 @@ public class DetailsItemLaptopActivity extends AppCompatActivity {
         processor = findViewById(R.id.processor_value);
         ram = findViewById(R.id.ram_value);
         storage = findViewById(R.id.storage_value);
-        addCartButton=findViewById(R.id.add);
+        addCartButton = findViewById(R.id.add);
+
+        backArrow = findViewById(R.id.back_button);
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
 
         Laptop laptop = (Laptop) getIntent().getSerializableExtra("MyClass");
 
         //slider part
-        List<SlideModel> slideModels=new ArrayList<>();
-        for (String slider:laptop.getSlider_images()){
+        List<SlideModel> slideModels = new ArrayList<>();
+        for (String slider : laptop.getSlider_images()) {
             slideModels.add(new SlideModel(slider, laptop.getItem_title()));
         }
-        imageSlider.setImageList(slideModels,true);
+        imageSlider.setImageList(slideModels, true);
 
-        price.setText(laptop.getItem_price()+ " LE");
+        price.setText(laptop.getItem_price() + " EGP");
         brand.setText(laptop.getBrand());
         color.setText(laptop.getColor());
         display_size.setText(laptop.getDisplay_size());
@@ -64,13 +76,13 @@ public class DetailsItemLaptopActivity extends AppCompatActivity {
 
         // cart part
         category = getIntent().getStringExtra("category");
-        sub_category= getIntent().getStringExtra("subcategory");
-        Cart cart =new Cart();
+        sub_category = getIntent().getStringExtra("subcategory");
+        Cart cart = new Cart();
         cart.setItemId(laptop.getItem_id());
         cart.setCategory(category);
-        Log.i("TAG", "onCreate: category "+category);
+        Log.i("TAG", "onCreate: category " + category);
         cart.setSubCategory(sub_category);
-        Log.i("TAG", "onCreate: category "+sub_category);
+        Log.i("TAG", "onCreate: category " + sub_category);
         cart.setCount(1);
         DatabaseCart databaseCart = new DatabaseCart();
 
@@ -85,7 +97,7 @@ public class DetailsItemLaptopActivity extends AppCompatActivity {
                 databaseCart.delete(cart, () -> {
                     addCartButton.setText("Add to cart");
                 });
-            }else{
+            } else {
                 databaseCart.write(cart
                         , () -> {
                             addCartButton.setText("Added");

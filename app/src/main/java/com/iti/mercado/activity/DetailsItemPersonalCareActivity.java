@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -21,12 +22,19 @@ import java.util.List;
 public class DetailsItemPersonalCareActivity extends AppCompatActivity {
 
     private Button addCartButton;
-    private  String category, sub_category;
+    private String category, sub_category;
+    private ImageView backArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_item_personal_care);
+
+        // to  hide action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         TextView model_number, item_type, item_brand, item_Features, color, price;
 
         ImageSlider imageSlider = findViewById(R.id.slider);
@@ -38,16 +46,21 @@ public class DetailsItemPersonalCareActivity extends AppCompatActivity {
         model_number = findViewById(R.id.model_value);
         addCartButton = findViewById(R.id.add);
 
+        backArrow = findViewById(R.id.back_button);
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
+
         PersonalCare personalCare = (PersonalCare) getIntent().getSerializableExtra("MyClass");
 
         //slider part
-        List<SlideModel> slideModels=new ArrayList<>();
-        for (String slider:personalCare.getSlider_images()){
+        List<SlideModel> slideModels = new ArrayList<>();
+        for (String slider : personalCare.getSlider_images()) {
             slideModels.add(new SlideModel(slider, personalCare.getItem_title()));
         }
-        imageSlider.setImageList(slideModels,true);
+        imageSlider.setImageList(slideModels, true);
 
-        price.setText(personalCare.getItem_price()+ " LE");
+        price.setText(personalCare.getItem_price() + " EGP");
         item_brand.setText(personalCare.getBrand());
         color.setText(personalCare.getColor());
         item_Features.setText(personalCare.getItem_features());
@@ -56,13 +69,13 @@ public class DetailsItemPersonalCareActivity extends AppCompatActivity {
 
         // cart part
         category = getIntent().getStringExtra("category");
-        sub_category= getIntent().getStringExtra("subcategory");
-        Cart cart =new Cart();
+        sub_category = getIntent().getStringExtra("subcategory");
+        Cart cart = new Cart();
         cart.setItemId(personalCare.getItem_id());
         cart.setCategory(category);
-        Log.i("TAG", "onCreate: category "+category);
+        Log.i("TAG", "onCreate: category " + category);
         cart.setSubCategory(sub_category);
-        Log.i("TAG", "onCreate: category "+sub_category);
+        Log.i("TAG", "onCreate: category " + sub_category);
         cart.setCount(1);
         DatabaseCart databaseCart = new DatabaseCart();
 
@@ -77,7 +90,7 @@ public class DetailsItemPersonalCareActivity extends AppCompatActivity {
                 databaseCart.delete(cart, () -> {
                     addCartButton.setText("Add to cart");
                 });
-            }else{
+            } else {
                 databaseCart.write(cart
                         , () -> {
                             addCartButton.setText("Added");

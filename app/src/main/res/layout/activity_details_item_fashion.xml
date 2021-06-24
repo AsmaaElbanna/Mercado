@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.DetailsItemFashionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/primary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/icons" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Item Details"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,14 +52,15 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                app:placeholder="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholder="@color/white" />
 
             <LinearLayout
                 android:id="@+id/price_linear"
@@ -157,16 +185,18 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_width="180dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/cart_button"
                 android:backgroundTint="@color/accent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -196,7 +226,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -19,13 +20,19 @@ import java.util.List;
 
 public class DetailsItemMobileActivity extends AppCompatActivity {
 
-    Button addCartButton;
-    private String category,sub_category;
+    private Button addCartButton;
+    private String category, sub_category;
+    private ImageView backArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_item_mobile);
+
+        // to  hide action bar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         TextView battery_capacity, rear_camera, processor, memory, front_camera, model, display, connectivity, color, brand, price;
 
@@ -42,18 +49,23 @@ public class DetailsItemMobileActivity extends AppCompatActivity {
         memory = findViewById(R.id.memory_value);
         front_camera = findViewById(R.id.front_camera_value);
         connectivity = findViewById(R.id.connectivity_value);
-        addCartButton=findViewById(R.id.add);
+        addCartButton = findViewById(R.id.add);
+
+        backArrow = findViewById(R.id.back_button);
+        backArrow.setOnClickListener(v -> {
+            finish();
+        });
 
         Mobile mobile = (Mobile) getIntent().getSerializableExtra("MyClass");
 
         //slider part
         List<SlideModel> slideModels = new ArrayList<>();
-        for (String slider:mobile.getSlider_images()){
+        for (String slider : mobile.getSlider_images()) {
             slideModels.add(new SlideModel(slider, mobile.getItem_title()));
         }
         imageSlider.setImageList(slideModels, true);
 
-        price.setText(mobile.getItem_price() + " LE");
+        price.setText(mobile.getItem_price() + " EGP");
         brand.setText(mobile.getBrand());
         color.setText(mobile.getColor());
         display.setText(mobile.getDisplay());
@@ -67,13 +79,13 @@ public class DetailsItemMobileActivity extends AppCompatActivity {
 
         // cart part
         category = getIntent().getStringExtra("category");
-        sub_category= getIntent().getStringExtra("subcategory");
-        Cart cart =new Cart();
+        sub_category = getIntent().getStringExtra("subcategory");
+        Cart cart = new Cart();
         cart.setItemId(mobile.getItem_id());
         cart.setCategory(category);
-        Log.i("TAG", "onCreate: category "+category);
+        Log.i("TAG", "onCreate: category " + category);
         cart.setSubCategory(sub_category);
-        Log.i("TAG", "onCreate: category "+sub_category);
+        Log.i("TAG", "onCreate: category " + sub_category);
         cart.setCount(1);
         DatabaseCart databaseCart = new DatabaseCart();
 
@@ -88,7 +100,7 @@ public class DetailsItemMobileActivity extends AppCompatActivity {
                 databaseCart.delete(cart, () -> {
                     addCartButton.setText("Add to cart");
                 });
-            }else{
+            } else {
                 databaseCart.write(cart
                         , () -> {
                             addCartButton.setText("Added");
