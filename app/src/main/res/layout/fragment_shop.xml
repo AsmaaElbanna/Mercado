@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/search"
@@ -29,8 +28,8 @@
             android:hint="@string/searchForCategoryOrBrand"
             android:padding="8dp"
             android:textColorHint="#adacae"
-            android:transitionName="searchAnimation"
             android:textSize="18sp"
+            android:transitionName="searchAnimation"
             app:drawableStartCompat="@drawable/ic_baseline_search_24" />
 
         <com.denzcoskun.imageslider.ImageSlider
@@ -38,9 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginStart="5dp"
-            app:placeholder="@color/white"
             android:layout_marginEnd="5dp"
-            app:corner_radius="5" />
+            app:corner_radius="5"
+            app:placeholder="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,8 +53,28 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/new_arrival_recyclerview"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/newArrivalShimmerFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include layout="@layout/item_offer_placeholder" />
+
+                <include layout="@layout/item_offer_placeholder" />
+
+                <include layout="@layout/item_offer_placeholder" />
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,9 +89,28 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/offer_recyclerview"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content" />
-    </LinearLayout>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/offerShimmerFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include layout="@layout/item_offer_placeholder" />
+
+                <include layout="@layout/item_offer_placeholder" />
+
+                <include layout="@layout/item_offer_placeholder" />
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </LinearLayout>
 
 
 </androidx.core.widget.NestedScrollView>

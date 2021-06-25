@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.iti.mercado.R;
 import com.iti.mercado.RealtimeDatabase.DatabaseItems;
 import com.iti.mercado.activity.SearchActivity;
@@ -63,6 +64,9 @@ public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         imageSlider = view.findViewById(R.id.slider);
 
+        ShimmerFrameLayout offerShimmerFrameLayout = view.findViewById(R.id.offerShimmerFrameLayout);
+        ShimmerFrameLayout  newArrivalShimmerFrameLayout= view.findViewById(R.id.newArrivalShimmerFrameLayout);
+
         TextView searchEditText = view.findViewById(R.id.search);
         searchEditText.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SearchActivity.class);
@@ -91,6 +95,11 @@ public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
         DatabaseFlashSale.getImages(this);
 
         DatabaseItems.getItems("new arrival", itemsPath -> {
+
+            newArrivalRecyclerview.setVisibility(View.VISIBLE);
+            newArrivalShimmerFrameLayout.stopShimmer();
+            newArrivalShimmerFrameLayout.setVisibility(View.GONE);
+
             this.newArrivalItems = itemsPath;
 
             newArrivalAdapter = new NewArrivalAdapter(getActivity(), newArrivalItems);
@@ -104,6 +113,11 @@ public class ShopFragment extends Fragment implements OnRetrieveFlashSale {
         });
 
         DatabaseItems.getItems("offers", itemsPath -> {
+
+            offerRecyclerview.setVisibility(View.VISIBLE);
+            offerShimmerFrameLayout.stopShimmer();
+            offerShimmerFrameLayout.setVisibility(View.GONE);
+
             this.offersItems = itemsPath;
 
             offerAdapter = new OfferAdapter(getActivity(), offersItems);
