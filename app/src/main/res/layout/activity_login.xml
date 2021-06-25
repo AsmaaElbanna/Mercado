@@ -48,7 +48,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:fontFamily="@font/knewave_regular"
                         android:text="@string/log_in"
                         android:textColor="@color/primary_text"
                         android:textSize="20sp" />
