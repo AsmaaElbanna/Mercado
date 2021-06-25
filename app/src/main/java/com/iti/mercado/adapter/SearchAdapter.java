@@ -59,7 +59,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.itemTitleTextView.setText(itemPaths.get(position).getItem().getItem_title());
-        holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getItem_price());
+        holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getItem_price() + " EGP");
         Glide.with(context).load(itemPaths.get(position).getItem().getItem_image())
                 //.apply(new RequestOptions().override(100,100))
                 .placeholder(R.drawable.ic_launcher_background)

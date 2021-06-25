@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.FavoriteAdapter;
@@ -36,6 +38,8 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
     private ArrayList<ItemPath> favoriteItems;
     private FavoriteAdapter favoriteAdapter;
     private RecyclerView recyclerView;
+    private TextView noItemFoundTextView;
+    private ProgressBar progressBar;
 
     @Override
     public void onStart() {
@@ -45,9 +49,11 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
             for (ItemPath favoriteItem : favoriteItems) {
                 subCategorySwitch(favoriteItem);
             }
+
+            onRetrieveItems();
         });
 
-        favoriteAdapter = new FavoriteAdapter(getActivity(), favoriteItems);
+        favoriteAdapter = new FavoriteAdapter(getActivity(), favoriteItems, this);
         recyclerView.setAdapter(favoriteAdapter);
     }
 
@@ -87,6 +93,8 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        noItemFoundTextView = view.findViewById(R.id.noItemFound);
+        progressBar = view.findViewById(R.id.progressBar);
 
         recyclerView = view.findViewById(R.id.favorite_recyclerview);
         recyclerView.setHasFixedSize(false);
@@ -101,5 +109,15 @@ public class FavoriteFragment extends Fragment implements OnRetrieveItem {
     @Override
     public void onRetrieveItems() {
         favoriteAdapter.notifyDataSetChanged();
+
+        progressBar.setVisibility(View.GONE);
+
+        if (favoriteItems.size() == 0 ) {
+            noItemFoundTextView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            noItemFoundTextView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }

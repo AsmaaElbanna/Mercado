@@ -112,6 +112,7 @@
     <string name="exclusive_offers">Exclusive Offers</string>
     <string name="searchForCategoryOrBrand">Search for category or brand</string>
     <string name="title_activity_maps">Map</string>
+    <string name="no_item_found">No Item Found</string>
 
 
 </resources>

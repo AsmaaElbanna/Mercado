@@ -34,6 +34,7 @@ import com.iti.mercado.model.WomenBags;
 import com.iti.mercado.model.WomenClothing;
 import com.iti.mercado.utilities.DatabaseCart;
 import com.iti.mercado.utilities.DatabaseFavorite;
+import com.iti.mercado.utilities.OnRetrieveItem;
 import com.iti.mercado.utilities.ReloadItem;
 
 import java.util.List;
@@ -41,10 +42,12 @@ import java.util.List;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private final Context context;
     private final List<ItemPath> favoriteItems;
+    private final OnRetrieveItem onRetrieveItem;
 
-    public FavoriteAdapter(Context context, List<ItemPath> favoriteItems) {
+    public FavoriteAdapter(Context context, List<ItemPath> favoriteItems, OnRetrieveItem onRetrieveItem) {
         this.context = context;
         this.favoriteItems = favoriteItems;
+        this.onRetrieveItem = onRetrieveItem;
     }
 
     @NonNull
@@ -134,7 +137,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 public void onClick(View v) {
                     databaseFavorite.delete(favoriteItem, () -> {
                         favoriteItems.remove(position);
-                        notifyDataSetChanged();
+                        onRetrieveItem.onRetrieveItems();
                     });
                 }
             });

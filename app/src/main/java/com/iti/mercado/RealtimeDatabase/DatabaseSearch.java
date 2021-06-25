@@ -21,9 +21,8 @@ public class DatabaseSearch {
     static public void searchItemsWithName(String name, OnRetrieveItems retrieveItems) {
         DatabaseReference databaseReference = UserFirebase.getFirebaseDatabase()
                 .getReference("allItems");
-        Query query = databaseReference.orderByChild("item_title")
-                .startAt(name.toUpperCase())
-                .endAt(name.toLowerCase() + "\uf8ff").limitToFirst(10);
+        Query query = databaseReference.orderByChild("lowerCaseTitle")
+                .startAt(name.toLowerCase()).limitToFirst(10);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

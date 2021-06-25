@@ -68,7 +68,7 @@ public class DetailsItemFashionActivity extends AppCompatActivity {
                 slideModels.add(new SlideModel(slider, girlsAndBoysClothing.getItem_title()));
                 imageSlider.setImageList(slideModels, true);
             }
-            price.setText(girlsAndBoysClothing.getItem_price());
+            price.setText(girlsAndBoysClothing.getItem_price() + " EGP");
             brand.setText(girlsAndBoysClothing.getBrand());
             color.setText(girlsAndBoysClothing.getColor());
             size.setText(girlsAndBoysClothing.getSize());
