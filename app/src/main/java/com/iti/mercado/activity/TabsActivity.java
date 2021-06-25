@@ -33,7 +33,7 @@ public class TabsActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewpager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Shop").setIcon(R.drawable.ic_baseline_shop_24));
-        tabLayout.addTab(tabLayout.newTab().setText("Categories").setIcon(R.drawable.ic_baseline_category_24));
+        tabLayout.addTab(tabLayout.newTab().setText("Explore").setIcon(R.drawable.ic_baseline_category_24));
         tabLayout.addTab(tabLayout.newTab().setText("Cart").setIcon(R.drawable.ic_baseline_add_shopping_cart_24));
         tabLayout.addTab(tabLayout.newTab().setText("Favorite").setIcon(R.drawable.ic_baseline_favorite_24));
         tabLayout.addTab(tabLayout.newTab().setText("Account").setIcon(R.drawable.ic_baseline_account_circle_24));
