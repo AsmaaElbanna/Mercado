@@ -20,10 +20,10 @@
             android:scaleType="centerCrop"
             android:src="@drawable/get_started" />
 
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:background="#80000000" />-->
+        <!--                <View-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="match_parent"-->
+        <!--                    android:background="#80000000" />-->
 
         <TextView
             android:id="@+id/welcome_msg"
@@ -31,11 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/groceries_msg"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/snellbt_bold"
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="Welcome to our store"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primary"
             android:textSize="50sp" />
 
         <TextView

@@ -363,7 +363,7 @@ public class EditAccountActivity extends AppCompatActivity implements NewPasswor
                 if (task1.isSuccessful()) {
                     Log.d("TAG", "User email updated.");
                     appUser.setUserEmail(email);
-                    databaseReference.setValue(appUser).addOnCompleteListener(task2 -> {
+                    databaseReference.child("userEmail").setValue(appUser.getUserEmail()).addOnCompleteListener(task2 -> {
                         emailTextView.setText(currentUser.getEmail());
                     });
                 }
@@ -374,7 +374,7 @@ public class EditAccountActivity extends AppCompatActivity implements NewPasswor
     @Override
     public void changeName(String name) {
         appUser.setUsername(name);
-        databaseReference.setValue(appUser).addOnCompleteListener(task -> {
+        databaseReference.child("username").setValue(appUser.getUsername()).addOnCompleteListener(task -> {
             usernameTextView.setText(name);
         });
 
