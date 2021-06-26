@@ -1,6 +1,5 @@
 package com.iti.mercado.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,26 +9,36 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.iti.mercado.R;
 import com.iti.mercado.RealtimeDatabase.DatabaseSearch;
 import com.iti.mercado.adapter.SearchAdapter;
-import com.iti.mercado.model.ItemPath;
 
-import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
     private EditText searchEditText;
     private RecyclerView recyclerView;
     private SearchAdapter searchAdapter;
+    private ImageView backArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+
+        backArrow = findViewById(R.id.back_button);
+
+        backArrow.setOnClickListener(v -> {
+            ActivityCompat.finishAfterTransition(this);
+        });
 
         recyclerView = findViewById(R.id.searchResultRecyclerView);
         recyclerView.setHasFixedSize(false);
@@ -73,13 +82,13 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            ActivityCompat.finishAfterTransition(this);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == android.R.id.home) {
+//            ActivityCompat.finishAfterTransition(this);
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }
