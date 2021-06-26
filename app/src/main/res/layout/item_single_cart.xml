@@ -32,7 +32,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:contentDescription="product image"
-                    android:src="@drawable/logo" />
+                    tools:src="@drawable/logo" />
             </LinearLayout>
 
             <LinearLayout

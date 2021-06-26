@@ -194,7 +194,7 @@ public class AccountFragment extends Fragment {
                             Glide.with(getContext())
                                     .load(Uri.parse(appUser.getProfilePicture()))
                                     //.apply(new RequestOptions().override(100,100))
-                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .placeholder(R.color.white)
                                     .error(R.drawable.ic_baseline_account_circle_24)
                                     .into(profilePictureCircleImageView);
                         }
@@ -221,7 +221,7 @@ public class AccountFragment extends Fragment {
                             Glide.with(getContext())
                                     .load(Uri.parse(appUser.getProfilePicture()))
                                     //.apply(new RequestOptions().override(100,100))
-                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .placeholder(R.color.white)
                                     .error(R.drawable.ic_baseline_account_circle_24)
                                     .into(profilePictureCircleImageView);
                         }
@@ -238,7 +238,7 @@ public class AccountFragment extends Fragment {
                             Glide.with(getContext())
                                     .load(Uri.parse(appUser.getProfilePicture()))
                                     //.apply(new RequestOptions().override(100,100))
-                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .placeholder(R.color.white)
                                     .error(R.drawable.ic_baseline_account_circle_24)
                                     .into(profilePictureCircleImageView);
                         }
@@ -320,7 +320,7 @@ public class AccountFragment extends Fragment {
             Glide.with(getContext())
                     .load(appUser.getProfilePicture())
                     //.apply(new RequestOptions().override(100,100))
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .placeholder(R.color.white)
                     .error(R.drawable.ic_launcher_foreground)
                     .into(profilePictureCircleImageView);
         }

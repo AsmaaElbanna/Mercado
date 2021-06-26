@@ -53,7 +53,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     public void onBindViewHolder(@NonNull CategoriesAdapter.ViewHolder holder, int position) {
         holder.categoryTitle.setText(categories.get(position).getCategory_name());
         Glide.with(context).load(categories.get(position).getCategory_icon())
-                .placeholder(R.drawable.ic_launcher_background)
+                .placeholder(R.color.white)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.categoryImage);
 

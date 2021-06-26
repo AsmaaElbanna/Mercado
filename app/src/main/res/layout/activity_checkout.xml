@@ -122,7 +122,7 @@
                                 android:id="@+id/building"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="No 123"
+                                android:text="Building number"
                                 android:textColor="@color/secondary_text"
                                 android:textSize="16sp" />
 
@@ -137,7 +137,7 @@
                                 android:id="@+id/street"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Sub street"
+                                android:text="Street"
                                 android:textColor="@color/secondary_text"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -151,7 +151,7 @@
                                 android:id="@+id/area"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Main street"
+                                android:text="Area"
                                 android:textColor="@color/secondary_text"
                                 android:textSize="16sp" />
 
@@ -173,7 +173,7 @@
                                 android:id="@+id/governorate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="City name"
+                                android:text="Governorate"
                                 android:textColor="@color/secondary_text"
                                 android:textSize="16sp" />
 
