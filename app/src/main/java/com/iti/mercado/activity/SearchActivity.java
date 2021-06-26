@@ -77,9 +77,9 @@ public class SearchActivity extends AppCompatActivity {
 //            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 //        }
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
     }
 
 //    @Override
