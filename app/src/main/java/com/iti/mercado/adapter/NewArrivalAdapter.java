@@ -60,7 +60,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     public void onBindViewHolder(@NonNull NewArrivalAdapter.ViewHolder holder, int position) {
         if (itemPaths.get(position).getItem() != null) {
             holder.itemTitleTextView.setText(itemPaths.get(position).getItem().getItem_title());
-            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getItem_price()+" EGP");
+            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getItem_price() + " EGP");
 
             Glide.with(context).load(itemPaths.get(position).getItem().getItem_image())
                     //.apply(new RequestOptions().override(100,100))
@@ -135,6 +135,9 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
                 if (flag) {
                     holder.unfavorite.setVisibility(View.GONE);
                     holder.favorite.setVisibility(View.VISIBLE);
+                } else {
+                    holder.unfavorite.setVisibility(View.VISIBLE);
+                    holder.favorite.setVisibility(View.GONE);
                 }
             });
 
@@ -159,7 +162,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
                 }
             });
             // cart part
-            Cart cart =new Cart();
+            Cart cart = new Cart();
             cart.setItemId(itemPaths.get(position).getItemId());
             cart.setCategory(itemPaths.get(position).getCategory());
             cart.setSubCategory(itemPaths.get(position).getSubCategory());
@@ -170,6 +173,8 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
             databaseCart.read(cart, flag -> {
                 if (flag) {
                     holder.addToCartButton.setText("Added");
+                } else {
+                    holder.addToCartButton.setText("Add to cart");
                 }
             });
 
@@ -182,11 +187,11 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
                         });
                     } else {
 
-                    databaseCart.write(cart
-                            , () -> {
-                                holder.addToCartButton.setText("Added");
-                            });
-                }
+                        databaseCart.write(cart
+                                , () -> {
+                                    holder.addToCartButton.setText("Added");
+                                });
+                    }
                 }
                 // twist
 

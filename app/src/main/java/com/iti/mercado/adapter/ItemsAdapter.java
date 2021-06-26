@@ -142,6 +142,9 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
             if (flag) {
                 holder.unFavoriteImage.setVisibility(View.GONE);
                 holder.favoriteImage.setVisibility(View.VISIBLE);
+            } else {
+                holder.unFavoriteImage.setVisibility(View.VISIBLE);
+                holder.favoriteImage.setVisibility(View.GONE);
             }
         });
 
@@ -178,6 +181,8 @@ public class ItemsAdapter<K extends Item> extends RecyclerView.Adapter<ItemsAdap
         databaseCart.read(cart, flag -> {
             if (flag) {
                 holder.addCart.setText("Added");
+            } else {
+                holder.addCart.setText("Add to cart");
             }
         });
         holder.addCart.setOnClickListener(v -> {

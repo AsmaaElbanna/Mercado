@@ -61,8 +61,8 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (itemPaths.get(position).getItem() != null) {
             holder.itemTitleTextView.setText(itemPaths.get(position).getItem().getItem_title());
-            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getOldPrice()+" EGP");
-            holder.itemOldPriceTextView.setText(itemPaths.get(position).getItem().getItem_price()+" EGP");
+            holder.itemPriceTextView.setText(itemPaths.get(position).getItem().getOldPrice() + " EGP");
+            holder.itemOldPriceTextView.setText(itemPaths.get(position).getItem().getItem_price() + " EGP");
 //            holder.itemOldPriceTextView.setPaintFlags(holder.itemOldPriceTextView.getPaintFlags() |
 //                    Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -138,6 +138,9 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
                 if (flag) {
                     holder.unfavorite.setVisibility(View.GONE);
                     holder.favorite.setVisibility(View.VISIBLE);
+                } else {
+                    holder.unfavorite.setVisibility(View.VISIBLE);
+                    holder.favorite.setVisibility(View.GONE);
                 }
             });
 
@@ -163,7 +166,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
             });
 
             // cart part
-            Cart cart =new Cart();
+            Cart cart = new Cart();
             cart.setItemId(itemPaths.get(position).getItemId());
             cart.setCategory(itemPaths.get(position).getCategory());
             cart.setSubCategory(itemPaths.get(position).getSubCategory());
@@ -174,6 +177,8 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
             databaseCart.read(cart, flag -> {
                 if (flag) {
                     holder.addToCartButton.setText("Added");
+                } else {
+                    holder.addToCartButton.setText("Add to cart");
                 }
             });
 

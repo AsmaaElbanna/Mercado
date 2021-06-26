@@ -125,25 +125,45 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
 
     private void openDetails(int itemPathPosition) {
+
+        itemPaths.get(itemPathPosition).getItem().setItem_id(itemPaths.get(itemPathPosition).getItemId());
+
+
         if (itemPaths.get(itemPathPosition).getItem() instanceof Laptop) {
             Intent intent = new Intent(context, DetailsItemLaptopActivity.class);
             //pass data
             intent.putExtra("MyClass", itemPaths.get(itemPathPosition).getItem());
+
+            intent.putExtra("category", itemPaths.get(itemPathPosition).getCategory());
+            intent.putExtra("subcategory", itemPaths.get(itemPathPosition).getSubCategory());
+
             context.startActivity(intent);
         } else if (itemPaths.get(itemPathPosition).getItem() instanceof LaptopBag) {
             Intent intent = new Intent(context, DetailsItemLaptopBagActivity.class);
             //pass data
             intent.putExtra("MyClass", itemPaths.get(itemPathPosition).getItem());
+
+            intent.putExtra("category", itemPaths.get(itemPathPosition).getCategory());
+            intent.putExtra("subcategory", itemPaths.get(itemPathPosition).getSubCategory());
+
             context.startActivity(intent);
         } else if (itemPaths.get(itemPathPosition).getItem() instanceof Mobile) {
             Intent intent = new Intent(context, DetailsItemMobileActivity.class);
             //pass data
             intent.putExtra("MyClass", itemPaths.get(itemPathPosition).getItem());
+
+            intent.putExtra("category", itemPaths.get(itemPathPosition).getCategory());
+            intent.putExtra("subcategory", itemPaths.get(itemPathPosition).getSubCategory());
+
             context.startActivity(intent);
         } else if (itemPaths.get(itemPathPosition).getItem() instanceof HomeAppliance) {
             Intent intent = new Intent(context, DetailsItemHomeApplianceActivity.class);
             //pass data
             intent.putExtra("MyClass", itemPaths.get(itemPathPosition).getItem());
+
+            intent.putExtra("category", itemPaths.get(itemPathPosition).getCategory());
+            intent.putExtra("subcategory", itemPaths.get(itemPathPosition).getSubCategory());
+
             context.startActivity(intent);
         } else if (itemPaths.get(itemPathPosition).getItem() instanceof KidsClothing
                 || itemPaths.get(itemPathPosition).getItem() instanceof KidsShoes
@@ -154,6 +174,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             Intent intent = new Intent(context, DetailsItemFashionActivity.class);
             //pass data
             intent.putExtra("MyClass", itemPaths.get(itemPathPosition).getItem());
+
+            intent.putExtra("category", itemPaths.get(itemPathPosition).getCategory());
+            intent.putExtra("subcategory", itemPaths.get(itemPathPosition).getSubCategory());
+
             context.startActivity(intent);
         }
     }

@@ -153,6 +153,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             databaseCart.read(cart, flag -> {
                 if (flag) {
                     holder.addCart.setText("Added");
+                } else {
+                    holder.addCart.setText("Add to cart");
                 }
             });
             holder.addCart.setOnClickListener(v -> {
