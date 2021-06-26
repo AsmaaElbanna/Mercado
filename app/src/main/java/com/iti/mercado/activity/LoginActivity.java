@@ -58,6 +58,16 @@ public class LoginActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            Log.d("TAG", "onCreate login: " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        } else {
+            Log.d("Username", "there is no user");
+        }
+
+
         TextView signUpTextView = findViewById(R.id.sign_TextView);
 
         emailInputLayout = findViewById(R.id.email_EditText);

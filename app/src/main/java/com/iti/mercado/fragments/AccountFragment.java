@@ -80,6 +80,8 @@ public class AccountFragment extends Fragment {
         super.onResume();
         Log.d(TAG, "onResume: display Data ");
 
+        getInfoFromUser();
+
         logoutButton.setOnClickListener(v -> {
             if (getContext() != null) {
                 new AlertDialog.Builder(getContext())
@@ -88,6 +90,7 @@ public class AccountFragment extends Fragment {
                         .setPositiveButton("Yes", (dialog1, which) -> {
                             UserFirebase.clearUserId();
                             FirebaseAuth.getInstance().signOut();
+                            Log.d(TAG, "logout: " + currentUser.getEmail());
                             Intent intent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(intent);
                             getActivity().finishAffinity();
@@ -113,6 +116,7 @@ public class AccountFragment extends Fragment {
         profilePictureCircleImageView.setOnClickListener(v -> {
             getProfilePicture();
         });
+
         orderLayout.setOnClickListener(v -> {
 
             Intent intent = new Intent(getActivity(), OrdersActivity.class);
@@ -147,7 +151,7 @@ public class AccountFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
 
         //Log.i("databaseReference", "onViewCreated: databaseReference = " + databaseReference);
-        appUser = new AppUser();
+        //appUser = new AppUser();
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Wait few seconds...");
@@ -204,6 +208,7 @@ public class AccountFragment extends Fragment {
                 if (appUser == null) { // == null user don't have saved profilePicture
 
                     Log.i("if", "getInfoFromUser: true == null 'not exist'");
+
                     appUser = new AppUser();
                     appUser.setUsername(currentUser.getDisplayName());
                     usernameTextView.setText(appUser.getUsername());
@@ -241,6 +246,7 @@ public class AccountFragment extends Fragment {
                 }
 
             }
+
             if (appUser != null) {
                 appUser.setUserEmail(currentUser.getEmail());
                 emailTextView.setText(appUser.getUserEmail());
