@@ -24,10 +24,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-    private  Context context;
-     List<Order>orders;
+    private Context context;
+    private List<Order> orders;
 
     public OrderAdapter(Context context, List<Order> orders) {
         this.context = context;
@@ -44,17 +44,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.codeTextView.setText("#Order"+orders.get(position).getId());
-        holder.priceTextView.setText((int) orders.get(position).getTotalPrice()+" EGP");
+        holder.codeTextView.setText("#Order" + orders.get(position).getId());
+        holder.priceTextView.setText((int) orders.get(position).getTotalPrice() + " EGP");
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateString = formatter.format(new Date((orders.get(position).getTimestamp())*1000));
-        holder.timeTextView.setText(dateString+" ");
+        String dateString = formatter.format(new Date((orders.get(position).getTimestamp()) * 1000));
+        holder.timeTextView.setText(dateString + " ");
 
         holder.detailsTextView.setOnClickListener(v -> {
-         Intent intent = new Intent(context, CheckoutActivity.class);
-        // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-         context.startActivity(intent);
+            Intent intent = new Intent(context, CheckoutActivity.class);
+
+
+            intent.putExtra("order", orders.get(position));
+            intent.putExtra("subTotal", orders.get(position).getTotalPrice());
+
+            // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 
         });
 
@@ -66,15 +71,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView codeTextView,timeTextView,priceTextView,detailsTextView;
+        public TextView codeTextView, timeTextView, priceTextView, detailsTextView;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            codeTextView=itemView.findViewById(R.id.order_code);
-           timeTextView=itemView.findViewById(R.id.order_time);
-           priceTextView=itemView.findViewById(R.id.order_total_price);
-           detailsTextView = itemView.findViewById(R.id.view_details);
+            codeTextView = itemView.findViewById(R.id.order_code);
+            timeTextView = itemView.findViewById(R.id.order_time);
+            priceTextView = itemView.findViewById(R.id.order_total_price);
+            detailsTextView = itemView.findViewById(R.id.view_details);
         }
     }
 }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.iti.mercado.R;
@@ -41,6 +42,10 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
     private Button checkoutButton;
     private int itemRetrieved;
 
+    private LinearLayout linearFragmentContainer;
+    private TextView noItemFoundTextView;
+    private ProgressBar progressBar;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -52,6 +57,13 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
         DatabaseCart.getAllItems(carts, () -> {
             for (Cart cart : carts) {
                 subCategorySwitch(cart);
+            }
+
+            progressBar.setVisibility(View.GONE);
+            if (carts.size() == 0) {
+                noItemFoundTextView.setVisibility(View.VISIBLE);
+            } else {
+                linearFragmentContainer.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -114,6 +126,12 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
 
         enableSwipeToDeleteAndUndo();
 
+
+        linearFragmentContainer = view.findViewById(R.id.linear_fragment_container);
+        noItemFoundTextView = view.findViewById(R.id.noItemFound);
+        progressBar = view.findViewById(R.id.progressBar);
+
+
 //        } else if(carts == null){
 //        view = inflater.inflate(R.layout.fragment_cart_empty, container, false);
 //       }
@@ -128,7 +146,7 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
                 if (carts.size() != 0) {
                     Intent intent = new Intent(getActivity(), CheckoutActivity.class);
                     intent.putExtra("carts", carts);
-                    intent.putExtra("subTotal", subTotal);
+                    intent.putExtra("subTotal", subTotal + 50);
                     startActivity(intent);
                 }
             });
@@ -143,6 +161,8 @@ public class CartFragment extends Fragment implements OnRetrieveItem, CountSubPr
 
         if (carts.size() == 0) {
             totalText.setText(String.valueOf(0));
+            noItemFoundTextView.setVisibility(View.VISIBLE);
+            linearFragmentContainer.setVisibility(View.GONE);
         }
     }
      // Swipe part

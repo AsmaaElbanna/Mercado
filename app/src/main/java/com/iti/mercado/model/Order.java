@@ -1,8 +1,9 @@
 package com.iti.mercado.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
 
     private double totalPrice;
     private String shippingAddress;

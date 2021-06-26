@@ -40,5 +40,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="219dp"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteY="417dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/noItemFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:gravity="center"
+        android:text="@string/no_order_found"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp" />
 </LinearLayout>

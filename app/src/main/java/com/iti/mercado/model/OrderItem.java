@@ -1,6 +1,8 @@
 package com.iti.mercado.model;
 
-public class OrderItem {
+import java.io.Serializable;
+
+public class OrderItem implements Serializable {
 
     private int count;
     private String itemId;

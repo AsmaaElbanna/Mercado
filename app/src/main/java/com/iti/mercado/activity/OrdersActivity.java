@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +33,8 @@ public class OrdersActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Order> orderList;
     private DatabaseReference databaseReference;
+    private TextView noItemFoundTextView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,10 @@ public class OrdersActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        noItemFoundTextView = findViewById(R.id.noItemFound);
+        progressBar = findViewById(R.id.progressBar);
+
 
         backArrow = findViewById(R.id.back_button);
         recyclerView = findViewById(R.id.ordersRecyclerView);
@@ -55,6 +64,7 @@ public class OrdersActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 int x = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
@@ -63,7 +73,14 @@ public class OrdersActivity extends AppCompatActivity {
                     Log.i("TAG", "onDataChange: ddddddd" + dataSnapshot.getKey());
                     x++;
                 }
-                recyclerView.setAdapter(orderAdapter);
+                progressBar.setVisibility(View.GONE);
+
+                if (orderList.size() == 0) {
+                    noItemFoundTextView.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setAdapter(orderAdapter);
+                }
             }
 
             @Override
