@@ -96,7 +96,7 @@ public class AccountFragment extends Fragment {
                             getActivity().finishAffinity();
                         })
                         .setNegativeButton("No", (dialog1, which) -> {
-                            Toast.makeText(getContext(), "No", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), "No", Toast.LENGTH_SHORT).show();
                         })
                         .show();
             }
