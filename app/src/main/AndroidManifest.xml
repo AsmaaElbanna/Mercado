@@ -34,25 +34,63 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.OrdersActivity" />
-        <activity android:name=".activity.EditAccountActivity" />
-        <activity android:name=".activity.SuccessActivity" />
-        <activity android:name=".activity.CheckoutActivity" />
-        <activity android:name=".activity.DeliveryActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.DetailsItemPersonalCareActivity" />
-        <activity android:name=".activity.DetailsItemHomeApplianceActivity" />
-        <activity android:name=".activity.DetailsItemMobileActivity" />
-        <activity android:name=".activity.DetailsItemLaptopBagActivity" />
-        <activity android:name=".activity.DetailsItemLaptopActivity" />
-        <activity android:name=".activity.DetailsItemFashionActivity" />
-        <activity android:name=".activity.TabsActivity" />
-        <activity android:name=".activity.ItemsListActivity" />
-        <activity android:name=".activity.GetStartedActivity" />
-        <activity android:name=".activity.SingUpActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.SplashScreenActivity">
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrdersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CheckoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DeliveryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailsItemPersonalCareActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailsItemHomeApplianceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailsItemMobileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailsItemLaptopBagActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailsItemLaptopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailsItemFashionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TabsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ItemsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GetStartedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SingUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
