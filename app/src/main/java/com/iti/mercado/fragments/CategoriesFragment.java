@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.iti.mercado.R;
 import com.iti.mercado.adapter.CategoriesAdapter;
@@ -25,6 +27,9 @@ public class CategoriesFragment extends Fragment implements OnResponseRetrofit<C
 
     private RecyclerView recyclerView;
     private LinearLayout subCategoriesLinearLayout;
+
+    private LinearLayout linearFragmentContainer;
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,17 @@ public class CategoriesFragment extends Fragment implements OnResponseRetrofit<C
         Call<List<Category>> call = Network.getJsonQ().getCategories();
         Network.parsJson(call, this);
 
+        linearFragmentContainer = view.findViewById(R.id.linear_fragment_container);
+        progressBar = view.findViewById(R.id.progressBar);
+
         return view;
     }
 
     @Override
     public void onResponse(List<Category> items) {
+
+        progressBar.setVisibility(View.GONE);
+        linearFragmentContainer.setVisibility(View.VISIBLE);
 
         CategoriesAdapter adapter = new CategoriesAdapter(getActivity(), items,
                 subCategoriesLinearLayout);
