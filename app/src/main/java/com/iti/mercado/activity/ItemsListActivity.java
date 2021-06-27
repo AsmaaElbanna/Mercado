@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -57,6 +58,8 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
     private ItemsAdapter<Item> adapter;
     private Bundle bundle;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,8 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        progressBar = findViewById(R.id.progressBar);
 
         backArrow = findViewById(R.id.back_button);
         filterImageView = (ImageView) findViewById(R.id.filter);
@@ -204,6 +209,9 @@ public class ItemsListActivity extends AppCompatActivity implements BottomSheetF
                     bundle.putString("SubCategory ItemListActivity", sub_category);
                     bottomSheetDialogFilter.setArguments(bundle);
                 });
+
+                progressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
     }
